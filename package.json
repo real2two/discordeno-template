@@ -1,0 +1,26 @@
+{
+  "name": "discordeno-template",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "dotenv -- turbo run dev",
+    "start": "dotenv -- turbo run start",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "dotenv-cli": "latest",
+    "eslint-config-custom": "workspace:*",
+    "prettier": "latest",
+    "turbo": "^1.11.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "packageManager": "pnpm@7.29.1"
+}

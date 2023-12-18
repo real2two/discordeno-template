@@ -1,0 +1,28 @@
+{
+  "name": "@/db",
+  "type": "module",
+  "version": "0.0.0",
+  "main": "src/main/index.js",
+  "scripts": {
+    "schema/push": "dotenv -e ../../.env drizzle-kit push:mysql",
+    "schema/generate": "dotenv -e ../../.env pnpm drizzle-kit generate:mysql",
+    "schema/migrate": "dotenv -e ../../.env node tools/migrate.js",
+    "lint": "eslint ./{schema,src,tools}/**/*.js"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "custom"
+    ]
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.20.6",
+    "eslint": "^7.32.0",
+    "eslint-config-custom": "workspace:*"
+  },
+  "dependencies": {
+    "@/env": "workspace:*",
+    "drizzle-orm": "^0.29.1",
+    "mysql2": "^3.6.5"
+  }
+}

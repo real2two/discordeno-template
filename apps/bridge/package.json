@@ -1,0 +1,38 @@
+{
+  "name": "@/bridge",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "dotenv -e ../../.env -- node .",
+    "dev": "nodemon",
+    "lint": "eslint ./**/*.js"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "custom"
+    ]
+  },
+  "nodemonConfig": {
+    "ignore": [
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "./src"
+    ],
+    "exec": "npm start",
+    "ext": "ts, js"
+  },
+  "dependencies": {
+    "@/discord-cross-hosting": "workspace:*",
+    "@/env": "workspace:*",
+    "nodemon": "^3.0.2"
+  },
+  "devDependencies": {
+    "eslint": "7.32.0",
+    "eslint-config-custom": "workspace:*"
+  }
+}

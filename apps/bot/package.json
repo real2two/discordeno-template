@@ -1,0 +1,45 @@
+{
+  "name": "@/bot",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "src/main/clusters.js",
+  "scripts": {
+    "start": "dotenv -e ../../.env -- node .",
+    "dev": "nodemon",
+    "lint": "eslint ./**/*.js",
+    "interactions/create": "dotenv -e ../../.env -- node tools/createCommands.js"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "custom"
+    ]
+  },
+  "nodemonConfig": {
+    "ignore": [
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "./src"
+    ],
+    "exec": "npm start",
+    "ext": "ts, js"
+  },
+  "dependencies": {
+    "@/discord-cross-hosting": "workspace:*",
+    "@/discordeno-helpers": "workspace:*",
+    "@/env": "workspace:*",
+    "@discordeno/bot": "19.0.0-next.d81b28a",
+    "dd-cache-proxy": "^2.0.1",
+    "discord-hybrid-sharding": "^2.1.4",
+    "express": "^4.18.2",
+    "nodemon": "^3.0.2"
+  },
+  "devDependencies": {
+    "discord-api-types": "^0.37.66",
+    "eslint": "7.32.0",
+    "eslint-config-custom": "workspace:*"
+  }
+}

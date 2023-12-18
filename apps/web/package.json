@@ -1,0 +1,39 @@
+{
+  "name": "@/web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "src/http/clusters.js",
+  "scripts": {
+    "start": "dotenv -e ../../.env -- node .",
+    "dev": "nodemon",
+    "lint": "eslint ./**/*.js"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "custom"
+    ]
+  },
+  "nodemonConfig": {
+    "ignore": [
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "./src"
+    ],
+    "exec": "npm start",
+    "ext": "ts, js"
+  },
+  "dependencies": {
+    "@/env": "workspace:*",
+    "@/discord-cross-hosting": "workspace:*",
+    "express": "^4.18.2",
+    "nodemon": "^3.0.2"
+  },
+  "devDependencies": {
+    "eslint": "7.32.0",
+    "eslint-config-custom": "workspace:*"
+  }
+}

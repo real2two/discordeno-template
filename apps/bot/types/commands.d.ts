@@ -14,9 +14,6 @@ export interface ExtendedClient
   collectors: {
     components: ComponentCollectors;
   };
-  custom: {
-    interactions: InteractionHandler;
-  };
 }
 
 export interface ExtendedCommandExecution extends CommandExecution {

@@ -2,7 +2,6 @@ import type { Bot } from "@discordeno/bot";
 import type { BotWithProxyCache, ProxyCacheTypes } from "dd-cache-proxy";
 import type {
   ComponentCollectors,
-  InteractionHandler,
 } from "@/discordeno-helpers";
 import type {
   CommandExecution,

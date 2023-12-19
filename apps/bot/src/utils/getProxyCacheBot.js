@@ -7,6 +7,8 @@ export function getProxyCacheBot(bot) {
       users: ["avatar", "id", "username"],
     },
     cacheInMemory: {
+      users: true,
+      members: true,
       roles: true,
       guilds: true,
       channels: true,

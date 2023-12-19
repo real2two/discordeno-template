@@ -1,7 +1,6 @@
 import { client } from "../src/config/client.js";
 import { commands } from "../src/config/commands.js";
 
-/** @type import("discord-api-types/v10").RESTPutAPIApplicationCommandsJSONBody */
 const transformedCommands = commands.map((c) => c.toJSON());
 
 console.log(

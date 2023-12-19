@@ -23,9 +23,6 @@ importers:
 
   apps/bot:
     dependencies:
-      '@/discord-cross-hosting':
-        specifier: workspace:*
-        version: link:../../packages/discord-cross-hosting
       '@/discordeno-helpers':
         specifier: workspace:*
         version: link:../../packages/discordeno-helpers
@@ -38,6 +35,9 @@ importers:
       dd-cache-proxy:
         specifier: ^2.0.1
         version: 2.0.1
+      discord-cross-hosting:
+        specifier: ^2.3.2
+        version: 2.3.2
       discord-hybrid-sharding:
         specifier: ^2.1.4
         version: 2.1.4
@@ -48,9 +48,6 @@ importers:
         specifier: ^3.0.2
         version: 3.0.2
     devDependencies:
-      discord-api-types:
-        specifier: ^0.37.66
-        version: 0.37.66
       eslint:
         specifier: 7.32.0
         version: 7.32.0
@@ -60,12 +57,12 @@ importers:
 
   apps/bridge:
     dependencies:
-      '@/discord-cross-hosting':
-        specifier: workspace:*
-        version: link:../../packages/discord-cross-hosting
       '@/env':
         specifier: workspace:*
         version: link:../../packages/env
+      discord-cross-hosting:
+        specifier: ^2.3.2
+        version: 2.3.2
       nodemon:
         specifier: ^3.0.2
         version: 3.0.2
@@ -79,12 +76,12 @@ importers:
 
   apps/web:
     dependencies:
-      '@/discord-cross-hosting':
-        specifier: workspace:*
-        version: link:../../packages/discord-cross-hosting
       '@/env':
         specifier: workspace:*
         version: link:../../packages/env
+      discord-cross-hosting:
+        specifier: ^2.3.2
+        version: 2.3.2
       express:
         specifier: ^4.18.2
         version: 4.18.2
@@ -114,19 +111,6 @@ importers:
       drizzle-kit:
         specifier: ^0.20.6
         version: 0.20.6
-      eslint:
-        specifier: ^7.32.0
-        version: 7.32.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
-
-  packages/discord-cross-hosting:
-    dependencies:
-      discord-cross-hosting:
-        specifier: ^2.3.2
-        version: 2.3.2
-    devDependencies:
       eslint:
         specifier: ^7.32.0
         version: 7.32.0
@@ -1759,10 +1743,6 @@ packages:
     resolution: {integrity: sha512-9YVwmMb0wQHQNr5J9m6BSj6fk4pfGITGQOOs+D9Fl+INODWFOfvhIU1hNv6GgR1RBoC/9NJcwu77zShxV0kT7w==}
     dependencies:
       heap: 0.2.7
-    dev: true
-
-  /discord-api-types@0.37.66:
-    resolution: {integrity: sha512-3Q+6uBODmVaPAmZZ1jYQiQBbp0hqArgSU9Y6DuYY6KW5Sdij91bwbmFnnVI5XvATRkY+Wk9KMBWFzAEwSDs+1w==}
     dev: true
 
   /discord-cross-hosting@2.3.2:

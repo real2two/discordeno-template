@@ -1,7 +1,7 @@
 import env from "@/env";
-import { Bridge } from "@/discord-cross-hosting";
+import DiscordCrossHosting from "discord-cross-hosting";
 
-const server = new Bridge({
+const server = new DiscordCrossHosting.Bridge({
   port: env.BridgePort,
   authToken: env.BridgeAuthToken,
   totalShards: env.BridgeTotalShards,

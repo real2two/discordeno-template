@@ -1,7 +1,6 @@
 import { ClusterClient } from "discord-hybrid-sharding";
-import { createProxyCache } from "dd-cache-proxy";
+import DiscordCrossHosting from "discord-cross-hosting";
 
-import { Shard } from "@/discord-cross-hosting";
 import { ComponentCollectors } from "@/discordeno-helpers";
 
 import { client } from "../config/client.js";
@@ -10,7 +9,7 @@ import { events } from "../config/events.js";
 import { addDesiredProperties } from "../utils/addDesiredProperties.js";
 
 client.cluster = new ClusterClient(client);
-client.machine = new Shard(client.cluster);
+client.machine = new DiscordCrossHosting.Shard(client.cluster);
 
 client.collectors = {
   components: new ComponentCollectors(client),

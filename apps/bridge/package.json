@@ -27,8 +27,8 @@
     "ext": "ts, js"
   },
   "dependencies": {
-    "@/discord-cross-hosting": "workspace:*",
     "@/env": "workspace:*",
+    "discord-cross-hosting": "^2.3.2",
     "nodemon": "^3.0.2"
   },
   "devDependencies": {

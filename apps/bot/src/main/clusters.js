@@ -1,5 +1,5 @@
 import env from "@/env";
-import { Client } from "@/discord-cross-hosting";
+import DiscordCrossHosting from "discord-cross-hosting";
 import {
   ClusterManager,
   ReClusterManager,
@@ -10,7 +10,7 @@ import { fileURLToPath } from "url";
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 // Connect to bridge
-const client = new Client({
+const client = new DiscordCrossHosting.Client({
   agent: "bot",
   host: env.BridgeHost,
   port: env.BridgePort,
@@ -46,17 +46,24 @@ manager.on("debug", console.log);
 
 // Listen to bridge client
 
-client
-  .requestShardData()
-  .then((e) => {
-    if (!e) return;
-    if (!e.shardList) return;
-    manager.totalShards = e.totalShards;
-    manager.totalClusters = e.shardList.length;
-    manager.shardList = e.shardList;
-    manager.clusterList = e.clusterList;
-    manager.spawn({ timeout: -1 });
-  })
-  .catch((e) => console.log(e));
+requestShardData();
+
+function requestShardData() {
+  client
+    .requestShardData()
+    .then((e) => {
+      if (!e) return;
+      if (!e.shardList) return;
+      manager.totalShards = e.totalShards;
+      manager.totalClusters = e.shardList.length;
+      manager.shardList = e.shardList;
+      manager.clusterList = e.clusterList;
+      manager.spawn({ timeout: -1 });
+    })
+    .catch((e) => {
+      console.error(e);
+      requestShardData();
+    });
+}
 
 client.listen(manager);

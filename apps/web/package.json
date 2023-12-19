@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@/env": "workspace:*",
-    "@/discord-cross-hosting": "workspace:*",
+    "discord-cross-hosting": "^2.3.2",
     "express": "^4.18.2",
     "nodemon": "^3.0.2"
   },

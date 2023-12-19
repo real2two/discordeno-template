@@ -1,10 +1,10 @@
 import env from "@/env";
 import express from "express";
-import { Client } from "@/discord-cross-hosting";
+import DiscordCrossHosting from "discord-cross-hosting";
 
 // Connect to bridge
 
-const client = new Client({
+const client = new DiscordCrossHosting.Client({
   agent: "dashboard",
   host: env.BridgeHost,
   port: env.BridgePort,

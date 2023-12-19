@@ -11,21 +11,16 @@ export async function disableNonPersistentComponents(client, message) {
       "Missing components. Did you forget to use setComponents() or do await <Interaction>.respond before creating the collector?",
     );
 
-  console.log(
-    await client.helpers.editMessage(message.channelId, message.id, {
-      components: message.components.map((component) => {
-        if (component.type === MessageComponentTypes.ActionRow) {
-          for (const subcomponent of component.components) {
-            if (
-              subcomponent.customId &&
-              subcomponent.customId.startsWith("$")
-            ) {
-              subcomponent.disabled = true;
-            }
+  await client.helpers.editMessage(message.channelId, message.id, {
+    components: message.components.map((component) => {
+      if (component.type === MessageComponentTypes.ActionRow) {
+        for (const subcomponent of component.components) {
+          if (subcomponent.customId && subcomponent.customId.startsWith("$")) {
+            subcomponent.disabled = true;
           }
         }
-        return component;
-      }),
+      }
+      return component;
     }),
-  );
+  });
 }

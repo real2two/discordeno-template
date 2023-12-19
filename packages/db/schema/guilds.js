@@ -1,8 +1,4 @@
-import {
-  bigint,
-  primaryKey,
-  mysqlTable,
-} from "drizzle-orm/mysql-core";
+import { bigint, primaryKey, mysqlTable } from "drizzle-orm/mysql-core";
 
 export const guilds = mysqlTable(
   "guilds",

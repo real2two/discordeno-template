@@ -82,6 +82,25 @@ export default new ApplicationCommand({
         },
       );
 
+    console.log(
+      "channel",
+      await client.cache.channels.get(interaction.channelId),
+    );
+    console.log("guild", await client.cache.guilds.get(interaction.guildId));
+    console.log(
+      "members",
+      await client.cache.members.get(
+        interaction.member.id,
+        interaction.guildId,
+      ),
+    );
+    if (interaction.member?.roles[0])
+      console.log(
+        "roles",
+        await client.cache.roles.get(interaction.member?.roles[0]),
+      );
+    console.log("users", await client.cache.users.get(interaction.user.id));
+
     // const message = await client.helpers.sendFollowupMessage(interaction.token, {
     //   content: "test",
     // });

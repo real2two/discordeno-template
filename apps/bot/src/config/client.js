@@ -14,7 +14,7 @@ export const client = getProxyCacheBot(
         baseUrl: env.RestProxyBaseUrl,
         authorization: env.RestProxyAuthorization,
         authorizationHeader: env.RestProxyAuthorizationHeader,
-      }
+      },
     },
 
     // eslint-disable-next-line turbo/no-undeclared-env-vars

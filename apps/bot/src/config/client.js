@@ -9,6 +9,14 @@ export const client = getProxyCacheBot(
     token: env.DiscordToken,
     intents: Intents.Guilds | Intents.GuildMessages,
 
+    rest: {
+      proxy: {
+        baseUrl: env.RestProxyBaseUrl,
+        authorization: env.RestProxyAuthorization,
+        authorizationHeader: env.RestProxyAuthorizationHeader,
+      }
+    },
+
     // eslint-disable-next-line turbo/no-undeclared-env-vars
     gateway: ["worker", "process"].includes(process.env["CLUSTER_MANAGER_MODE"])
       ? {

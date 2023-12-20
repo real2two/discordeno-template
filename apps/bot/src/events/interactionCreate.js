@@ -10,5 +10,4 @@ const interactionHandler = new InteractionHandler({
   components,
 });
 
-export const interactionCreate = (...args) =>
-  interactionHandler.interactionCreate(...args);
+export default (...args) => interactionHandler.interactionCreate(...args);

@@ -2,6 +2,6 @@
  *
  * @param {Parameters<import("@discordeno/bot").EventHandlers["ready"]>[0]} payload
  */
-export async function ready(payload) {
+export default async (payload) => {
   console.log(`[Shard ${payload.shardId}] The shard is ready`);
-}
+};

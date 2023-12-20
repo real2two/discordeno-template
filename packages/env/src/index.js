@@ -22,7 +22,9 @@ export default {
   DiscordToken: process.env["DISCORD_TOKEN"],
   DiscordRedirectUri: process.env["DISCORD_REDIRECT_URI"],
 
-  RestProxyBaseUrl: process.env["REST_PROXY_BASE_URL"] || "https://discord.com/api",
+  RestProxyBaseUrl:
+    process.env["REST_PROXY_BASE_URL"] || "https://discord.com/api",
   RestProxyAuthorization: process.env["REST_PROXY_AUTHORIZATION"],
-  RestProxyAuthorizationHeader: process.env["REST_PROXY_AUTHORIZATION_HEADER"] || "authorization",
+  RestProxyAuthorizationHeader:
+    process.env["REST_PROXY_AUTHORIZATION_HEADER"] || "authorization",
 };

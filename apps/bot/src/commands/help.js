@@ -84,8 +84,8 @@ export default new ApplicationCommand({
               );
               interaction.respond("Disabling collector...");
 
-              collector.end(); // Skips end event
-              // collector.remove(); // Does end event
+              collector.end(); // Executes end event (which disables the components as well)
+              // collector.remove(); // Skips end event (aka it wont disable components by default)
             },
           },
         },

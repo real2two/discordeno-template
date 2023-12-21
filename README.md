@@ -38,6 +38,87 @@ After creating interactions:
 - For interaction commands, make sure to add it to the array in `apps/bot/src/config/commands.js`.
 - For persistent components, make sure to add it to the array in `apps/bot/src/config/components.js`.
 
+### Non-persistent components
+
+There's an entire function dedicated for handling non-persistent components.
+
+- If you want a persistent message component, use the `components` folder instead of this. *(scroll upwards)*
+- All custom IDs must start with `$` if you want them to be "non-persistent" components.
+- Only components with a custom ID starting with `$` will become disabled when the interaction expires.
+
+```js
+import { MessageComponentTypes, ButtonStyles } from "@discordeno/bot";
+
+// ...
+
+await interaction.respond({
+  content: "Hello world!",
+  components: [
+    {
+      type: MessageComponentTypes.ActionRow,
+      components: [
+        {
+          // Create button
+          type: MessageComponentTypes.Button,
+          style: ButtonStyles.Primary,
+          label: "test",
+          customId: "$test", // Component IDs have to start with "$" in order to be considered "non-persistent" 
+        },
+      ],
+    },
+    {
+      type: MessageComponentTypes.ActionRow,
+      components: [
+        {
+          // Create select menu channel
+          type: MessageComponentTypes.SelectMenuChannels,
+          customId: "$components", // Component IDs have to start with "$" in order to be considered "non-persistent" 
+        },
+      ],
+    },
+  ],
+});
+
+// Create message collector
+const collector =
+  await client.collectors.components.createOriginalInteraction(
+    interaction,
+    {
+      // expiresIn is the amount of time the collector has until the message expires and disables components.
+      expiresIn: 30,
+
+      // events has the message collector events:
+      events: {
+        // When a component is executed, this function is ran:
+        collect: (interaction) => {
+          console.log(
+            "Clicked button with ID",
+            interaction.data,
+          );
+          interaction.respond("Disabling collector...");
+          
+          collector.end(); // Executes end event (which disables the components as well)
+          // collector.remove(); // Skips end event (aka it wont disable components by default)
+        },
+        /*
+          end: () => {
+            // You need to put this on the top to use this function:
+            // import { disableNonPersistentComponents } from "@/discordeno-helpers"
+
+            // This is the default end event used to disable non-persistent components.
+            disableNonPersistentComponents(
+              client,
+              collector.message,
+            )
+          },
+        */
+      },
+    },
+  );
+```
+
+### Boilerplates
+
 Boilerplate for commands:
 
 ```js
@@ -201,11 +282,3 @@ console.log(await db.select().from(table));
 ### Never import `@/db` in the folder `apps`
 
 All database functions should be written in `packages/db/src/functions`.
-
-## Notes and tips
-
-### Components
-
-- Use the `components` folder if you want a persistent message component.
-- All custom IDs must start with `$` if you want them to expire.
-- Only components with a custom ID starting with `$` will become disabled when the interaction expires.

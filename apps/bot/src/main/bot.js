@@ -12,14 +12,15 @@ client.collectors = {
   components: new ComponentCollectors(client),
 };
 
-client.events = events;
+for (const [eventName, execute] of Object.entries(events)) {
+  client.events[eventName] = execute;
+}
 
 client.cluster = new ClusterClient(client);
 client.machine = new DiscordCrossHosting.Shard(client.cluster);
 
 addDesiredProperties(client);
 
-/* TODO: Move this somewhere else */
 client.cluster.on("message", (message) => {
   // This is some kind of IPC-like system for cross hosting.
   // You can remove this event handler if you aren't going to use the web process.

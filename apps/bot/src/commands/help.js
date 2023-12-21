@@ -82,7 +82,7 @@ export default new ApplicationCommand({
         },
       );
 
-    // Cache testing (broken)
+    // Cache testing
     console.log(
       "channel",
       await client.cache.channels.get(interaction.channelId),

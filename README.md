@@ -37,7 +37,7 @@ When creating events:
 
 ```js
 /** @param {import("@discordeno/bot").Bot} client */
-export default () => ({
+export default (client) => ({
   /** @param {Parameters<import("@discordeno/bot").EventHandlers["EVENT_NAME_HERE"]>} args */
   execute: (...args) => {
     console.log(args);

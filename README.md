@@ -24,6 +24,10 @@ pnpm lint # eslint
 pnpm format # prettier
 
 pnpm interactions/create # Create interaction commands
+
+pnpm schema/push # Pushes the schema (no generation required. do not use this in production.)
+pnpm schema/generate # Generates the schema
+pnpm schema/migrate # Migrate the schema (use this to update the database in production)
 ```
 
 ## Events
@@ -248,29 +252,6 @@ export default {
     interaction.respond("Hello world!");
   },
 };
-```
-
-## Database
-
-All the database functions are handled in `packages/db`.
-
-```bash
-cd packages/db
-```
-
-These are the following database scripts you can run:
-
-Other useful commands:
-
-```bash
-pnpm lint # eslint
-pnpm format # prettier
-
-pnpm interactions/create # Create interaction commands
-
-pnpm schema/push # Pushes the schema (no generation required. do not use this in production.)
-pnpm schema/generate # Generates the schema
-pnpm schema/migrate # Migrate the schema (use this to update the database in production)
 ```
 
 ## How to use database functions

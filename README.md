@@ -26,11 +26,30 @@ pnpm format # prettier
 pnpm interactions/create # Create interaction commands
 ```
 
+## Events
+
+When creating events:
+
+- Put them in the `src/bot/src/events` folder.
+- Make sure to add it to the array in `apps/bot/src/config/events.js`.
+
+### Boilerplate
+
+```js
+/** @param {import("@discordeno/bot").Bot} client */
+export default () => ({
+  /** @param {Parameters<import("@discordeno/bot").EventHandlers["EVENT_NAME_HERE"]>} args */
+  execute: (...args) => {
+    console.log(args);
+  },
+});
+```
+
 ## Interactions
 
 When creating interaction commands:
 
-- For normal interaction commands, put them in the `src/bot/src/commands` file.
+- For normal interaction commands, put them in the `src/bot/src/commands` folder.
 - For subcommands, make a folder with the command name, then add subcommands in there.
 
 After creating interactions:

@@ -7,7 +7,7 @@ import { MessageComponentTypes, ButtonStyles } from "@discordeno/bot";
 
 export default new ApplicationSubcommand({
   data: {
-    description: "this is a subcmomand.",
+    description: "This is a subcommand.",
     options: {
       testTest: opts.integer("fun integer").required(),
     },

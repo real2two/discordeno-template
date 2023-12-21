@@ -8,7 +8,7 @@ Warning: This bot template hasn't fully been tested thoroughly.
 
 Run `pnpm start` for production or `pnpm dev` for development.
 
-## Commands
+## Scripts
 
 Each monorepo in the folder `app` has:
 
@@ -24,6 +24,134 @@ pnpm lint # eslint
 pnpm format # prettier
 
 pnpm interactions/create # Create interaction commands
+```
+
+## Interactions
+
+When creating interaction commands:
+
+- For normal interaction commands, put them in the `src/bot/src/commands` file.
+- For subcommands, make a folder with the command name, then add subcommands in there.
+
+After creating interactions:
+
+- For interaction commands, make sure to add it to the array in `apps/bot/src/config/commands.js`.
+- For persistent components, make sure to add it to the array in `apps/bot/src/config/components.js`.
+
+Boilerplate for commands:
+
+```js
+import {
+  ApplicationCommand,
+  ApplicationCommandOptions as opts,
+} from "@/discordeno-helpers";
+
+export default new ApplicationCommand({
+  data: {
+    name: "commandName",
+    description: "This is the command description.",
+    options: {
+      string: opts.string("test string value").autocomplete(),
+      boolean: opts.boolean("test boolean value"),
+      user: opts.user("test user value"),
+      integer: opts.integer("test integer value"),
+      number: opts.number("test number value"),
+      string: opts.string("test string value"),
+      channel: opts.channel("test channel value"),
+      role: opts.role("test role value"),
+      mentionable: opts.mentionable("test mentionable value"),
+    },
+  },
+
+  /** @param {import("../../types/commands").ExtendedCommandExecution} */
+  async autocomplete({ client, interaction, options }) {
+    console.log("Options", options);
+    interaction.respond({
+      choices: [
+        {
+          name: "test_name",
+          value: "test_value",
+        },
+      ],
+    });
+  },
+
+  /** @param {import("../../types/commands").ExtendedCommandExecution} */
+  async execute({ client, interaction, options }) {
+    console.log("Options", options);
+    await interaction.respond("Hello world!");
+  },
+});
+
+```
+
+Boilerplate for commands with subcommands:
+
+```js
+import { ApplicationCommand } from "@/discordeno-helpers";
+
+import subcommandName from "./commandName/subcommandName.js";
+import subcommandName2 from "./commandName/subcommandName2.js";
+
+export default new ApplicationCommand({
+  data: {
+    name: "commandName",
+    description: "This is the command description.",
+    options: {
+      // Add all your subcommands here.
+      subcommandName,
+      subcommandName2,
+    },
+  },
+});
+```
+
+Boilerplate for subcommands:
+
+```js
+import {
+  ApplicationSubcommand,
+  ApplicationCommandOptions as opts,
+} from "@/discordeno-helpers";
+
+export default new ApplicationSubcommand({
+  data: {
+    description: "This is a subcommand.",
+    options: {
+      integer: opts.integer("test integer value").required(),
+    },
+  },
+  /** @param {import("../../../types/commands").ExtendedCommandExecution} */
+  async autocomplete({ client, interaction, options }) {
+    interaction.respond({
+      choices: [
+        {
+          name: "test_name",
+          value: "test_value",
+        },
+      ],
+    });
+  },
+  /** @param {import("../../../types/commands").ExtendedCommandExecution} */
+  execute({ client, interaction, options }) {
+    console.log("Options", options);
+    interaction.respond("Hello world");
+  },
+});
+
+```
+
+Boilerplate for components:
+
+```js
+export default {
+  customId: "button", // In regex: /^button$/
+
+  /** @param {import("../../types/commands").ExtendedInteractionExecution} */
+  execute({ client, interaction }) {
+    interaction.respond("Hello world!");
+  },
+};
 ```
 
 ## Database

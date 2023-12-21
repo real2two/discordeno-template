@@ -11,6 +11,15 @@ export default new ApplicationCommand({
     description: "Shows a small help menu with all commands the bot has.",
     options: {
       command: opts.string("The command to show help for.").autocomplete(),
+      string: opts.string("test string value"),
+      boolean: opts.boolean("test boolean value"),
+      user: opts.user("test user value"),
+      integer: opts.integer("test integer value"),
+      number: opts.number("test number value"),
+      string: opts.string("test string value"),
+      channel: opts.channel("test channel value"),
+      role: opts.role("test role value"),
+      mentionable: opts.mentionable("test mentionable value"),
     },
   },
 

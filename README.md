@@ -84,7 +84,7 @@ const collector =
   await client.collectors.components.createOriginalInteraction(
     interaction,
     {
-      // expiresIn is the amount of time the collector has until the message expires and disables components.
+      // expiresIn is the amount of seconds the collector has until the message expires and disables components.
       expiresIn: 30,
 
       // events has the message collector events:

@@ -1,5 +1,5 @@
-import { db } from "../connectors/pool.ts";
-import { guilds } from "../../schema/guilds.ts";
+import { db } from "../connectors/pool";
+import { guilds } from "../../schema/guilds";
 
 async function getGuild(guildId) {
   const guild = await db.select().from(guilds).limit(1);

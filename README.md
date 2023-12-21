@@ -191,8 +191,8 @@ Boilerplate for commands with subcommands:
 ```js
 import { ApplicationCommand } from "@/discordeno-helpers";
 
-import subcommandName from "./commandName/subcommandName.ts";
-import subcommandName2 from "./commandName/subcommandName2.ts";
+import subcommandName from "./commandName/subcommandName";
+import subcommandName2 from "./commandName/subcommandName2";
 
 export default new ApplicationCommand({
   data: {

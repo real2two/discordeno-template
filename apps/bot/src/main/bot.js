@@ -3,10 +3,10 @@ import { ClusterClient } from "discord-hybrid-sharding";
 
 import { ComponentCollectors } from "@/discordeno-helpers";
 
-import { client } from "../config/client.ts";
-import { events } from "../config/events.ts";
+import { client } from "../config/client";
+import { events } from "../config/events";
 
-import { addDesiredProperties } from "../utils/addDesiredProperties.ts";
+import { addDesiredProperties } from "../utils/addDesiredProperties";
 
 client.collectors = {
   components: new ComponentCollectors(client),

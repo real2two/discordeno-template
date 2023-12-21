@@ -1,6 +1,6 @@
 import { camelize } from "@discordeno/bot";
-import { ComponentCollectors } from "./ComponentCollectors.ts";
-import { disableNonPersistentComponents } from "../utils/disableNonPersistentComponents.ts";
+import { ComponentCollectors } from "./ComponentCollectors";
+import { disableNonPersistentComponents } from "../utils/disableNonPersistentComponents";
 
 export class ComponentCollector {
   /**

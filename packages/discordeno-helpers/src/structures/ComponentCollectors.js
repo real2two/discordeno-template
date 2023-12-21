@@ -1,4 +1,4 @@
-import { ComponentCollector } from "./ComponentCollector.ts";
+import { ComponentCollector } from "./ComponentCollector";
 
 export class ComponentCollectors {
   /**

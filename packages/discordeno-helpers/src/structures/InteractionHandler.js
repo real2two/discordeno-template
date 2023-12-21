@@ -5,7 +5,7 @@ import {
   camelToSnakeCase,
   snakeToCamelCase,
 } from "@discordeno/bot";
-import { ApplicationSubcommand } from "./ApplicationSubcommand.ts";
+import { ApplicationSubcommand } from "./ApplicationSubcommand";
 
 export class InteractionHandler {
   static transformGetCommands(commands) {

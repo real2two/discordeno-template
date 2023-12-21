@@ -1,5 +1,5 @@
 import { ApplicationCommandTypes, camelToSnakeCase } from "@discordeno/bot";
-import { ApplicationCommandOptions } from "./ApplicationCommandOptions.ts";
+import { ApplicationCommandOptions } from "./ApplicationCommandOptions";
 
 export class ApplicationCommand {
   constructor({ data, autocomplete, execute }) {

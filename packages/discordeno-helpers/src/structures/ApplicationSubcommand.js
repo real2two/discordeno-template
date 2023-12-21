@@ -1,6 +1,6 @@
 import * as discord from "@discordeno/bot";
-import { ApplicationCommand } from "./ApplicationCommand.ts";
-import { ApplicationCommandOptions } from "./ApplicationCommandOptions.ts";
+import { ApplicationCommand } from "./ApplicationCommand";
+import { ApplicationCommandOptions } from "./ApplicationCommandOptions";
 
 export class ApplicationSubcommand extends ApplicationCommand {
   constructor(values) {

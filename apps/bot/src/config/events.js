@@ -1,5 +1,5 @@
-import ready from "../events/ready.ts";
-import interactionCreate from "../events/interactionCreate.ts";
+import ready from "../events/ready";
+import interactionCreate from "../events/interactionCreate";
 
 /** @type Partial<import("@discordeno/bot").EventHandlers> */
 export const events = {

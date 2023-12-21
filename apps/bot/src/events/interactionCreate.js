@@ -1,7 +1,7 @@
 import { InteractionHandler } from "@/discordeno-helpers";
 
-import { commands } from "../config/commands.ts";
-import { components } from "../config/components.ts";
+import { commands } from "../config/commands";
+import { components } from "../config/components";
 
 /** @param {import("@discordeno/bot").Bot} client */
 export default (client) => {

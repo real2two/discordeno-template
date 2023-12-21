@@ -1,11 +1,11 @@
-export { ApplicationCommand } from "./structures/ApplicationCommand.ts";
-export { ApplicationSubcommand } from "./structures/ApplicationSubcommand.ts";
-export { ApplicationCommandOptions } from "./structures/ApplicationCommandOptions.ts";
+export { ApplicationCommand } from "./structures/ApplicationCommand";
+export { ApplicationSubcommand } from "./structures/ApplicationSubcommand";
+export { ApplicationCommandOptions } from "./structures/ApplicationCommandOptions";
 
-export { ComponentCollectors } from "./structures/ComponentCollectors.ts";
-export { ComponentCollector } from "./structures/ComponentCollector.ts";
+export { ComponentCollectors } from "./structures/ComponentCollectors";
+export { ComponentCollector } from "./structures/ComponentCollector";
 
-export { InteractionHandler } from "./structures/InteractionHandler.ts";
+export { InteractionHandler } from "./structures/InteractionHandler";
 
-export { disableNonPersistentComponents } from "./utils/disableNonPersistentComponents.ts";
-export { removeComponents } from "./utils/removeComponents.ts";
+export { disableNonPersistentComponents } from "./utils/disableNonPersistentComponents";
+export { removeComponents } from "./utils/removeComponents";

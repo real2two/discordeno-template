@@ -42,9 +42,11 @@ After creating interactions:
 
 There's an entire function dedicated for handling non-persistent components.
 
-- If you want a persistent message component, use the `components` folder instead of this. *(scroll upwards)*
+- If you want a persistent message component, use the `components` folder instead of this. _(scroll upwards)_
 - All custom IDs must start with `$` if you want them to be "non-persistent" components.
 - Only components with a custom ID starting with `$` will become disabled when the interaction expires.
+- You can use both `collector.end()` _(runs end event, aka disables components)_ and `collector.remove()` _(skips end event, aka doesn't disable components)_ to delete a non-persistent component.
+- You can make a non-persistent component's `expiresIn` value as `Infinity`, and use `collector.end()` once you want to disable them.
 
 ```js
 import { MessageComponentTypes, ButtonStyles } from "@discordeno/bot";
@@ -62,7 +64,7 @@ await interaction.respond({
           type: MessageComponentTypes.Button,
           style: ButtonStyles.Primary,
           label: "test",
-          customId: "$test", // Component IDs have to start with "$" in order to be considered "non-persistent" 
+          customId: "$test", // Component IDs have to start with "$" in order to be considered "non-persistent"
         },
       ],
     },
@@ -72,7 +74,7 @@ await interaction.respond({
         {
           // Create select menu channel
           type: MessageComponentTypes.SelectMenuChannels,
-          customId: "$components", // Component IDs have to start with "$" in order to be considered "non-persistent" 
+          customId: "$components", // Component IDs have to start with "$" in order to be considered "non-persistent"
         },
       ],
     },
@@ -80,27 +82,23 @@ await interaction.respond({
 });
 
 // Create message collector
-const collector =
-  await client.collectors.components.createOriginalInteraction(
-    interaction,
-    {
-      // expiresIn is the amount of seconds the collector has until the message expires and disables components.
-      expiresIn: 30,
+const collector = await client.collectors.components.createOriginalInteraction(
+  interaction,
+  {
+    // expiresIn is the amount of seconds the collector has until the message expires and disables components.
+    expiresIn: 30,
 
-      // events has the message collector events:
-      events: {
-        // When a component is executed, this function is ran:
-        collect: (interaction) => {
-          console.log(
-            "Clicked button with ID",
-            interaction.data,
-          );
-          interaction.respond("Disabling collector...");
-          
-          collector.end(); // Executes end event (which disables the components as well)
-          // collector.remove(); // Skips end event (aka it wont disable components by default)
-        },
-        /*
+    // events has the message collector events:
+    events: {
+      // When a component is executed, this function is ran:
+      collect: (interaction) => {
+        console.log("Clicked button with ID", interaction.data);
+        interaction.respond("Disabling collector...");
+
+        collector.end(); // Executes end event (which disables the components as well)
+        // collector.remove(); // Skips end event (aka it wont disable components by default)
+      },
+      /*
           end: () => {
             // You need to put this on the top to use this function:
             // import { disableNonPersistentComponents } from "@/discordeno-helpers"
@@ -112,9 +110,9 @@ const collector =
             )
           },
         */
-      },
     },
-  );
+  },
+);
 ```
 
 ### Boilerplates
@@ -163,7 +161,6 @@ export default new ApplicationCommand({
     await interaction.respond("Hello world!");
   },
 });
-
 ```
 
 Boilerplate for commands with subcommands:
@@ -219,7 +216,6 @@ export default new ApplicationSubcommand({
     interaction.respond("Hello world");
   },
 });
-
 ```
 
 Boilerplate for components:

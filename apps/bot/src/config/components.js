@@ -1,3 +1,3 @@
-import button from "../components/button.js";
+import button from "../components/button.ts";
 
 export const components = [button];

@@ -5,7 +5,7 @@ import {
   camelToSnakeCase,
   snakeToCamelCase,
 } from "@discordeno/bot";
-import { ApplicationSubcommand } from "./ApplicationSubcommand.js";
+import { ApplicationSubcommand } from "./ApplicationSubcommand.ts";
 
 export class InteractionHandler {
   static transformGetCommands(commands) {
@@ -41,7 +41,7 @@ export class InteractionHandler {
    *
    * @param {{
    *  client: import("@discordeno/bot").Bot,
-   *  commands: import("./ApplicationCommand.js")[],
+   *  commands: import("./ApplicationCommand.ts")[],
    * }}
    */
   constructor({ client, commands, components }) {

@@ -1,5 +1,5 @@
 import { migrate } from "drizzle-orm/mysql2/migrator";
-import { db, connection } from "../src/connectors/connection.js";
+import { db, connection } from "../src/connectors/connection.ts";
 
 await migrate(db, { migrationsFolder: "drizzle/migrations" });
 

@@ -1,5 +1,5 @@
-import { client } from "../src/config/client.js";
-import { commands } from "../src/config/commands.js";
+import { client } from "../src/config/client.ts";
+import { commands } from "../src/config/commands.ts";
 
 const transformedCommands = commands.map((c) => c.toJSON());
 

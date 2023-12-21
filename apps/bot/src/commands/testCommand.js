@@ -1,6 +1,6 @@
 import { ApplicationCommand } from "@/discordeno-helpers";
 
-import subcommandName from "./testCommand/subcommandName.js";
+import subcommandName from "./testCommand/subcommandName.ts";
 
 export default new ApplicationCommand({
   data: {

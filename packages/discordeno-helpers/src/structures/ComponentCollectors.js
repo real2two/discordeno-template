@@ -1,4 +1,4 @@
-import { ComponentCollector } from "./ComponentCollector.js";
+import { ComponentCollector } from "./ComponentCollector.ts";
 
 export class ComponentCollectors {
   /**
@@ -10,8 +10,8 @@ export class ComponentCollectors {
   }
   /**
    * Create an component collector using message
-   * @param {import("../../types/ComponentCollector.js").ComponentCollectorMessage} message The message
-   * @param {import("../../types/ComponentCollector.js").ComponentCollectorOptions} opts The options
+   * @param {import("../../types/ComponentCollector.ts").ComponentCollectorMessage} message The message
+   * @param {import("../../types/ComponentCollector.ts").ComponentCollectorOptions} opts The options
    * @returns {ComponentCollector}
    */
   createMessage(message, opts) {
@@ -26,7 +26,7 @@ export class ComponentCollectors {
    * Use <ComponentCollectors>.createMessage() if you already have access to the message data.
    *
    * @param {import("@discordeno/bot").Interaction} interaction The interaction
-   * @param {import("../../types/ComponentCollector.js").ComponentCollectorOptions} opts The options
+   * @param {import("../../types/ComponentCollector.ts").ComponentCollectorOptions} opts The options
    * @returns {Promise<ComponentCollector>}
    */
   async createOriginalInteraction(interaction, opts) {

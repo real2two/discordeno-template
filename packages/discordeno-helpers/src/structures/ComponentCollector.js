@@ -1,12 +1,12 @@
 import { camelize } from "@discordeno/bot";
-import { ComponentCollectors } from "./ComponentCollectors.js";
-import { disableNonPersistentComponents } from "../utils/disableNonPersistentComponents.js";
+import { ComponentCollectors } from "./ComponentCollectors.ts";
+import { disableNonPersistentComponents } from "../utils/disableNonPersistentComponents.ts";
 
 export class ComponentCollector {
   /**
    * @param {ComponentCollectors} collectors
-   * @param {import("../../types/ComponentCollector.js").ComponentCollectorMessage} message
-   * @param {import("../../types/ComponentCollector.js").ComponentCollectorOptions} opts
+   * @param {import("../../types/ComponentCollector.ts").ComponentCollectorMessage} message
+   * @param {import("../../types/ComponentCollector.ts").ComponentCollectorOptions} opts
    */
   constructor(collectors, message, opts) {
     this.deleted = false;

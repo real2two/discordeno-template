@@ -1,4 +1,4 @@
-import("./bot.js");
+import("./bot.ts");
 
 process.on("uncaughtException", (err) => {
   console.error(err);

@@ -2,10 +2,10 @@ import cluster from "cluster";
 import env from "@/env";
 import { cpus } from "os";
 
-// Sets the worker file to worker.js
+// Sets the worker file to worker.ts
 
 cluster.setupPrimary({
-  exec: "src/http/listen.js",
+  exec: "src/http/listen.ts",
 });
 
 // When the cluster crashes, it creates a new cluster.

@@ -3,7 +3,7 @@ import env from "@/env";
 import { getInfo } from "discord-hybrid-sharding";
 import { createBot, Intents } from "@discordeno/bot";
 
-import { getProxyCacheBot } from "../utils/getProxyCacheBot.js";
+import { getProxyCacheBot } from "../utils/getProxyCacheBot.ts";
 
 export const client = getProxyCacheBot(
   createBot({

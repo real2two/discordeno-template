@@ -3,11 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "src/http/clusters.js",
+  "main": "src/http/clusters.ts",
   "scripts": {
     "start": "dotenv -e ../../.env -- node .",
     "dev": "nodemon",
-    "lint": "eslint ./**/*.js"
+    "lint": "eslint ./**/*.ts"
   },
   "eslintConfig": {
     "root": true,
@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "eslint": "7.32.0",
-    "eslint-config-custom": "workspace:*"
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*"
   }
 }

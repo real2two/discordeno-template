@@ -18,8 +18,8 @@ export class ApplicationCommand {
     command.name = camelToSnakeCase(this.data.name);
     command.description = this.data.description;
 
-    command.default_member_permissions = this.data.defaultMemberPermissions;
-    command.dm_permission = this.data.dmPermission || false;
+    command.defaultMemberPermissions = this.data.defaultMemberPermissions;
+    command.dmPermission = this.data.dmPermission || false;
     command.nsfw = this.data.nsfw || false;
 
     if (this.data.options) {

@@ -5,9 +5,7 @@ import {
 
 export class ApplicationCommandOptions {
   static parse(opts) {
-    if (!opts) return [];
-
-    return Object.entries(opts).map(([name, data]) => ({
+    return Object.entries(opts || []).map(([name, data]) => ({
       name: camelToSnakeCase(name),
       ...data.toJSON(),
     }));
@@ -80,20 +78,20 @@ export class ApplicationCommandOptions {
    * @param {number} max
    * */
   setValues(min, max) {
-    this.data.min_value = Number(min);
-    this.data.max_value = Number(max);
+    this.data.minValue = Number(min);
+    this.data.maxValue = Number(max);
     return this;
   }
 
   /** @param {number} min */
   setMinValue(min) {
-    this.data.min_value = Number(min);
+    this.data.minValue = Number(min);
     return this;
   }
 
   /** @param {number} max */
   setMinValue(max) {
-    this.data.max_value = Number(max);
+    this.data.maxValue = Number(max);
     return this;
   }
 
@@ -102,20 +100,20 @@ export class ApplicationCommandOptions {
    * @param {number} max
    * */
   setLength(min, max) {
-    this.data.min_length = Number(min);
-    this.data.max_length = Number(max);
+    this.data.minLength = Number(min);
+    this.data.maxLength = Number(max);
     return this;
   }
 
   /** @param {number} min */
   setMinLength(min) {
-    this.data.min_length = Number(min);
+    this.data.minLength = Number(min);
     return this;
   }
 
   /** @param {number} max */
   setMinLength(max) {
-    this.data.max_length = Number(max);
+    this.data.maxLength = Number(max);
     return this;
   }
 

@@ -1,8 +1,9 @@
+import type { Bot } from "@discordeno/bot";
+
 /**
  * Add the desired property transformers for a Discordeno client.
- * @param {import("@discordeno/bot").Bot} client The Discordeno client.
  */
-export function addDesiredProperties(client) {
+export function addDesiredProperties(client: Bot) {
   // client.transformers.desiredProperties.attachment.contentType = true;
   // client.transformers.desiredProperties.attachment.description = true;
   // client.transformers.desiredProperties.attachment.ephemeral = true;

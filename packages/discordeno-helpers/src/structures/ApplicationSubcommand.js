@@ -5,7 +5,7 @@ import { ApplicationCommandOptions } from "./ApplicationCommandOptions.js";
 export class ApplicationSubcommand extends ApplicationCommand {
   constructor(values) {
     if (values?.data?.type)
-      values.data.type = discord.ApplicationCommandOptionTypes.SubCommandGroup;
+      values.data.type = discord.ApplicationCommandOptionTypes.SubCommand;
     super(values);
   }
   toJSON() {

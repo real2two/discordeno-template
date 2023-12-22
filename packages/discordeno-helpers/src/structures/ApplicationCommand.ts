@@ -52,9 +52,8 @@ export class ApplicationCommand {
     };
 
     if ("options" in this.data) {
-      (command as CreateSlashApplicationCommand)["options"] = ApplicationCommandOptions.parse(
-        this.data["options"] || {},
-      );
+      (command as CreateSlashApplicationCommand)["options"] =
+        ApplicationCommandOptions.parse(this.data["options"] || {});
     }
 
     return command;

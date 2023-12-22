@@ -33,7 +33,7 @@ client.cluster.on("message", (message) => {
   const guildId = message.guildId as string;
   if (!guildId) return;
 
-   // @ts-ignore
+  // @ts-ignore
   message.reply({
     data: {
       guildId,

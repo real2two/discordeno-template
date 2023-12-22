@@ -1,10 +1,11 @@
 {
   "name": "@/bridge",
+  "type": "module",
   "private": true,
   "version": "0.0.0",
   "main": "src/index.ts",
   "scripts": {
-    "start": "dotenv -e ../../.env -- node -r ts-node/register .",
+    "start": "dotenv -e ../../.env -- node .",
     "dev": "nodemon",
     "lint": "eslint ./**/*.ts"
   },
@@ -28,8 +29,7 @@
   "dependencies": {
     "@/env": "workspace:*",
     "discord-cross-hosting": "^2.3.2",
-    "nodemon": "^3.0.2",
-    "ts-node": "^10.9.2"
+    "nodemon": "^3.0.2"
   },
   "devDependencies": {
     "eslint": "7.32.0",

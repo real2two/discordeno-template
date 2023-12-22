@@ -1,20 +1,21 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Default",
+  "esm": true,
   "compilerOptions": {
-    "composite": false,
-    "declaration": true,
-    "declarationMap": true,
+    "target": "ESNext",
+    "lib": ["DOM", "ESNext", "ES2023"],
+    "sourceMap": true,
+    "rootDirs": ["."],
+    "moduleResolution": "Node",
+    "module": "ESNext",
+    "baseUrl": ".",
+    "resolveJsonModule": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "inlineSources": false,
-    "isolatedModules": true,
-    "moduleResolution": "node",
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "preserveWatchOutput": true,
+    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "strict": true
-  },
-  "exclude": ["node_modules"]
+    "allowJs": true,                    
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "strictNullChecks": true
+  }
 }

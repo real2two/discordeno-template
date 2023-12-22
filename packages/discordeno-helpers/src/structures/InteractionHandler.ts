@@ -33,7 +33,9 @@ export class InteractionHandler {
       },
       command,
       subcommands: Object.fromEntries(
-        Object.entries(("options" in command.data ? command.data["options"] : {}) || {})
+        Object.entries(
+          ("options" in command.data ? command.data["options"] : {}) || {},
+        )
           .filter(([_, v]) => v instanceof ApplicationSubcommand)
           .map(([k, v]) => [camelToSnakeCase(k), v]),
       ),
@@ -43,7 +45,8 @@ export class InteractionHandler {
   static transformOptions(options: InteractionDataOption[]) {
     if (!options) return {};
 
-    const variables: { [key: string]: string | number | boolean | undefined } = {};
+    const variables: { [key: string]: string | number | boolean | undefined } =
+      {};
     for (const option of options) {
       variables[snakeToCamelCase(option.name)] = option.value;
     }

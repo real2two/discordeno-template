@@ -1,5 +1,6 @@
 {
   "name": "@/discordeno-helpers",
+  "type": "module",
   "version": "0.0.0",
   "main": "src/index.ts",
   "scripts": {

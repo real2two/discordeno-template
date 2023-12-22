@@ -1,14 +1,17 @@
 {
   "name": "@/bot",
+  "type": "module",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
-  "main": "src/main/clusters.ts",
+  "main": "dist/src/main/clusters.js",
   "scripts": {
-    "start": "dotenv -e ../../.env -- node -r ts-node/register .",
+    "prepare": "tsc",
+    "preinstall": "tsc",
+    "tsc": "tsc --noEmit --watch",
+    "start": "dotenv -e ../../.env -- node .",
     "dev": "nodemon",
     "lint": "eslint ./**/*.ts",
-    "interactions/create": "dotenv -e ../../.env -- -r ts-node/register node tools/createCommands.ts"
+    "interactions/create": "dotenv -e ../../.env -- node tools/createCommands.ts"
   },
   "eslintConfig": {
     "root": true,
@@ -35,8 +38,7 @@
     "discord-cross-hosting": "^2.3.2",
     "discord-hybrid-sharding": "^2.1.4",
     "express": "^4.18.2",
-    "nodemon": "^3.0.2",
-    "ts-node": "^10.9.2"
+    "nodemon": "^3.0.2"
   },
   "devDependencies": {
     "eslint": "7.32.0",

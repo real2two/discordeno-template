@@ -13,7 +13,9 @@ import type {
 export class ApplicationCommandOptions {
   data: DiscordApplicationCommandOptionWithoutName;
 
-  static parse(opts: ApplicationCommandOptionsList): Camelize<DiscordApplicationCommandOption[]> {
+  static parse(
+    opts: ApplicationCommandOptionsList,
+  ): Camelize<DiscordApplicationCommandOption[]> {
     return Object.entries(opts || []).map(([name, data]) => ({
       ...data.toJSON(),
       name: camelToSnakeCase(name),

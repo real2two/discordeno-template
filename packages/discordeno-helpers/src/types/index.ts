@@ -2,7 +2,6 @@ export * from "./Omit";
 
 export * from "./ApplicationCommandOptionsList";
 export * from "./CommandExecution";
-export * from "./Component";
 export * from "./ComponentCollectorMessage";
 export * from "./ComponentCollectorOptions";
 export * from "./DiscordApplicationCommandOptionWithoutName";

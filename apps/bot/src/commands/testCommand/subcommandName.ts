@@ -13,7 +13,7 @@ export default new ApplicationSubcommand({
       testTest: opts.integer("fun integer").required(),
     },
   },
-  execute({ client, interaction, options }: CommandExecutionArguments) {
+  execute({ client, interaction, options }) {
     console.log(options);
     interaction.respond({
       content: `test ${options.testTest}`,

@@ -23,11 +23,7 @@ export default new ApplicationCommand({
     },
   },
 
-  async autocomplete({
-    client,
-    interaction,
-    options,
-  }: CommandExecutionArguments) {
+  async autocomplete({ client, interaction, options }) {
     console.log(options);
     interaction.respond({
       choices: [
@@ -39,7 +35,7 @@ export default new ApplicationCommand({
     });
   },
 
-  async execute({ client, interaction, options }: CommandExecutionArguments) {
+  async execute({ client, interaction, options }) {
     await interaction.respond({
       content: "SO PRETEND I WANT",
       components: [

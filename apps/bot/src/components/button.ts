@@ -1,9 +1,9 @@
-import { InteractionExecutionArguments } from "@/discordeno-helpers";
+import { Component } from "@/discordeno-helpers";
 
-export default {
+export default new Component({
   customId: "button", // In regex: /^button$/
 
-  execute({ client, interaction }: InteractionExecutionArguments) {
+  execute({ client, interaction }) {
     interaction.respond("test");
   },
-};
+});

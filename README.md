@@ -237,13 +237,15 @@ export default new ApplicationSubcommand({
 Boilerplate for components:
 
 ```js
-export default {
+import { Component } from "@/discordeno-helpers";
+
+export default new Component({
   customId: "button", // In regex: /^button$/
 
   execute({ client, interaction }) {
     interaction.respond("Hello world!");
   },
-};
+});
 ```
 
 ## How to use database functions

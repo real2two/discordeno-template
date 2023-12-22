@@ -1,14 +1,25 @@
-import { camelize } from "@discordeno/bot";
-import { ComponentCollectors } from "./ComponentCollectors";
+import { camelize, MessageComponents } from "@discordeno/bot";
 import { disableNonPersistentComponents } from "../utils/disableNonPersistentComponents";
 
+import type { ComponentCollectors } from "./ComponentCollectors";
+import type {
+  ComponentCollectorMessage,
+  ComponentCollectorOptions,
+} from "../types";
+
 export class ComponentCollector {
-  /**
-   * @param {ComponentCollectors} collectors
-   * @param {import("../../types/ComponentCollector.ts").ComponentCollectorMessage} message
-   * @param {import("../../types/ComponentCollector.ts").ComponentCollectorOptions} opts
-   */
-  constructor(collectors, message, opts) {
+  deleted: boolean;
+  collectors: ComponentCollectors;
+  message: ComponentCollectorMessage;
+  opts: ComponentCollectorOptions;
+  expiresIn: number;
+  timeout: NodeJS.Timeout;
+
+  constructor(
+    collectors: ComponentCollectors,
+    message: ComponentCollectorMessage,
+    opts: ComponentCollectorOptions,
+  ) {
     this.deleted = false;
     this.collectors = collectors;
     this.message = {
@@ -31,14 +42,16 @@ export class ComponentCollector {
     };
 
     if (this.expiresIn !== Infinity) {
-      this.timeout = setTimeout(() => {
-        this.end();
-      }, this.opts.expiresIn * 1000);
+      this.timeout = setTimeout(
+        () => {
+          this.end();
+        },
+        (this.opts.expiresIn || 30) * 1000,
+      );
     }
   }
-  /** @param {import("@discordeno/bot").MessageComponents | undefined} components */
-  setComponents(components) {
-    return (this.message.components = camelize(components));
+  setComponents(components?: MessageComponents) {
+    return (this.message.components = camelize(components || []));
   }
   /**
    * Removes the collector without running the end event.

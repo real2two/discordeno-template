@@ -158,7 +158,6 @@ export default new ApplicationCommand({
       user: opts.user("test user value"),
       integer: opts.integer("test integer value"),
       number: opts.number("test number value"),
-      string: opts.string("test string value"),
       channel: opts.channel("test channel value"),
       role: opts.role("test role value"),
       mentionable: opts.mentionable("test mentionable value"),

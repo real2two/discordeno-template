@@ -1,10 +1,14 @@
-import { MessageComponentTypes } from "@discordeno/bot";
+import {
+  MessageComponentTypes,
+  type Bot,
+  type ActionRow,
+} from "@discordeno/bot";
+import type { ComponentCollectorMessage } from "../types";
 
-/**
- * @param {import("@discordeno/bot").Bot} client
- * @param {import("@discordeno/bot").CamelizedDiscordMessage} message
- */
-export async function disableNonPersistentComponents(client, message) {
+export async function disableNonPersistentComponents(
+  client: Bot,
+  message: ComponentCollectorMessage,
+) {
   if (!message || !message.id || !message.channelId) return;
   if (!message.components)
     return console.warn(
@@ -13,14 +17,17 @@ export async function disableNonPersistentComponents(client, message) {
 
   await client.helpers.editMessage(message.channelId, message.id, {
     components: message.components.map((component) => {
-      if (component.type === MessageComponentTypes.ActionRow) {
+      if (
+        component.type === MessageComponentTypes.ActionRow &&
+        component.components
+      ) {
         for (const subcomponent of component.components) {
           if (subcomponent.customId && subcomponent.customId.startsWith("$")) {
-            subcomponent.disabled = true;
+            subcomponent["disabled"] = true;
           }
         }
       }
       return component;
-    }),
+    }) as ActionRow[],
   });
 }

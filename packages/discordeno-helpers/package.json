@@ -13,11 +13,12 @@
     ]
   },
   "devDependencies": {
+    "dd-cache-proxy": "^2.0.1",
     "eslint": "^7.32.0",
     "eslint-config-custom": "workspace:*"
   },
   "dependencies": {
-    "tsconfig": "workspace:*",
-    "@discordeno/bot": "19.0.0-next.d81b28a"
+    "@discordeno/bot": "19.0.0-next.d81b28a",
+    "tsconfig": "workspace:*"
   }
 }

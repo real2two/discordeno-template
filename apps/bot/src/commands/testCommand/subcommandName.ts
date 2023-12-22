@@ -1,6 +1,7 @@
 import {
   ApplicationSubcommand,
   ApplicationCommandOptions as opts,
+  CommandExecutionArguments,
 } from "@/discordeno-helpers";
 
 import { MessageComponentTypes, ButtonStyles } from "@discordeno/bot";
@@ -12,8 +13,7 @@ export default new ApplicationSubcommand({
       testTest: opts.integer("fun integer").required(),
     },
   },
-  /** @param {import("../../../types/commands").ExtendedCommandExecution} */
-  execute({ client, interaction, options }) {
+  execute({ client, interaction, options }: CommandExecutionArguments) {
     console.log(options);
     interaction.respond({
       content: `test ${options.testTest}`,

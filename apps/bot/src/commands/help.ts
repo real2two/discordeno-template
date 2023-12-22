@@ -1,6 +1,7 @@
 import {
   ApplicationCommand,
   ApplicationCommandOptions as opts,
+  CommandExecutionArguments,
 } from "@/discordeno-helpers";
 
 import { MessageComponentTypes, ButtonStyles } from "@discordeno/bot";
@@ -16,15 +17,17 @@ export default new ApplicationCommand({
       user: opts.user("test user value"),
       integer: opts.integer("test integer value"),
       number: opts.number("test number value"),
-      string: opts.string("test string value"),
       channel: opts.channel("test channel value"),
       role: opts.role("test role value"),
       mentionable: opts.mentionable("test mentionable value"),
     },
   },
 
-  /** @param {import("../../types/commands").ExtendedCommandExecution} */
-  async autocomplete({ client, interaction, options }) {
+  async autocomplete({
+    client,
+    interaction,
+    options,
+  }: CommandExecutionArguments) {
     console.log(options);
     interaction.respond({
       choices: [
@@ -36,8 +39,7 @@ export default new ApplicationCommand({
     });
   },
 
-  /** @param {import("../../types/commands").ExtendedCommandExecution} */
-  async execute({ client, interaction, options }) {
+  async execute({ client, interaction, options }: CommandExecutionArguments) {
     await interaction.respond({
       content: "SO PRETEND I WANT",
       components: [
@@ -79,7 +81,7 @@ export default new ApplicationCommand({
             collect: (interaction) => {
               console.log(
                 "Clicked button with ID",
-                interaction.data.customId,
+                interaction.data?.customId,
                 interaction.data,
               );
               interaction.respond("Disabling collector...");
@@ -92,18 +94,24 @@ export default new ApplicationCommand({
       );
 
     // Cache testing
-    console.log(
-      "channel",
-      await client.cache.channels.get(interaction.channelId),
-    );
-    console.log("guild", await client.cache.guilds.get(interaction.guildId));
-    console.log(
-      "member",
-      await client.cache.members.get(
-        interaction.member.id,
-        interaction.guildId,
-      ),
-    );
+    if (interaction.channelId) {
+      console.log(
+        "channel",
+        await client.cache.channels.get(interaction.channelId),
+      );
+    }
+    if (interaction.guildId) {
+      console.log("guild", await client.cache.guilds.get(interaction.guildId));
+      if (interaction.member) {
+        console.log(
+          "member",
+          await client.cache.members.get(
+            interaction.member.id,
+            interaction.guildId,
+          ),
+        );
+      }
+    }
     if (interaction.member?.roles && interaction.member.roles[0])
       console.log(
         "role",

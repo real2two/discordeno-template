@@ -1,3 +1,5 @@
+export * from "./types";
+
 export { ApplicationCommand } from "./structures/ApplicationCommand";
 export { ApplicationSubcommand } from "./structures/ApplicationSubcommand";
 export { ApplicationCommandOptions } from "./structures/ApplicationCommandOptions";

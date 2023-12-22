@@ -4,11 +4,25 @@ import {
   MessageFlags,
   camelToSnakeCase,
   snakeToCamelCase,
+  type Interaction,
+  type InteractionDataOption,
 } from "@discordeno/bot";
 import { ApplicationSubcommand } from "./ApplicationSubcommand";
 
+import type { ApplicationCommand } from "./ApplicationCommand";
+import type {
+  CommandExecution,
+  Component,
+  ExtendedClient,
+  TransformedApplicationCommand,
+} from "../types";
+
 export class InteractionHandler {
-  static transformGetCommands(commands) {
+  client: ExtendedClient;
+  commands: TransformedApplicationCommand[];
+  components: Component[];
+
+  static transformGetCommands(commands: ApplicationCommand[]) {
     return [...commands].map((command) => ({
       search: {
         type: command.data.type,
@@ -19,14 +33,14 @@ export class InteractionHandler {
       },
       command,
       subcommands: Object.fromEntries(
-        Object.entries(command.data.options)
+        Object.entries(command.data["options"] || {})
           .filter(([_, v]) => v instanceof ApplicationSubcommand)
           .map(([k, v]) => [camelToSnakeCase(k), v]),
       ),
-    }));
+    })) as TransformedApplicationCommand[];
   }
 
-  static transformOptions(options) {
+  static transformOptions(options: InteractionDataOption[]) {
     if (!options) return {};
 
     const variables = {};
@@ -37,27 +51,29 @@ export class InteractionHandler {
     return variables;
   }
 
-  /**
-   *
-   * @param {{
-   *  client: import("@discordeno/bot").Bot,
-   *  commands: import("./ApplicationCommand.ts")[],
-   * }}
-   */
-  constructor({ client, commands, components }) {
+  constructor({
+    client,
+    commands,
+    components,
+  }: {
+    client: ExtendedClient;
+    commands: ApplicationCommand[];
+    components: Component[];
+  }) {
     this.client = client;
-    this.commands = commands
-      ? InteractionHandler.transformGetCommands(commands)
-      : [];
+    this.commands = InteractionHandler.transformGetCommands(commands || []);
     this.components = components || [];
   }
 
-  /**
-   *
-   * @param {import("@discordeno/bot").Interaction} interaction
-   */
-  async interactionCreate(interaction) {
+  async interactionCreate(interaction: Interaction) {
     try {
+      if (
+        !interaction.data ||
+        !interaction.data.type ||
+        !interaction.data.customId
+      )
+        return;
+
       if (
         [
           InteractionTypes.ApplicationCommand,
@@ -88,7 +104,7 @@ export class InteractionHandler {
 
           return this.handleCommand(
             interaction,
-            interaction.data.options[0].options,
+            interaction.data.options[0].options || [],
             subcommand,
           );
         }
@@ -96,7 +112,7 @@ export class InteractionHandler {
         // Handle command
         return this.handleCommand(
           interaction,
-          interaction.data.options,
+          interaction.data.options || [],
           command,
         );
       }
@@ -148,13 +164,7 @@ export class InteractionHandler {
     }
   }
 
-  /**
-   *
-   * @param {import("@discordeno/bot").ApplicationCommandTypes} commandType
-   * @param {string} commandName
-   * @returns
-   */
-  getCommand(commandType, commandName) {
+  getCommand(commandType: ApplicationCommandTypes, commandName: string) {
     const command = this.commands.find(
       (c) => commandType === c.search.type && commandName === c.search.name,
     );
@@ -166,14 +176,22 @@ export class InteractionHandler {
     };
   }
 
-  handleCommand(interaction, options, command) {
+  handleCommand(
+    interaction: Interaction,
+    options: InteractionDataOption[],
+    command: ApplicationCommand | ApplicationSubcommand,
+  ) {
     try {
       // Handle command execution
       if (
         interaction.type === InteractionTypes.ApplicationCommand &&
         "execute" in command
       ) {
-        return this.executeInteraction(interaction, options, command.execute);
+        return this.executeInteraction(
+          interaction,
+          options,
+          command.execute as CommandExecution,
+        );
       }
 
       // Handle autocomplete
@@ -184,7 +202,7 @@ export class InteractionHandler {
         return this.executeInteraction(
           interaction,
           options,
-          command.autocomplete,
+          command.autocomplete as CommandExecution,
         );
       }
     } catch (err) {
@@ -192,7 +210,11 @@ export class InteractionHandler {
     }
   }
 
-  executeInteraction(interaction, options, func) {
+  executeInteraction(
+    interaction: Interaction,
+    options: InteractionDataOption[],
+    func: CommandExecution,
+  ) {
     if (typeof func !== "function") return;
 
     func({

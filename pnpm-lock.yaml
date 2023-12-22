@@ -54,6 +54,9 @@ importers:
       eslint-config-custom:
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom
+      tsconfig:
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
 
   apps/bridge:
     dependencies:
@@ -73,6 +76,9 @@ importers:
       eslint-config-custom:
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom
+      tsconfig:
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
 
   apps/web:
     dependencies:
@@ -95,6 +101,9 @@ importers:
       eslint-config-custom:
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom
+      tsconfig:
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
 
   packages/db:
     dependencies:
@@ -107,6 +116,9 @@ importers:
       mysql2:
         specifier: ^3.6.5
         version: 3.6.5
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
     devDependencies:
       drizzle-kit:
         specifier: ^0.20.6
@@ -123,7 +135,13 @@ importers:
       '@discordeno/bot':
         specifier: 19.0.0-next.d81b28a
         version: 19.0.0-next.d81b28a
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
     devDependencies:
+      dd-cache-proxy:
+        specifier: ^2.0.1
+        version: 2.0.1
       eslint:
         specifier: ^7.32.0
         version: 7.32.0
@@ -133,12 +151,18 @@ importers:
 
   packages/env:
     devDependencies:
+      '@types/node':
+        specifier: ^20.10.5
+        version: 20.10.5
       eslint:
         specifier: ^7.32.0
         version: 7.32.0
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
 
   packages/eslint-config-custom:
     dependencies:
@@ -154,6 +178,8 @@ importers:
       eslint-config-turbo:
         specifier: latest
         version: 1.11.2(eslint@8.56.0)
+
+  packages/tsconfig: {}
 
 packages:
 
@@ -461,7 +487,6 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
-    dev: false
 
   /@discordeno/gateway@19.0.0-next.d81b28a:
     resolution: {integrity: sha512-vtUBfsQ175uBg/oRcoR2oXoYjb9rFzW5vvc96ka2zOGKzu87WusFM5mLQcVk6dnTglOEbRgCTnrLIXl7D/fnuA==}
@@ -472,7 +497,6 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
-    dev: false
 
   /@discordeno/rest@19.0.0-next.d81b28a:
     resolution: {integrity: sha512-gzLzx061h5FrXCyhz2g3Uc6V+JP23FRvkVjroYDm2iBSf/Lfcuukjp638MJk/inPQGjthVWe8w5hGXkx/qwI0Q==}
@@ -480,18 +504,15 @@ packages:
       '@discordeno/types': 19.0.0-next.d81b28a
       '@discordeno/utils': 19.0.0-next.d81b28a
       dotenv: 16.3.1
-    dev: false
 
   /@discordeno/types@19.0.0-next.d81b28a:
     resolution: {integrity: sha512-BZeAaTCjalwmrUPx4sSL8sfzLINiXoL9IFd2XqC/+qkg/ALM1MleYecPzvvzDsRp4erSfp40j5UlSCsRs2L+mw==}
-    dev: false
 
   /@discordeno/utils@19.0.0-next.d81b28a:
     resolution: {integrity: sha512-GR7mjkQhRsk4J8fsB0SPpqXMd6FWV+wE7y8+sbF/24wO4xp9aPMhhJ0DWLbQ4LQrokdYG88IDIkmeZIfWaOdAQ==}
     dependencies:
       '@discordeno/types': 19.0.0-next.d81b28a
       tweetnacl: 1.0.3
-    dev: false
 
   /@drizzle-team/studio@0.0.35:
     resolution: {integrity: sha512-t5LTNOVf+L7Bb/wdssOIPx0ueNvhyaIXdrvKgoHR4wK0GD7SRmILcCTzn6N6Ltr1VnFzQZG/bzn6HMagn17Jtw==}
@@ -1687,7 +1708,6 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
-    dev: false
 
   /debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -3573,7 +3593,6 @@ packages:
 
   /tweetnacl@1.0.3:
     resolution: {integrity: sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==}
-    dev: false
 
   /type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
@@ -3605,7 +3624,6 @@ packages:
     resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
     engines: {node: '>=4.2.0'}
     hasBin: true
-    dev: false
 
   /undefsafe@2.0.5:
     resolution: {integrity: sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==}

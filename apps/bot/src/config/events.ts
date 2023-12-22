@@ -1,8 +1,9 @@
 import ready from "../events/ready";
 import interactionCreate from "../events/interactionCreate";
 
-/** @type Partial<import("@discordeno/bot").EventHandlers> */
-export const events = {
+import type { TransformedEventHandlers } from "@/discordeno-helpers";
+
+export const events: Partial<TransformedEventHandlers> = {
   ready,
   interactionCreate,
 };

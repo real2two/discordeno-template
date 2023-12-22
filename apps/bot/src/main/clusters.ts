@@ -7,6 +7,8 @@ import {
 } from "discord-hybrid-sharding";
 import { fileURLToPath } from "url";
 
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
+
 // Connect to bridge
 const client = new DiscordCrossHosting.Client({
   agent: "bot",

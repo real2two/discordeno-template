@@ -3,228 +3,268 @@ import type { ExtendedClient } from "./ExtendedBot";
 
 export interface TransformedEventHandlers {
   debug: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["debug"]>) => void;
+    execute: (...data: Parameters<EventHandlers["debug"]>) => unknown;
   };
   applicationCommandPermissionsUpdate: (client: ExtendedClient) => {
     execute: (
       ...data: Parameters<EventHandlers["applicationCommandPermissionsUpdate"]>
-    ) => void;
+    ) => unknown;
   };
   guildAuditLogEntryCreate: (client: ExtendedClient) => {
     execute: (
       ...data: Parameters<EventHandlers["guildAuditLogEntryCreate"]>
-    ) => void;
+    ) => unknown;
   };
   automodRuleCreate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["automodRuleCreate"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["automodRuleCreate"]>
+    ) => unknown;
   };
   automodRuleUpdate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["automodRuleUpdate"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["automodRuleUpdate"]>
+    ) => unknown;
   };
   automodRuleDelete: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["automodRuleDelete"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["automodRuleDelete"]>
+    ) => unknown;
   };
   automodActionExecution: (client: ExtendedClient) => {
     execute: (
       ...data: Parameters<EventHandlers["automodActionExecution"]>
-    ) => void;
+    ) => unknown;
   };
   threadCreate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["threadCreate"]>) => void;
+    execute: (...data: Parameters<EventHandlers["threadCreate"]>) => unknown;
   };
   threadDelete: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["threadDelete"]>) => void;
+    execute: (...data: Parameters<EventHandlers["threadDelete"]>) => unknown;
   };
   threadListSync: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["threadListSync"]>) => void;
+    execute: (...data: Parameters<EventHandlers["threadListSync"]>) => unknown;
   };
   threadMemberUpdate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["threadMemberUpdate"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["threadMemberUpdate"]>
+    ) => unknown;
   };
   threadMembersUpdate: (client: ExtendedClient) => {
     execute: (
       ...data: Parameters<EventHandlers["threadMembersUpdate"]>
-    ) => void;
+    ) => unknown;
   };
   threadUpdate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["threadUpdate"]>) => void;
+    execute: (...data: Parameters<EventHandlers["threadUpdate"]>) => unknown;
   };
   scheduledEventCreate: (client: ExtendedClient) => {
     execute: (
       ...data: Parameters<EventHandlers["scheduledEventCreate"]>
-    ) => void;
+    ) => unknown;
   };
   scheduledEventUpdate: (client: ExtendedClient) => {
     execute: (
       ...data: Parameters<EventHandlers["scheduledEventUpdate"]>
-    ) => void;
+    ) => unknown;
   };
   scheduledEventDelete: (client: ExtendedClient) => {
     execute: (
       ...data: Parameters<EventHandlers["scheduledEventDelete"]>
-    ) => void;
+    ) => unknown;
   };
   scheduledEventUserAdd: (client: ExtendedClient) => {
     execute: (
       ...data: Parameters<EventHandlers["scheduledEventUserAdd"]>
-    ) => void;
+    ) => unknown;
   };
   scheduledEventUserRemove: (client: ExtendedClient) => {
     execute: (
       ...data: Parameters<EventHandlers["scheduledEventUserRemove"]>
-    ) => void;
+    ) => unknown;
   };
   ready: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["ready"]>) => void;
+    execute: (...data: Parameters<EventHandlers["ready"]>) => unknown;
   };
   interactionCreate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["interactionCreate"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["interactionCreate"]>
+    ) => unknown;
   };
   integrationCreate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["integrationCreate"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["integrationCreate"]>
+    ) => unknown;
   };
   integrationDelete: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["integrationDelete"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["integrationDelete"]>
+    ) => unknown;
   };
   integrationUpdate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["integrationUpdate"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["integrationUpdate"]>
+    ) => unknown;
   };
   inviteCreate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["inviteCreate"]>) => void;
+    execute: (...data: Parameters<EventHandlers["inviteCreate"]>) => unknown;
   };
   inviteDelete: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["inviteDelete"]>) => void;
+    execute: (...data: Parameters<EventHandlers["inviteDelete"]>) => unknown;
   };
   guildMemberAdd: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["guildMemberAdd"]>) => void;
+    execute: (...data: Parameters<EventHandlers["guildMemberAdd"]>) => unknown;
   };
   guildMemberRemove: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["guildMemberRemove"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["guildMemberRemove"]>
+    ) => unknown;
   };
   guildMemberUpdate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["guildMemberUpdate"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["guildMemberUpdate"]>
+    ) => unknown;
   };
   guildStickersUpdate: (client: ExtendedClient) => {
     execute: (
       ...data: Parameters<EventHandlers["guildStickersUpdate"]>
-    ) => void;
+    ) => unknown;
   };
   messageCreate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["messageCreate"]>) => void;
+    execute: (...data: Parameters<EventHandlers["messageCreate"]>) => unknown;
   };
   messageDelete: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["messageDelete"]>) => void;
+    execute: (...data: Parameters<EventHandlers["messageDelete"]>) => unknown;
   };
   messageDeleteBulk: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["messageDeleteBulk"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["messageDeleteBulk"]>
+    ) => unknown;
   };
   messageUpdate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["messageUpdate"]>) => void;
+    execute: (...data: Parameters<EventHandlers["messageUpdate"]>) => unknown;
   };
   reactionAdd: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["reactionAdd"]>) => void;
+    execute: (...data: Parameters<EventHandlers["reactionAdd"]>) => unknown;
   };
   reactionRemove: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["reactionRemove"]>) => void;
+    execute: (...data: Parameters<EventHandlers["reactionRemove"]>) => unknown;
   };
   reactionRemoveEmoji: (client: ExtendedClient) => {
     execute: (
       ...data: Parameters<EventHandlers["reactionRemoveEmoji"]>
-    ) => void;
+    ) => unknown;
   };
   reactionRemoveAll: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["reactionRemoveAll"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["reactionRemoveAll"]>
+    ) => unknown;
   };
   presenceUpdate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["presenceUpdate"]>) => void;
+    execute: (...data: Parameters<EventHandlers["presenceUpdate"]>) => unknown;
   };
   voiceServerUpdate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["voiceServerUpdate"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["voiceServerUpdate"]>
+    ) => unknown;
   };
   voiceStateUpdate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["voiceStateUpdate"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["voiceStateUpdate"]>
+    ) => unknown;
   };
   channelCreate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["channelCreate"]>) => void;
+    execute: (...data: Parameters<EventHandlers["channelCreate"]>) => unknown;
   };
   dispatchRequirements: (client: ExtendedClient) => {
     execute: (
       ...data: Parameters<EventHandlers["dispatchRequirements"]>
-    ) => void;
+    ) => unknown;
   };
   channelDelete: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["channelDelete"]>) => void;
+    execute: (...data: Parameters<EventHandlers["channelDelete"]>) => unknown;
   };
   channelPinsUpdate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["channelPinsUpdate"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["channelPinsUpdate"]>
+    ) => unknown;
   };
   channelUpdate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["channelUpdate"]>) => void;
+    execute: (...data: Parameters<EventHandlers["channelUpdate"]>) => unknown;
   };
   stageInstanceCreate: (client: ExtendedClient) => {
     execute: (
       ...data: Parameters<EventHandlers["stageInstanceCreate"]>
-    ) => void;
+    ) => unknown;
   };
   stageInstanceDelete: (client: ExtendedClient) => {
     execute: (
       ...data: Parameters<EventHandlers["stageInstanceDelete"]>
-    ) => void;
+    ) => unknown;
   };
   stageInstanceUpdate: (client: ExtendedClient) => {
     execute: (
       ...data: Parameters<EventHandlers["stageInstanceUpdate"]>
-    ) => void;
+    ) => unknown;
   };
   guildEmojisUpdate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["guildEmojisUpdate"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["guildEmojisUpdate"]>
+    ) => unknown;
   };
   guildBanAdd: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["guildBanAdd"]>) => void;
+    execute: (...data: Parameters<EventHandlers["guildBanAdd"]>) => unknown;
   };
   guildBanRemove: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["guildBanRemove"]>) => void;
+    execute: (...data: Parameters<EventHandlers["guildBanRemove"]>) => unknown;
   };
   guildCreate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["guildCreate"]>) => void;
+    execute: (...data: Parameters<EventHandlers["guildCreate"]>) => unknown;
   };
   guildDelete: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["guildDelete"]>) => void;
+    execute: (...data: Parameters<EventHandlers["guildDelete"]>) => unknown;
   };
   guildUnavailable: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["guildUnavailable"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["guildUnavailable"]>
+    ) => unknown;
   };
   guildUpdate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["guildUpdate"]>) => void;
+    execute: (...data: Parameters<EventHandlers["guildUpdate"]>) => unknown;
   };
   raw: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["raw"]>) => void;
+    execute: (...data: Parameters<EventHandlers["raw"]>) => unknown;
   };
   roleCreate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["roleCreate"]>) => void;
+    execute: (...data: Parameters<EventHandlers["roleCreate"]>) => unknown;
   };
   roleDelete: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["roleDelete"]>) => void;
+    execute: (...data: Parameters<EventHandlers["roleDelete"]>) => unknown;
   };
   roleUpdate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["roleUpdate"]>) => void;
+    execute: (...data: Parameters<EventHandlers["roleUpdate"]>) => unknown;
   };
   webhooksUpdate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["webhooksUpdate"]>) => void;
+    execute: (...data: Parameters<EventHandlers["webhooksUpdate"]>) => unknown;
   };
   botUpdate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["botUpdate"]>) => void;
+    execute: (...data: Parameters<EventHandlers["botUpdate"]>) => unknown;
   };
   typingStart: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["typingStart"]>) => void;
+    execute: (...data: Parameters<EventHandlers["typingStart"]>) => unknown;
   };
   entitlementCreate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["entitlementCreate"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["entitlementCreate"]>
+    ) => unknown;
   };
   entitlementUpdate: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["entitlementUpdate"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["entitlementUpdate"]>
+    ) => unknown;
   };
   entitlementDelete: (client: ExtendedClient) => {
-    execute: (...data: Parameters<EventHandlers["entitlementDelete"]>) => void;
+    execute: (
+      ...data: Parameters<EventHandlers["entitlementDelete"]>
+    ) => unknown;
   };
 }

@@ -56,7 +56,7 @@ function requestShardData() {
       if (!e.shardList) return;
       manager.totalShards = e.totalShards;
       manager.totalClusters = e.shardList.length;
-      // @ts-ignore
+      // @ts-ignore In theory, this should be right, since this is copied off the example on the library's README.md.
       manager.shardList = e.shardList;
       manager.clusterList = e.clusterList;
       manager.spawn({ timeout: -1 });

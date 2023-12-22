@@ -28,7 +28,7 @@ export class ApplicationSubcommand {
     execute?: CommandExecution;
   }) {
     this.data = {
-      type: ApplicationCommandOptionTypes.SubCommandGroup,
+      type: ApplicationCommandOptionTypes.SubCommand,
       ...data,
     };
     this.autocomplete = autocomplete;

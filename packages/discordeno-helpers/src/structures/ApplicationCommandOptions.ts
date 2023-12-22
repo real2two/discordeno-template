@@ -1,6 +1,8 @@
 import {
   ApplicationCommandOptionTypes,
   camelToSnakeCase,
+  type Camelize,
+  type DiscordApplicationCommandOption,
 } from "@discordeno/bot";
 
 import type {
@@ -11,11 +13,11 @@ import type {
 export class ApplicationCommandOptions {
   data: DiscordApplicationCommandOptionWithoutName;
 
-  static parse(opts: ApplicationCommandOptionsList) {
+  static parse(opts: ApplicationCommandOptionsList): Camelize<DiscordApplicationCommandOption[]> {
     return Object.entries(opts || []).map(([name, data]) => ({
       ...data.toJSON(),
       name: camelToSnakeCase(name),
-    }));
+    })) as Camelize<DiscordApplicationCommandOption[]>;
   }
 
   static boolean(description: string) {

@@ -3,7 +3,7 @@ import type { InteractionExecutionArguments } from "./InteractionExecution";
 export interface CommandExecutionArguments
   extends InteractionExecutionArguments {
   options: {
-    [key: string]: string | number;
+    [key: string]: string | number | boolean | undefined;
   };
 }
 

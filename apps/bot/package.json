@@ -2,10 +2,9 @@
   "name": "@/bot",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "main": "src/main/clusters.ts",
   "scripts": {
-    "start": "dotenv -e ../../.env -- node .",
+    "start": "dotenv -e ../../.env -- node -r ts-node/register .",
     "dev": "nodemon",
     "lint": "eslint ./**/*.ts",
     "interactions/create": "dotenv -e ../../.env -- node tools/createCommands.ts"
@@ -35,11 +34,13 @@
     "discord-cross-hosting": "^2.3.2",
     "discord-hybrid-sharding": "^2.1.4",
     "express": "^4.18.2",
-    "nodemon": "^3.0.2"
+    "nodemon": "^3.0.2",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "eslint": "7.32.0",
     "eslint-config-custom": "workspace:*",
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "typescript": "^5.3.3"
   }
 }

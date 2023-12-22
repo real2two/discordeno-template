@@ -7,8 +7,6 @@ import {
 } from "discord-hybrid-sharding";
 import { fileURLToPath } from "url";
 
-const __dirname = fileURLToPath(new URL(".", import.meta.url));
-
 // Connect to bridge
 const client = new DiscordCrossHosting.Client({
   agent: "bot",
@@ -56,6 +54,7 @@ function requestShardData() {
       if (!e.shardList) return;
       manager.totalShards = e.totalShards;
       manager.totalClusters = e.shardList.length;
+      // @ts-ignore
       manager.shardList = e.shardList;
       manager.clusterList = e.clusterList;
       manager.spawn({ timeout: -1 });

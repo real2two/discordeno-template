@@ -12,8 +12,7 @@ export class ComponentCollector {
   collectors: ComponentCollectors;
   message: ComponentCollectorMessage;
   opts: ComponentCollectorOptions;
-  expiresIn: number;
-  timeout: NodeJS.Timeout;
+  timeout?: NodeJS.Timeout;
 
   constructor(
     collectors: ComponentCollectors,
@@ -41,7 +40,7 @@ export class ComponentCollector {
       },
     };
 
-    if (this.expiresIn !== Infinity) {
+    if (this.opts?.expiresIn !== Infinity) {
       this.timeout = setTimeout(
         () => {
           this.end();

@@ -1,6 +1,5 @@
 {
   "name": "@/discordeno-helpers",
-  "type": "module",
   "version": "0.0.0",
   "main": "src/index.ts",
   "scripts": {
@@ -14,6 +13,8 @@
   },
   "devDependencies": {
     "dd-cache-proxy": "^2.0.1",
+    "discord-cross-hosting": "^2.3.2",
+    "discord-hybrid-sharding": "^2.1.4",
     "eslint": "^7.32.0",
     "eslint-config-custom": "workspace:*"
   },

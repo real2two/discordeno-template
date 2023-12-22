@@ -51,8 +51,8 @@ export class ApplicationCommand {
       name: camelToSnakeCase(this.data.name),
     };
 
-    if (this.data["options"]) {
-      command["options"] = ApplicationCommandOptions.parse(
+    if ("options" in this.data) {
+      (command as CreateSlashApplicationCommand)["options"] = ApplicationCommandOptions.parse(
         this.data["options"] || {},
       );
     }

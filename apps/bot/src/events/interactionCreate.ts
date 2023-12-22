@@ -13,7 +13,7 @@ export default (client: ExtendedClient) => {
   });
   return {
     execute: (interaction: Interaction) => {
-      interactionHandler.interactionCreate(interaction)
+      interactionHandler.interactionCreate(interaction);
     },
   };
 };

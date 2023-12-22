@@ -70,8 +70,7 @@ export class InteractionHandler {
 
   async interactionCreate(interaction: Interaction) {
     try {
-      if (!interaction.data)
-        return;
+      if (!interaction.data) return;
 
       if (
         [
@@ -117,7 +116,7 @@ export class InteractionHandler {
           command,
         );
       }
-      
+
       if (
         [
           InteractionTypes.MessageComponent,

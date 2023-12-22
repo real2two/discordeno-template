@@ -20,6 +20,7 @@ export const client = getProxyCacheBot(
     },
 
     gateway: ["worker", "process"].includes(
+      // eslint-disable-next-line turbo/no-undeclared-env-vars
       process.env["CLUSTER_MANAGER_MODE"]!,
     )
       ? {

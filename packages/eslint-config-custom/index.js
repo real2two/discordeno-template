@@ -1,6 +1,6 @@
 module.exports = {
   extends: ["turbo", "prettier"],
-  parser: "@babel/eslint-parser",
+  parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",

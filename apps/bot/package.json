@@ -8,7 +8,7 @@
     "start": "dotenv -e ../../.env -- tsx .",
     "dev": "nodemon",
     "lint": "eslint ./**/*.ts",
-    "interactions/create": "dotenv -e ../../.env -- node tools/createCommands.ts"
+    "interactions/create": "dotenv -e ../../.env -- tsx tools/createCommands.ts"
   },
   "eslintConfig": {
     "root": true,

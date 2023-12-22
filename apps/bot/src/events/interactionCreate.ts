@@ -12,7 +12,8 @@ export default (client: ExtendedClient) => {
     components,
   });
   return {
-    execute: (interaction: Interaction) =>
-      interactionHandler.interactionCreate(interaction),
+    execute: (interaction: Interaction) => {
+      interactionHandler.interactionCreate(interaction)
+    },
   };
 };

@@ -70,11 +70,7 @@ export class InteractionHandler {
 
   async interactionCreate(interaction: Interaction) {
     try {
-      if (
-        !interaction.data ||
-        !interaction.data.type ||
-        !interaction.data.customId
-      )
+      if (!interaction.data)
         return;
 
       if (
@@ -84,6 +80,8 @@ export class InteractionHandler {
         ].includes(interaction.type)
       ) {
         // Handle command
+        if (!interaction.data.type) return;
+
         const commandData = this.getCommand(
           interaction.data.type,
           interaction.data.name,
@@ -119,13 +117,15 @@ export class InteractionHandler {
           command,
         );
       }
-
+      
       if (
         [
           InteractionTypes.MessageComponent,
           InteractionTypes.ModalSubmit,
         ].includes(interaction.type)
       ) {
+        if (!interaction.data.customId) return;
+
         if (interaction.data.customId.startsWith("$")) {
           // Non-persistent message component handler
           if (!interaction.message?.id) return;

@@ -3,12 +3,9 @@
   "type": "module",
   "private": true,
   "version": "0.0.0",
-  "main": "dist/src/main/clusters.js",
+  "main": "src/main/clusters.ts",
   "scripts": {
-    "prepare": "tsc",
-    "preinstall": "tsc",
-    "tsc": "tsc --noEmit --watch",
-    "start": "dotenv -e ../../.env -- node .",
+    "start": "dotenv -e ../../.env -- tsx .",
     "dev": "nodemon",
     "lint": "eslint ./**/*.ts",
     "interactions/create": "dotenv -e ../../.env -- node tools/createCommands.ts"
@@ -44,6 +41,7 @@
     "eslint": "7.32.0",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
+    "tsx": "^4.7.0",
     "typescript": "^5.3.3"
   }
 }

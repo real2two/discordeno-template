@@ -1,0 +1,35 @@
+import {
+  ApplicationSubcommand,
+  ApplicationCommandOptions as opts,
+  CommandExecutionArguments,
+} from "@/discordeno-helpers";
+
+import { MessageComponentTypes, ButtonStyles } from "@discordeno/bot";
+
+export default new ApplicationSubcommand({
+  data: {
+    description: "This is a subcommand.",
+    options: {
+      testTest: opts.integer("fun integer").required(),
+    },
+  },
+  execute({ client, interaction, options }: CommandExecutionArguments) {
+    console.log(options);
+    interaction.respond({
+      content: `test ${options.testTest}`,
+      components: [
+        {
+          type: MessageComponentTypes.ActionRow,
+          components: [
+            {
+              type: MessageComponentTypes.Button,
+              style: ButtonStyles.Primary,
+              label: "this is a persistent button",
+              customId: "button",
+            },
+          ],
+        },
+      ],
+    });
+  },
+});

@@ -35,7 +35,7 @@ pnpm schema/migrate # Migrate the schema (use this to update the database in pro
 When creating events:
 
 - Put them in the `src/bot/src/events` folder.
-- Make sure to add it to the array in `apps/bot/src/config/events.js`.
+- Make sure to add it to the array in `apps/bot/src/config/events.ts`.
 
 ### Boilerplate
 
@@ -58,8 +58,8 @@ When creating interaction commands:
 
 After creating interactions:
 
-- For interaction commands, make sure to add it to the array in `apps/bot/src/config/commands.js`.
-- For persistent components, make sure to add it to the array in `apps/bot/src/config/components.js`.
+- For interaction commands, make sure to add it to the array in `apps/bot/src/config/commands.ts`.
+- For persistent components, make sure to add it to the array in `apps/bot/src/config/components.ts`.
 
 ### Non-persistent components
 
@@ -158,7 +158,6 @@ export default new ApplicationCommand({
       user: opts.user("test user value"),
       integer: opts.integer("test integer value"),
       number: opts.number("test number value"),
-      string: opts.string("test string value"),
       channel: opts.channel("test channel value"),
       role: opts.role("test role value"),
       mentionable: opts.mentionable("test mentionable value"),
@@ -191,8 +190,8 @@ Boilerplate for commands with subcommands:
 ```js
 import { ApplicationCommand } from "@/discordeno-helpers";
 
-import subcommandName from "./commandName/subcommandName.js";
-import subcommandName2 from "./commandName/subcommandName2.js";
+import subcommandName from "./commandName/subcommandName";
+import subcommandName2 from "./commandName/subcommandName2";
 
 export default new ApplicationCommand({
   data: {

@@ -4,7 +4,7 @@ import { ApplicationCommandOptions } from "./ApplicationCommandOptions.js";
 export class ApplicationCommand {
   constructor({ data, autocomplete, execute }) {
     this.data = {
-      type: ApplicationCommandTypes.ChatInput,
+      type: data.type || ApplicationCommandTypes.ChatInput,
       ...data,
     };
     this.autocomplete = autocomplete;

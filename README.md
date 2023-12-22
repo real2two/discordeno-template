@@ -39,11 +39,11 @@ When creating events:
 
 ### Boilerplate
 
-```js
-/** @param {import("@discordeno/bot").Bot} client */
-export default (client) => ({
-  /** @param {Parameters<import("@discordeno/bot").EventHandlers["EVENT_NAME_HERE"]>} args */
-  execute: (...args) => {
+```ts
+import type { EventHandlers } from "@discordeno/bot";
+
+export default () => ({
+  execute: (...args: Parameters<EventHandlers["EVENT_NAME_HERE"]>) => {
     console.log(args);
   },
 });
@@ -163,8 +163,6 @@ export default new ApplicationCommand({
       mentionable: opts.mentionable("test mentionable value"),
     },
   },
-
-  /** @param {import("../../types/commands").ExtendedCommandExecution} */
   async autocomplete({ client, interaction, options }) {
     console.log("Options", options);
     interaction.respond({
@@ -176,8 +174,6 @@ export default new ApplicationCommand({
       ],
     });
   },
-
-  /** @param {import("../../types/commands").ExtendedCommandExecution} */
   async execute({ client, interaction, options }) {
     console.log("Options", options);
     await interaction.respond("Hello world!");
@@ -221,7 +217,6 @@ export default new ApplicationSubcommand({
       integer: opts.integer("test integer value").required(),
     },
   },
-  /** @param {import("../../../types/commands").ExtendedCommandExecution} */
   async autocomplete({ client, interaction, options }) {
     interaction.respond({
       choices: [
@@ -232,7 +227,6 @@ export default new ApplicationSubcommand({
       ],
     });
   },
-  /** @param {import("../../../types/commands").ExtendedCommandExecution} */
   execute({ client, interaction, options }) {
     console.log("Options", options);
     interaction.respond("Hello world");
@@ -246,7 +240,6 @@ Boilerplate for components:
 export default {
   customId: "button", // In regex: /^button$/
 
-  /** @param {import("../../types/commands").ExtendedInteractionExecution} */
   execute({ client, interaction }) {
     interaction.respond("Hello world!");
   },

@@ -41,8 +41,9 @@ When creating events:
 
 ```ts
 import type { EventHandlers } from "@discordeno/bot";
+import type { ExtendedClient } from "@/discordeno-helpers";
 
-export default () => ({
+export default (client: ExtendedClient) => ({
   execute: (...args: Parameters<EventHandlers["EVENT_NAME_HERE"]>) => {
     console.log(args);
   },
@@ -71,7 +72,7 @@ There's an entire function dedicated for handling non-persistent components.
 - You can use both `collector.end()` _(runs end event, aka disables components)_ and `collector.remove()` _(skips end event, aka doesn't disable components)_ to delete a non-persistent component.
 - You can make a non-persistent component's `expiresIn` value as `Infinity`, and use `collector.end()` once you want to disable them.
 
-```js
+```ts
 import { MessageComponentTypes, ButtonStyles } from "@discordeno/bot";
 
 // ...
@@ -142,7 +143,7 @@ const collector = await client.collectors.components.createOriginalInteraction(
 
 Boilerplate for commands:
 
-```js
+```ts
 import {
   ApplicationCommand,
   ApplicationCommandOptions as opts,
@@ -183,7 +184,7 @@ export default new ApplicationCommand({
 
 Boilerplate for commands with subcommands:
 
-```js
+```ts
 import { ApplicationCommand } from "@/discordeno-helpers";
 
 import subcommandName from "./commandName/subcommandName";
@@ -204,7 +205,7 @@ export default new ApplicationCommand({
 
 Boilerplate for subcommands:
 
-```js
+```ts
 import {
   ApplicationSubcommand,
   ApplicationCommandOptions as opts,
@@ -236,7 +237,7 @@ export default new ApplicationSubcommand({
 
 Boilerplate for components:
 
-```js
+```ts
 import { Component } from "@/discordeno-helpers";
 
 export default new Component({
@@ -252,7 +253,7 @@ export default new Component({
 
 Make sure to add this in dependencies to use the database functions:
 
-```json
+```tson
 "dependencies": {
   "@/db": "workspace:*",
   ...
@@ -261,7 +262,7 @@ Make sure to add this in dependencies to use the database functions:
 
 Here's an example of how to run database functions:
 
-```js
+```ts
 import { db, table } from "@/db";
 
 await db.insert(table).values({ tinyint: 123 });

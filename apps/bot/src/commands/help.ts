@@ -35,7 +35,7 @@ export default new ApplicationCommand({
     });
   },
 
-  async execute({ client, interaction, options }) {
+  async execute({ client, interaction }) {
     await interaction.respond({
       content: "SO PRETEND I WANT",
       components: [

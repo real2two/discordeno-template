@@ -1,6 +1,7 @@
 import { ApplicationCommand } from "@/discordeno-helpers";
 
 import subcommandName from "./testCommand/subcommandName";
+import subcommandWithGroup from "./testCommand/subcommandWithGroup";
 
 export default new ApplicationCommand({
   data: {
@@ -8,6 +9,7 @@ export default new ApplicationCommand({
     description: "test command",
     options: {
       subcommandName,
+      subcommandWithGroup,
     },
   },
 });

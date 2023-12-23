@@ -1,18 +1,21 @@
 import {
   InteractionTypes,
   ApplicationCommandTypes,
+  ApplicationCommandOptionTypes,
   MessageFlags,
   camelToSnakeCase,
   snakeToCamelCase,
   type Interaction,
   type InteractionDataOption,
 } from "@discordeno/bot";
+
 import { ApplicationSubcommand } from "./ApplicationSubcommand";
+import { Component } from "./Component";
 
 import type { ApplicationCommand } from "./ApplicationCommand";
 import type {
+  ApplicationCommandSlashCommandConstructor,
   CommandExecution,
-  Component,
   ExtendedClient,
   TransformedApplicationCommand,
 } from "../types";
@@ -37,7 +40,28 @@ export class InteractionHandler {
           ("options" in command.data ? command.data["options"] : {}) || {},
         )
           .filter(([_, v]) => v instanceof ApplicationSubcommand)
-          .map(([k, v]) => [camelToSnakeCase(k), v]),
+          .map(([k, v]) => [
+            camelToSnakeCase(k),
+            {
+              subcommand: v,
+              subcommands:
+                v.data.type === ApplicationCommandOptionTypes.SubCommandGroup
+                  ? Object.fromEntries(
+                      Object.entries(
+                        ("options" in v.data ? v.data["options"] : {}) || {},
+                      )
+                        .filter(([_, v]) => v instanceof ApplicationSubcommand)
+                        .map(([k, v]) => [
+                          camelToSnakeCase(k),
+                          {
+                            subcommand: v,
+                            subcommands: {},
+                          },
+                        ]),
+                    )
+                  : {},
+            },
+          ]),
       ),
     })) as TransformedApplicationCommand[];
   }
@@ -81,10 +105,12 @@ export class InteractionHandler {
         // Handle command
         if (!interaction.data.type) return;
 
-        const commandData = this.getCommand(
-          interaction.data.type,
-          interaction.data.name,
+        const commandData = this.commands.find(
+          (c) =>
+            interaction.data?.type === c.search.type &&
+            interaction.data?.name === c.search.name,
         );
+
         if (!commandData) {
           return console.warn("Couldn't find command", interaction.data);
         }
@@ -94,19 +120,54 @@ export class InteractionHandler {
         if (
           interaction.data?.options &&
           interaction.data.options.length === 1 &&
-          interaction.data.options[0].type === 1
+          [
+            ApplicationCommandOptionTypes.SubCommand,
+            ApplicationCommandOptionTypes.SubCommandGroup,
+          ].includes(interaction.data.options[0].type)
         ) {
-          // Handle subcommand
-          const subcommand = subcommands[interaction.data.options[0].name];
-          if (!subcommand) {
-            return console.warn(`Couldn't find subcommand`, interaction.data);
+          // Handle subcommand or subcommand group
+
+          const subcommandData = subcommands[interaction.data.options[0].name];
+          if (!subcommandData) {
+            return console.warn(
+              `Couldn't find subcommand or subcommand group`,
+              interaction.data,
+            );
           }
 
-          return this.handleCommand(
-            interaction,
-            interaction.data.options[0].options || [],
-            subcommand,
-          );
+          const { subcommand, subcommands: subcommandsInGroup } =
+            subcommandData;
+
+          switch (interaction.data.options[0].type) {
+            case ApplicationCommandOptionTypes.SubCommand: {
+              // Handle subcommand
+              return this.handleCommand(
+                interaction,
+                interaction.data.options[0].options || [],
+                subcommandData.subcommand,
+              );
+            }
+            case ApplicationCommandOptionTypes.SubCommandGroup: {
+              // Handle subcommand group
+              if (!subcommand.data.options) subcommand.data.options = {};
+              if (!interaction.data.options[0].options) return;
+
+              const subcommandInGroup =
+                subcommandsInGroup[interaction.data.options[0].options[0].name];
+              if (!subcommandInGroup) {
+                return console.warn(
+                  `Couldn't find subcommand in a subcommand group`,
+                  interaction.data,
+                );
+              }
+
+              return this.handleCommand(
+                interaction,
+                interaction.data.options[0].options[0].options || [],
+                subcommandInGroup.subcommand,
+              );
+            }
+          }
         }
 
         // Handle command
@@ -164,18 +225,6 @@ export class InteractionHandler {
     } catch (err) {
       console.error(err);
     }
-  }
-
-  getCommand(commandType: ApplicationCommandTypes, commandName: string) {
-    const command = this.commands.find(
-      (c) => commandType === c.search.type && commandName === c.search.name,
-    );
-    if (!command) return null;
-
-    return {
-      command: command.command,
-      subcommands: command.subcommands,
-    };
   }
 
   handleCommand(

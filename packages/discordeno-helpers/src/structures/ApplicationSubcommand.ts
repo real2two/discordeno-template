@@ -1,20 +1,13 @@
-import {
-  ApplicationCommandOptionTypes,
-  type Camelize,
-  type DiscordApplicationCommandOption,
-} from "@discordeno/bot";
+import { ApplicationCommandOptionTypes } from "@discordeno/bot";
 import { ApplicationCommandOptions } from "./ApplicationCommandOptions";
 
-import type { ApplicationCommandOptionsList, CommandExecution } from "../types";
-
-interface SubcommandConstructor
-  extends Partial<Omit<Camelize<DiscordApplicationCommandOption>, "options">> {
-  description: string;
-  options?: ApplicationCommandOptionsList;
-}
+import type {
+  ApplicationSubcommandConstructor,
+  CommandExecution,
+} from "../types";
 
 export class ApplicationSubcommand {
-  data: SubcommandConstructor;
+  data: ApplicationSubcommandConstructor;
   autocomplete?: CommandExecution;
   execute?: CommandExecution;
 
@@ -23,7 +16,7 @@ export class ApplicationSubcommand {
     autocomplete,
     execute,
   }: {
-    data: SubcommandConstructor;
+    data: ApplicationSubcommandConstructor;
     autocomplete?: CommandExecution;
     execute?: CommandExecution;
   }) {

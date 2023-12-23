@@ -3,29 +3,18 @@ import {
   camelToSnakeCase,
   type CreateApplicationCommand,
   type CreateSlashApplicationCommand,
-  type CreateContextApplicationCommand,
 } from "@discordeno/bot";
 import { ApplicationCommandOptions } from "./ApplicationCommandOptions";
 import type {
+  ApplicationCommandSlashCommandConstructor,
+  ApplicationCommandContextConstructor,
   CommandExecution,
-  ApplicationCommandOptionsList,
-  Omit,
 } from "../types";
 
-interface SlashCommandConstructor
-  extends Partial<Omit<CreateSlashApplicationCommand, "options">> {
-  name: string;
-  description: string;
-  options?: ApplicationCommandOptionsList;
-}
-
-interface ContextConstructor extends Partial<CreateContextApplicationCommand> {
-  name: string;
-  description: string;
-}
-
 export class ApplicationCommand {
-  data: SlashCommandConstructor | ContextConstructor;
+  data:
+    | ApplicationCommandSlashCommandConstructor
+    | ApplicationCommandContextConstructor;
   autocomplete?: CommandExecution;
   execute?: CommandExecution;
 

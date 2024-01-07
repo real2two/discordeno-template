@@ -9,7 +9,7 @@ export async function getGuild(guildId: bigint) {
   if (!guild) {
     await createGuild(guildId);
     return selectGuild(guildId);
-  };
+  }
 
   // Return the guild
   return guild;
@@ -28,9 +28,7 @@ export async function selectGuild(guildId: bigint) {
 
 export async function createGuild(guildId: bigint) {
   // Inserts the guild into the database
-  return await db
-    .insert(Tables.guilds)
-    .values({
-      guildId,
-    });
+  return await db.insert(Tables.guilds).values({
+    guildId,
+  });
 }

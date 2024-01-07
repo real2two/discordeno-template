@@ -1,2 +1,2 @@
 export { pool, db } from "../connectors/pool";
-export * from "../functions";
+export * as Tables from "./tables";

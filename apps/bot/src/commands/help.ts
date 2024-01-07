@@ -1,7 +1,6 @@
 import {
   ApplicationCommand,
   ApplicationCommandOptions as opts,
-  CommandExecutionArguments,
 } from "@/discordeno-helpers";
 
 import { MessageComponentTypes, ButtonStyles } from "@discordeno/bot";

@@ -251,15 +251,6 @@ export default new Component({
 
 ## How to use database functions
 
-Make sure to add this in dependencies to use the database functions:
-
-```tson
-"dependencies": {
-  "@/db": "workspace:*",
-  ...
-}
-```
-
 Here's an example of how to run database functions:
 
 ```ts
@@ -272,4 +263,4 @@ console.log(await db.select().from(table));
 
 ### Never import `@/db` in the folder `apps`
 
-All database functions should be written in `packages/db/src/functions`.
+All database functions should be written in `packages/utils`.

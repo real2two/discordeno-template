@@ -1,0 +1,25 @@
+{
+  "name": "@/utils",
+  "type": "module",
+  "version": "0.0.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "lint": "eslint ./**/*.ts"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "custom"
+    ]
+  },
+  "devDependencies": {
+    "@/db": "workspace:*",
+    "@types/node": "^20.10.5",
+    "eslint": "^7.32.0",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.29.1"
+  }
+}

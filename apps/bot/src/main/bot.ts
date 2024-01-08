@@ -1,14 +1,15 @@
 import DiscordCrossHosting from "discord-cross-hosting";
 import { ClusterClient } from "discord-hybrid-sharding";
 
-import { ComponentCollectors, type ExtendedClient } from "@/discordeno-helpers";
-
 import { client as rawClient } from "./client";
 import { events } from "../handlers/events";
 
+import { getProxyCacheBot } from "../utils/getProxyCacheBot";
 import { addDesiredProperties } from "../utils/addDesiredProperties";
 
-const client = rawClient as ExtendedClient;
+import { ComponentCollectors, type ExtendedClient } from "@/discordeno-helpers";
+
+const client = getProxyCacheBot(rawClient) as ExtendedClient;
 
 client.collectors = {
   components: new ComponentCollectors(client),

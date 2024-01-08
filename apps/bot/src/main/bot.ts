@@ -8,17 +8,16 @@ import { events } from "../config/events";
 
 import { addDesiredProperties } from "../utils/addDesiredProperties";
 
-import type { EventHandlers } from "@discordeno/bot";
-
 const client = rawClient as ExtendedClient;
 
 client.collectors = {
   components: new ComponentCollectors(client),
 };
 
-for (const [eventName, createEvent] of Object.entries(events)) {
-  client.events[eventName as keyof EventHandlers] = createEvent(client)
-    ?.execute as (...args: unknown[]) => unknown | undefined;
+for (const event of events) {
+  client.events[event.name] = event.execute(client) as (
+    ...args: any[]
+  ) => unknown;
 }
 
 client.cluster = new ClusterClient(client);

@@ -1,7 +1,7 @@
-import type { EventHandlers } from "@discordeno/bot";
+import { createEvent } from "@/discordeno-helpers";
 
-export default () => ({
-  execute: (payload: Parameters<EventHandlers["ready"]>[0]) => {
+export default createEvent("ready", () => {
+  return (payload) => {
     console.log(`[Shard ${payload.shardId}] The shard is ready`);
-  },
+  };
 });

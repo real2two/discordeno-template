@@ -1,9 +1,13 @@
-import ready from "../events/ready";
-import interactionCreate from "../events/interactionCreate";
+import { globSync } from "glob";
+import { createEvent } from "@/discordeno-helpers";
 
-import type { TransformedEventHandlers } from "@/discordeno-helpers";
+const files = globSync("./src/events/**/*.ts", {
+  matchBase: true,
+  nodir: true,
+}).map((f) => `../${f.slice("src/".length)}`);
+export const events: ReturnType<typeof createEvent>[] = [];
 
-export const events: Partial<TransformedEventHandlers> = {
-  ready,
-  interactionCreate,
-};
+for (const file of files) {
+  const event = (await import(file)).default;
+  events.push(event);
+}

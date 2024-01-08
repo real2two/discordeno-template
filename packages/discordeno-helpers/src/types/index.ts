@@ -13,4 +13,3 @@ export * from "./InteractionExecution";
 export * from "./Omit";
 export * from "./TransformedApplicationCommand";
 export * from "./TransformedApplicationSubcommand";
-export * from "./TransformedEventHandlers";

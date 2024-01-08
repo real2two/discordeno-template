@@ -1,12 +1,14 @@
 import DiscordCrossHosting from "discord-cross-hosting";
 import { ClusterClient } from "discord-hybrid-sharding";
 
-import { events } from "../handlers/events";
+import { ComponentCollectors, type ExtendedClient } from "@/discordeno-helpers";
 
 import { getProxyCacheBot } from "../utils/getProxyCacheBot";
 import { addDesiredProperties } from "../utils/addDesiredProperties";
 
-import { ComponentCollectors, type ExtendedClient } from "@/discordeno-helpers";
+import { addIPCHandler } from "./addIPCHandler";
+
+import { events } from "../handlers/events";
 
 import type { Bot } from "@discordeno/bot";
 
@@ -32,6 +34,7 @@ export function createExtendedClient(unextendedClient: Bot) {
   client.machine = new DiscordCrossHosting.Shard(client.cluster);
   
   addDesiredProperties(client);
+  addIPCHandler(client);
 
   return client;
 }

@@ -1,7 +1,4 @@
-import {
-  createEvent,
-  InteractionHandler,
-} from "@/discordeno-helpers";
+import { createEvent, InteractionHandler } from "@/discordeno-helpers";
 
 import { commands } from "../config/commands";
 import { components } from "../config/components";

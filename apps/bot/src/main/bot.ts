@@ -3,8 +3,8 @@ import { ClusterClient } from "discord-hybrid-sharding";
 
 import { ComponentCollectors, type ExtendedClient } from "@/discordeno-helpers";
 
-import { client as rawClient } from "../config/client";
-import { events } from "../config/events";
+import { client as rawClient } from "./client";
+import { events } from "../handlers/events";
 
 import { addDesiredProperties } from "../utils/addDesiredProperties";
 

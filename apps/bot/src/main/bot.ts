@@ -1,30 +1,7 @@
-import DiscordCrossHosting from "discord-cross-hosting";
-import { ClusterClient } from "discord-hybrid-sharding";
+import { client as unextendedClient } from "./client";
+import { createExtendedClient } from "../utils/createExtendedClient";
 
-import { client as rawClient } from "./client";
-import { events } from "../handlers/events";
-
-import { getProxyCacheBot } from "../utils/getProxyCacheBot";
-import { addDesiredProperties } from "../utils/addDesiredProperties";
-
-import { ComponentCollectors, type ExtendedClient } from "@/discordeno-helpers";
-
-const client = getProxyCacheBot(rawClient) as ExtendedClient;
-
-client.collectors = {
-  components: new ComponentCollectors(client),
-};
-
-for (const event of events) {
-  client.events[event.name] = event.execute(client) as (
-    ...args: any[]
-  ) => unknown;
-}
-
-client.cluster = new ClusterClient(client);
-client.machine = new DiscordCrossHosting.Shard(client.cluster);
-
-addDesiredProperties(client);
+const client = createExtendedClient(unextendedClient);
 
 /* TODO: Move this somewhere else */
 client.cluster.on("message", (message) => {

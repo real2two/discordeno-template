@@ -1,6 +1,11 @@
 import { createProxyCache } from "dd-cache-proxy";
 import type { Bot } from "@discordeno/bot";
 
+/**
+ * Add the cache proxy to the Discordeno bot
+ * @param bot The Discordeno bot
+ * @returns The client with the cache proxy (client.cache)
+ */
 export function getProxyCacheBot(bot: Bot) {
   return createProxyCache(bot, {
     desiredProps: {

@@ -1,7 +1,6 @@
 import {
   createEvent,
   InteractionHandler,
-  type ExtendedClient,
 } from "@/discordeno-helpers";
 
 import { commands } from "../config/commands";

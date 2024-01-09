@@ -30,6 +30,7 @@
   "dependencies": {
     "@/discordeno-helpers": "workspace:*",
     "@/env": "workspace:*",
+    "@/ipc": "workspace:*",
     "@/utils": "workspace:*",
     "@discordeno/bot": "19.0.0-next.d81b28a",
     "dd-cache-proxy": "^2.0.1",

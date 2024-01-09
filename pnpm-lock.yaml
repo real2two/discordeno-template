@@ -29,6 +29,9 @@ importers:
       '@/env':
         specifier: workspace:*
         version: link:../../packages/env
+      '@/ipc':
+        specifier: workspace:*
+        version: link:../../packages/ipc
       '@/utils':
         specifier: workspace:*
         version: link:../../packages/utils

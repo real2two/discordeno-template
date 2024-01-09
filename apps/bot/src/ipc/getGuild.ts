@@ -1,4 +1,4 @@
-import { createIPCMessageEvent } from "../../../../packages/ipc/src/createIPCMessageEvent";
+import { createIPCMessageEvent } from "@/ipc";
 
 export default createIPCMessageEvent("getGuild", (client) => {
   return async ({ guildId, data, reply }) => {

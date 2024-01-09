@@ -103,6 +103,9 @@ importers:
       '@/env':
         specifier: workspace:*
         version: link:../../packages/env
+      '@/ipc':
+        specifier: workspace:*
+        version: link:../../packages/ipc
       '@/utils':
         specifier: workspace:*
         version: link:../../packages/utils
@@ -168,9 +171,6 @@ importers:
       '@discordeno/bot':
         specifier: 19.0.0-next.d81b28a
         version: 19.0.0-next.d81b28a
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
     devDependencies:
       dd-cache-proxy:
         specifier: ^2.0.1
@@ -187,6 +187,9 @@ importers:
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
 
   packages/env:
     devDependencies:
@@ -217,6 +220,25 @@ importers:
       eslint-config-turbo:
         specifier: latest
         version: 1.11.2(eslint@8.56.0)
+
+  packages/ipc:
+    dependencies:
+      '@/discordeno-helpers':
+        specifier: workspace:*
+        version: link:../discordeno-helpers
+      discord-cross-hosting:
+        specifier: ^2.3.2
+        version: 2.3.2
+    devDependencies:
+      eslint:
+        specifier: ^7.32.0
+        version: 7.32.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
 
   packages/tsconfig: {}
 

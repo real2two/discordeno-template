@@ -1,4 +1,4 @@
-import type { InteractionExecution } from "../types/InteractionExecution";
+import type { InteractionExecution } from "../types";
 
 export class Component {
   customId: string | RegExp;

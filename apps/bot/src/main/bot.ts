@@ -1,8 +1,21 @@
 import { client as unextendedClient } from "./client";
+
+import { events } from "../loaders/events";
+import { ipcs } from "../loaders/ipcs";
+
 import { createExtendedClient } from "../utils/createExtendedClient";
+import { addIPCMessageHandler } from "@/discordeno-helpers";
 
 // Create client
 const client = createExtendedClient(unextendedClient);
+
+// Event handler
+for (const event of events) {
+  client.events[event.name] = event.execute(client) as (...args: any[]) => void;
+}
+
+// IPC message handler
+addIPCMessageHandler(client, ipcs);
 
 // Start the client
 client.start();

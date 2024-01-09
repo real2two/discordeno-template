@@ -12,7 +12,6 @@ export default new ApplicationSubcommand({
     );
 
     if (interaction.guildId) {
-      console.log(interaction.guildId);
       const guild = await getGuild(interaction.guildId);
       console.log("guild data from database", guild);
     }

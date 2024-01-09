@@ -1,5 +1,5 @@
 import { client } from "../src/main/client";
-import { commands } from "../src/handlers/commands";
+import { commands } from "../src/loaders/commands";
 
 const transformedCommands = commands.map((c) => c.toJSON());
 

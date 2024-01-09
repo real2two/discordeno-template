@@ -7,4 +7,4 @@ export interface CommandExecutionArguments
   };
 }
 
-export type CommandExecution = (data: CommandExecutionArguments) => unknown;
+export type CommandExecution = (data: CommandExecutionArguments) => void;

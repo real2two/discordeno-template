@@ -1,7 +1,7 @@
 import { createEvent, InteractionHandler } from "@/discordeno-helpers";
 
-import { commands } from "../handlers/commands";
-import { components } from "../handlers/components";
+import { commands } from "../loaders/commands";
+import { components } from "../loaders/components";
 
 export default createEvent("interactionCreate", (client) => {
   const interactionHandler = new InteractionHandler({

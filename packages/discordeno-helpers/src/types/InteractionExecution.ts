@@ -1,8 +1,8 @@
 import type { Interaction } from "@discordeno/bot";
-import type { ExtendedClient } from "./ExtendedBot";
+import type { ExtendedBot } from "./ExtendedBot";
 
 export interface InteractionExecutionArguments {
-  client: ExtendedClient;
+  client: ExtendedBot;
   interaction: Interaction;
 }
 

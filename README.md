@@ -41,9 +41,9 @@ When creating events:
 
 ```ts
 import type { EventHandlers } from "@discordeno/bot";
-import type { ExtendedClient } from "@/discordeno-helpers";
+import type { ExtendedBot } from "@/discordeno-helpers";
 
-export default (client: ExtendedClient) => ({
+export default (client: ExtendedBot) => ({
   execute: (...args: Parameters<EventHandlers["EVENT_NAME_HERE"]>) => {
     console.log(args);
   },

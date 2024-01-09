@@ -1,10 +1,10 @@
-import type { ExtendedClient } from "../types";
+import type { ExtendedBot } from "../types";
 
 export function getIPCMessageEvent<I, J>() {
   return <K extends keyof I & keyof J>(
     name: K,
     execute: (
-      client: ExtendedClient,
+      client: ExtendedBot,
     ) => (data: {
       guildId?: string;
       data: I[K];

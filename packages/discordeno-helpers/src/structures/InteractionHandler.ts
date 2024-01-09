@@ -14,14 +14,13 @@ import { Component } from "./Component";
 
 import type { ApplicationCommand } from "./ApplicationCommand";
 import type {
-  ApplicationCommandSlashCommandConstructor,
   CommandExecution,
-  ExtendedClient,
+  ExtendedBot,
   TransformedApplicationCommand,
 } from "../types";
 
 export class InteractionHandler {
-  client: ExtendedClient;
+  client: ExtendedBot;
   commands: TransformedApplicationCommand[];
   components: Component[];
 
@@ -83,7 +82,7 @@ export class InteractionHandler {
     commands,
     components,
   }: {
-    client: ExtendedClient;
+    client: ExtendedBot;
     commands: ApplicationCommand[];
     components: Component[];
   }) {

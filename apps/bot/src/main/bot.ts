@@ -3,11 +3,11 @@ import { client as unextendedClient } from "./client";
 import { events } from "../loaders/events";
 import { ipcs } from "../loaders/ipcs";
 
-import { createExtendedClient } from "../utils/createExtendedClient";
+import { createExtendedBot } from "../utils/createExtendedBot";
 import { addIPCMessageHandler } from "@/discordeno-helpers";
 
 // Create client
-const client = createExtendedClient(unextendedClient);
+const client = createExtendedBot(unextendedClient);
 
 // Event handler
 for (const event of events) {

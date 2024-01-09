@@ -1,10 +1,10 @@
 import DiscordCrossHosting from "discord-cross-hosting";
 import { ClusterClient } from "discord-hybrid-sharding";
 
-import { ComponentCollectors, type ExtendedClient } from "@/discordeno-helpers";
+import { ComponentCollectors, type ExtendedBot } from "@/discordeno-helpers";
 
-import { getProxyCacheBot } from "../utils/getProxyCacheBot";
-import { addDesiredProperties } from "../utils/addDesiredProperties";
+import { getProxyCacheBot } from "./getProxyCacheBot";
+import { addDesiredProperties } from "./addDesiredProperties";
 
 import type { Bot } from "@discordeno/bot";
 
@@ -13,8 +13,8 @@ import type { Bot } from "@discordeno/bot";
  * @param unextendedClient The unextended bot client from discordeno
  * @returns The extended client
  */
-export function createExtendedClient(unextendedClient: Bot) {
-  const client = getProxyCacheBot(unextendedClient) as ExtendedClient;
+export function createExtendedBot(unextendedClient: Bot) {
+  const client = getProxyCacheBot(unextendedClient) as ExtendedBot;
 
   client.collectors = {
     components: new ComponentCollectors(client),

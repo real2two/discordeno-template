@@ -1,4 +1,4 @@
-import type { ExtendedClient } from "../types";
+import type { ExtendedBot } from "../types";
 import type { getIPCMessageEvent } from "./getIPCMessageEvent";
 
 /**
@@ -6,7 +6,7 @@ import type { getIPCMessageEvent } from "./getIPCMessageEvent";
  * @param client The extended client
  */
 export function addIPCMessageHandler(
-  client: ExtendedClient,
+  client: ExtendedBot,
   ipcs: ReturnType<ReturnType<typeof getIPCMessageEvent>>[],
 ) {
   const ipcHandlers: {

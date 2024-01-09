@@ -4,14 +4,14 @@ import type { Interaction } from "@discordeno/bot";
 import type {
   ComponentCollectorMessage,
   ComponentCollectorOptions,
-  ExtendedClient,
+  ExtendedBot,
 } from "../types";
 
 export class ComponentCollectors {
-  client: ExtendedClient;
+  client: ExtendedBot;
   collectors: { [key: string]: ComponentCollector };
 
-  constructor(client: ExtendedClient) {
+  constructor(client: ExtendedBot) {
     this.client = client;
     this.collectors = {};
   }

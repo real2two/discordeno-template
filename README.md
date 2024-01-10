@@ -32,12 +32,9 @@ pnpm schema/migrate # Migrate the schema (use this to update the database in pro
 
 ## Events
 
-When creating events:
+When creating events, put them in the `src/bot/src/events` folder.
 
-- Put them in the `src/bot/src/events` folder.
-- Make sure to add it to the array in `apps/bot/src/config/events.ts`.
-
-### Boilerplate
+### Event boilerplate
 
 ```ts
 import { createEvent } from "../utils/createFunctions";
@@ -55,11 +52,6 @@ When creating interaction commands:
 
 - For normal interaction commands, put them in the `src/bot/src/commands` folder.
 - For subcommands, make a folder with the command name, then add subcommands in there.
-
-After creating interactions:
-
-- For interaction commands, make sure to add it to the array in `apps/bot/src/config/commands.ts`.
-- For persistent components, make sure to add it to the array in `apps/bot/src/config/components.ts`.
 
 ### Non-persistent components
 
@@ -138,7 +130,7 @@ const collector = await client.collectors.components.createOriginalInteraction(
 );
 ```
 
-### Boilerplates
+### Interaction boilerplates
 
 Boilerplate for commands:
 
@@ -241,6 +233,67 @@ export default new Component({
   execute({ client, interaction }) {
     interaction.respond("Hello world!");
   },
+});
+```
+
+## IPC handler from discord-cross-hosting
+
+The IPC handler can be used to send messages across clusters with Typescript support.
+
+IPC can be used as an alternative to `broadcastEval`.
+
+In `packages/ipc`, there is a folder called `src/types` where you can declare:
+
+- The message parameters in `IPCMessageRequests.ts` (for the website)
+- The response in `IPCMessageResponses.ts` (for the bot).
+
+These files are organized in this format:
+
+```ts
+{
+  customEventName: {
+    someCustomVariable: string;
+  };
+  anotherEventName: {
+    yippee: number;
+    moreVariables: string[];
+  };
+}
+```
+
+In order to handle requests and send responses, you have to add the IPC event in `apps/bot/src/ipc`.
+
+Assuming `ipcMessageClient` is `getIPCMessageClient(<DiscordCrossHosting.Client>)`, this is how you send requests:
+
+```js
+const res = await ipcMessageClient.send(
+  // Event name
+  "customEventName",
+  // The message parameters in the request
+  {
+    hello: "world",
+  },
+  // The guild ID is optional.
+  // If provided, it will only send the message to the bot cluster handling the guild.
+  { guildId },
+);
+
+// The response
+console.log(res);
+```
+
+### IPC boilerplate
+
+Boilerplate for IPC event handler in `apps/bot/src/ipc`:
+
+```ts
+import { createIPCMessageEvent } from "../utils/createFunctions";
+
+export default createIPCMessageEvent("customEventName", (client) => {
+  return async ({ guildId, data, reply }) => {
+    console.log("Data from IPC:", guildId, data); // guildId is optional
+    return reply({ foo: "bar" });
+  };
 });
 ```
 

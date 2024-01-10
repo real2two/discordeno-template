@@ -34,7 +34,7 @@ pnpm schema/migrate # Migrate the schema (use this to update the database in pro
 
 When creating events, put them in the `src/bot/src/events` folder.
 
-### Event boilerplate
+### Boilerplate for events
 
 ```ts
 import { createEvent } from "../utils/createFunctions";
@@ -130,7 +130,7 @@ const collector = await client.collectors.components.createOriginalInteraction(
 );
 ```
 
-### Interaction boilerplates
+### Boilerplates for interactions
 
 Boilerplate for commands:
 
@@ -282,7 +282,7 @@ const res = await ipcMessageClient.send(
 console.log(res);
 ```
 
-### IPC boilerplate
+### Boilerplate for IPC
 
 Boilerplate for IPC event handler in `apps/bot/src/ipc`:
 

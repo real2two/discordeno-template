@@ -40,13 +40,12 @@ When creating events:
 ### Boilerplate
 
 ```ts
-import type { EventHandlers } from "@discordeno/bot";
-import type { ExtendedBot } from "@/discordeno-helpers";
+import { createEvent } from "@/discordeno-helpers";
 
-export default (client: ExtendedBot) => ({
-  execute: (...args: Parameters<EventHandlers["EVENT_NAME_HERE"]>) => {
-    console.log(args);
-  },
+export default createEvent("ready", () => {
+  return (payload) => {
+    console.log(`[Shard ${payload.shardId}] The shard is ready`);
+  };
 });
 ```
 

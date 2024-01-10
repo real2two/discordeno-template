@@ -236,7 +236,7 @@ export default new Component({
 });
 ```
 
-## IPC handler from discord-cross-hosting
+## IPC handler using discord-cross-hosting
 
 The IPC handler can be used to send messages across clusters with Typescript support.
 

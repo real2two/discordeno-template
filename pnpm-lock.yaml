@@ -233,6 +233,9 @@ importers:
         specifier: ^2.3.2
         version: 2.3.2
     devDependencies:
+      '@discordeno/bot':
+        specifier: 19.0.0-next.d81b28a
+        version: 19.0.0-next.d81b28a
       eslint:
         specifier: ^7.32.0
         version: 7.32.0

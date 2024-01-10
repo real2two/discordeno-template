@@ -9,11 +9,11 @@ import { createExtendedBot } from "@/discordeno-helpers";
 
 import { addDesiredProperties } from "../utils/addDesiredProperties";
 
-import { client as unextendedClient } from "./client";
+import { client as rawClient } from "./client";
 
 // Create client
 export const client = getProxyCacheBot(
-  createExtendedBot(createClusteredBot(unextendedClient)),
+  createExtendedBot(createClusteredBot(rawClient)),
 );
 
 // Adding additional utilities to the client

@@ -8,13 +8,14 @@ import {
 import type {
   ApplicationCommandOptionsList,
   DiscordApplicationCommandOptionWithoutName,
+  ExtendedBot,
 } from "../types";
 
 export class ApplicationCommandOptions {
   data: DiscordApplicationCommandOptionWithoutName;
 
-  static parse(
-    opts: ApplicationCommandOptionsList,
+  static parse<B extends ExtendedBot>(
+    opts: ApplicationCommandOptionsList<B>,
   ): Camelize<DiscordApplicationCommandOption[]> {
     return Object.entries(opts || []).map(([name, data]) => ({
       ...data.toJSON(),

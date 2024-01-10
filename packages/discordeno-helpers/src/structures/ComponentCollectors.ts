@@ -1,17 +1,16 @@
 import { ComponentCollector } from "./ComponentCollector";
 
-import type { Interaction } from "@discordeno/bot";
+import type { Bot, Interaction } from "@discordeno/bot";
 import type {
   ComponentCollectorMessage,
   ComponentCollectorOptions,
-  ExtendedBot,
 } from "../types";
 
-export class ComponentCollectors {
-  client: ExtendedBot;
-  collectors: { [key: string]: ComponentCollector };
+export class ComponentCollectors<B extends Bot> {
+  client: B;
+  collectors: { [key: string]: ComponentCollector<B> };
 
-  constructor(client: ExtendedBot) {
+  constructor(client: B) {
     this.client = client;
     this.collectors = {};
   }
@@ -42,7 +41,7 @@ export class ComponentCollectors {
     );
     return this.createMessage(message, opts);
   }
-  get(messageId: bigint | string): ComponentCollector | undefined {
+  get(messageId: bigint | string): ComponentCollector<B> | undefined {
     return this.collectors[messageId.toString()];
   }
   remove(messageId: bigint | string) {

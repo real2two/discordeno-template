@@ -9,23 +9,24 @@ import type {
   ApplicationCommandSlashCommandConstructor,
   ApplicationCommandContextConstructor,
   CommandExecution,
+  ExtendedBot,
 } from "../types";
 
-export class ApplicationCommand {
+export class ApplicationCommand<B extends ExtendedBot> {
   data:
-    | ApplicationCommandSlashCommandConstructor
+    | ApplicationCommandSlashCommandConstructor<B>
     | ApplicationCommandContextConstructor;
-  autocomplete?: CommandExecution;
-  execute?: CommandExecution;
+  autocomplete?: CommandExecution<B>;
+  execute?: CommandExecution<B>;
 
   constructor({
     data,
     autocomplete,
     execute,
   }: {
-    data: ApplicationCommand["data"];
-    autocomplete?: CommandExecution;
-    execute?: CommandExecution;
+    data: ApplicationCommand<B>["data"];
+    autocomplete?: CommandExecution<B>;
+    execute?: CommandExecution<B>;
   }) {
     this.data = {
       type: ApplicationCommandTypes.ChatInput,

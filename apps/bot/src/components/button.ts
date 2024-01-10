@@ -1,4 +1,4 @@
-import { Component } from "@/discordeno-helpers";
+import { Component } from "../utils/createFunctions";
 
 export default new Component({
   customId: "button", // In regex: /^button$/

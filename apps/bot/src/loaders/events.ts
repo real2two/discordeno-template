@@ -1,5 +1,5 @@
 import { globSync } from "glob";
-import { createEvent } from "@/discordeno-helpers";
+import { createEvent } from "../utils/createFunctions";
 
 const files = globSync("./src/events/**/*.ts", {
   matchBase: true,

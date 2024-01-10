@@ -1,6 +1,9 @@
-import type { ApplicationCommandOptions as ApplicationCommandOptions } from "../structures/ApplicationCommandOptions";
-import type { ApplicationSubcommand } from "../structures/ApplicationSubcommand";
+import type {
+  ApplicationCommandOptions as ApplicationCommandOptions,
+  ApplicationSubcommand,
+} from "../structures";
+import type { ExtendedBot } from "./";
 
-export interface ApplicationCommandOptionsList {
-  [key: string]: ApplicationCommandOptions | ApplicationSubcommand;
+export interface ApplicationCommandOptionsList<B extends ExtendedBot> {
+  [key: string]: ApplicationCommandOptions | ApplicationSubcommand<B>;
 }

@@ -13,6 +13,7 @@
     ]
   },
   "devDependencies": {
+    "@discordeno/bot": "19.0.0-next.d81b28a",
     "eslint": "^7.32.0",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*"

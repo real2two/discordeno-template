@@ -1,4 +1,4 @@
-import { camelize, MessageComponents } from "@discordeno/bot";
+import { camelize, MessageComponents, type Bot } from "@discordeno/bot";
 import { disableNonPersistentComponents } from "../utils/disableNonPersistentComponents";
 
 import type { ComponentCollectors } from "./ComponentCollectors";
@@ -7,15 +7,15 @@ import type {
   ComponentCollectorOptions,
 } from "../types";
 
-export class ComponentCollector {
+export class ComponentCollector<B extends Bot> {
   deleted: boolean;
-  collectors: ComponentCollectors;
+  collectors: ComponentCollectors<B>;
   message: ComponentCollectorMessage;
   opts: ComponentCollectorOptions;
   timeout?: NodeJS.Timeout;
 
   constructor(
-    collectors: ComponentCollectors,
+    collectors: ComponentCollectors<B>,
     message: ComponentCollectorMessage,
     opts: ComponentCollectorOptions,
   ) {

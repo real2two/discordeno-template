@@ -1,4 +1,4 @@
-import { createEvent } from "@/discordeno-helpers";
+import { createEvent } from "../utils/createFunctions";
 
 export default createEvent("ready", () => {
   return (payload) => {

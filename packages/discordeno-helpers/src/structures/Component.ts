@@ -1,15 +1,15 @@
-import type { InteractionExecution } from "../types";
+import type { ExtendedBot, InteractionExecution } from "../types";
 
-export class Component {
+export class Component<B extends ExtendedBot> {
   customId: string | RegExp;
-  execute: InteractionExecution;
+  execute: InteractionExecution<B>;
 
   constructor({
     customId,
     execute,
   }: {
     customId: string | RegExp;
-    execute: InteractionExecution;
+    execute: InteractionExecution<B>;
   }) {
     this.customId = customId;
     this.execute = execute;

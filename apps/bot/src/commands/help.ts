@@ -1,7 +1,6 @@
-import {
-  ApplicationCommand,
-  ApplicationCommandOptions as opts,
-} from "@/discordeno-helpers";
+import { ApplicationCommandOptions as opts } from "@/discordeno-helpers";
+
+import { ApplicationCommand } from "../utils/createFunctions";
 
 import { MessageComponentTypes, ButtonStyles } from "@discordeno/bot";
 

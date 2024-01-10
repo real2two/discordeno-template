@@ -1,7 +1,10 @@
-export { createEvent } from "./createEvent";
+export * from "./createClusteredBot";
+export * from "./createExtendedBot";
 
-export { disableNonPersistentComponents } from "./disableNonPersistentComponents";
-export { removeComponents } from "./removeComponents";
+export * from "./createEvent";
 
-export { addIPCMessageHandler } from "./addIPCMessageHandler";
-export { getIPCMessageEvent } from "./getIPCMessageEvent";
+export * from "./disableNonPersistentComponents";
+export * from "./removeComponents";
+
+export * from "./addIPCMessageHandler";
+export * from "./createIPCMessageEvent";

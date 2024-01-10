@@ -4,21 +4,22 @@ import { ApplicationCommandOptions } from "./ApplicationCommandOptions";
 import type {
   ApplicationSubcommandConstructor,
   CommandExecution,
+  ExtendedBot,
 } from "../types";
 
-export class ApplicationSubcommand {
-  data: ApplicationSubcommandConstructor;
-  autocomplete?: CommandExecution;
-  execute?: CommandExecution;
+export class ApplicationSubcommand<B extends ExtendedBot> {
+  data: ApplicationSubcommandConstructor<B>;
+  autocomplete?: CommandExecution<B>;
+  execute?: CommandExecution<B>;
 
   constructor({
     data,
     autocomplete,
     execute,
   }: {
-    data: ApplicationSubcommandConstructor;
-    autocomplete?: CommandExecution;
-    execute?: CommandExecution;
+    data: ApplicationSubcommandConstructor<B>;
+    autocomplete?: CommandExecution<B>;
+    execute?: CommandExecution<B>;
   }) {
     if (!data.type && data.options) {
       // Set option type to either SubCommand or SubCommandGroup based on options.

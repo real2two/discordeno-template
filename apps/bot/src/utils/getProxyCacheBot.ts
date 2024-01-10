@@ -6,7 +6,7 @@ import type { Bot } from "@discordeno/bot";
  * @param bot The Discordeno bot
  * @returns The client with the cache proxy (client.cache)
  */
-export function getProxyCacheBot(bot: Bot) {
+export function getProxyCacheBot<B extends Bot>(bot: B) {
   return createProxyCache(bot, {
     desiredProps: {
       guilds: ["channels", "icon", "id", "name", "roles", "ownerId"],

@@ -1,4 +1,4 @@
-import { ApplicationCommand } from "@/discordeno-helpers";
+import { ApplicationCommand } from "../utils/createFunctions";
 
 import subcommandName from "./testCommand/subcommandName";
 import subcommandWithGroup from "./testCommand/subcommandWithGroup";

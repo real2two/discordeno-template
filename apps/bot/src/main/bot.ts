@@ -1,21 +1,29 @@
-import { client as unextendedClient } from "./client";
+import { addIPCMessageHandler } from "@/discordeno-helpers";
 
 import { events } from "../loaders/events";
 import { ipcs } from "../loaders/ipcs";
 
-import { createExtendedBot } from "../utils/createExtendedBot";
-import { addIPCMessageHandler } from "@/discordeno-helpers";
+import { getProxyCacheBot } from "../utils/getProxyCacheBot";
+import { createClusteredBot } from "@/discordeno-helpers";
+import { createExtendedBot } from "@/discordeno-helpers";
+
+import { addDesiredProperties } from "../utils/addDesiredProperties";
+
+import { client as unextendedClient } from "./client";
 
 // Create client
-const client = createExtendedBot(unextendedClient);
+export const client = getProxyCacheBot(
+  createExtendedBot(createClusteredBot(unextendedClient)),
+);
+
+// Adding additional utilities to the client
+addDesiredProperties(client);
+addIPCMessageHandler(client, ipcs);
 
 // Event handler
 for (const event of events) {
   client.events[event.name] = event.execute(client) as (...args: any[]) => void;
 }
-
-// IPC message handler
-addIPCMessageHandler(client, ipcs);
 
 // Start the client
 client.start();

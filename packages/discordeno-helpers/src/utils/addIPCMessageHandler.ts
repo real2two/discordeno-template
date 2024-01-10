@@ -1,13 +1,13 @@
-import type { ExtendedBot } from "../types";
-import type { getIPCMessageEvent } from "./getIPCMessageEvent";
+import type { ClusteredBot } from "../types";
+import type { createIPCMessageEvent } from "./createIPCMessageEvent";
 
 /**
  * Add IPC message handler to the client
  * @param client The extended client
  */
-export function addIPCMessageHandler(
-  client: ExtendedBot,
-  ipcs: ReturnType<ReturnType<typeof getIPCMessageEvent>>[],
+export function addIPCMessageHandler<B extends ClusteredBot>(
+  client: B,
+  ipcs: ReturnType<ReturnType<typeof createIPCMessageEvent>>[],
 ) {
   const ipcHandlers: {
     [name: string]: ReturnType<(typeof ipcs)[0]["execute"]>;

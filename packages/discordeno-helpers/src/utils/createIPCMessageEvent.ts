@@ -1,10 +1,10 @@
-import type { ExtendedBot } from "../types";
+import type { Bot } from "@discordeno/bot";
 
-export function getIPCMessageEvent<I, J>() {
+export function createIPCMessageEvent<B extends Bot, I, J>() {
   return <K extends keyof I & keyof J>(
     name: K,
     execute: (
-      client: ExtendedBot,
+      client: B,
     ) => (data: {
       guildId?: string;
       data: I[K];

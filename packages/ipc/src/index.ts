@@ -1,2 +1,2 @@
-export * from "./createIPCMessageEvent";
+export * from "./getIPCMessageEvent";
 export * from "./getIPCMessageClient";

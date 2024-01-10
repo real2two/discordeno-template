@@ -15,16 +15,18 @@ import { Component } from "./Component";
 import type { ApplicationCommand } from "./ApplicationCommand";
 import type {
   CommandExecution,
-  ExtendedBot,
   TransformedApplicationCommand,
+  ExtendedBot,
 } from "../types";
 
-export class InteractionHandler {
-  client: ExtendedBot;
-  commands: TransformedApplicationCommand[];
-  components: Component[];
+export class InteractionHandler<B extends ExtendedBot> {
+  client: B;
+  commands: TransformedApplicationCommand<B>[];
+  components: Component<B>[];
 
-  static transformGetCommands(commands: ApplicationCommand[]) {
+  static transformGetCommands<B extends ExtendedBot>(
+    commands: ApplicationCommand<B>[],
+  ) {
     return [...commands].map((command) => ({
       search: {
         type: command.data.type,
@@ -62,7 +64,7 @@ export class InteractionHandler {
             },
           ]),
       ),
-    })) as TransformedApplicationCommand[];
+    })) as TransformedApplicationCommand<B>[];
   }
 
   static transformOptions(options: InteractionDataOption[]) {
@@ -82,9 +84,9 @@ export class InteractionHandler {
     commands,
     components,
   }: {
-    client: ExtendedBot;
-    commands: ApplicationCommand[];
-    components: Component[];
+    client: B;
+    commands: ApplicationCommand<B>[];
+    components: Component<B>[];
   }) {
     this.client = client;
     this.commands = InteractionHandler.transformGetCommands(commands || []);
@@ -229,7 +231,7 @@ export class InteractionHandler {
   handleCommand(
     interaction: Interaction,
     options: InteractionDataOption[],
-    command: ApplicationCommand | ApplicationSubcommand,
+    command: ApplicationCommand<B> | ApplicationSubcommand<B>,
   ) {
     try {
       // Handle command execution
@@ -240,7 +242,7 @@ export class InteractionHandler {
         return this.executeInteraction(
           interaction,
           options,
-          command.execute as CommandExecution,
+          command.execute as CommandExecution<B>,
         );
       }
 
@@ -252,7 +254,7 @@ export class InteractionHandler {
         return this.executeInteraction(
           interaction,
           options,
-          command.autocomplete as CommandExecution,
+          command.autocomplete as CommandExecution<B>,
         );
       }
     } catch (err) {
@@ -263,7 +265,7 @@ export class InteractionHandler {
   executeInteraction(
     interaction: Interaction,
     options: InteractionDataOption[],
-    func: CommandExecution,
+    func: CommandExecution<B>,
   ) {
     if (typeof func !== "function") return;
 

@@ -4,6 +4,7 @@ export * from "./ApplicationCommandContextConstructor";
 export * from "./ApplicationCommandOptionsList";
 export * from "./ApplicationCommandSlashCommandConstructor";
 export * from "./ApplicationSubcommandConstructor";
+export * from "./ClusteredBot";
 export * from "./CommandExecution";
 export * from "./ComponentCollectorMessage";
 export * from "./ComponentCollectorOptions";

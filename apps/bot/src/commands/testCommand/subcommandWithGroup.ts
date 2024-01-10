@@ -1,4 +1,4 @@
-import { ApplicationSubcommand } from "@/discordeno-helpers";
+import { ApplicationSubcommand } from "../../utils/createFunctions";
 
 import group from "./subcommandName/group";
 

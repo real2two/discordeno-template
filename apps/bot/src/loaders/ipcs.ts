@@ -1,5 +1,5 @@
 import { globSync } from "glob";
-import type { createIPCMessageEvent } from "@/discordeno-helpers/src/utils/createIPCMessageEvent";
+import type { createIPCMessageEvent } from "../utils/createFunctions";
 
 const files = globSync("./src/ipc/**/*.ts", {
   matchBase: true,

@@ -40,7 +40,7 @@ When creating events:
 ### Boilerplate
 
 ```ts
-import { createEvent } from "@/discordeno-helpers";
+import { createEvent } from "../utils/createFunctions";
 
 export default createEvent("ready", () => {
   return (payload) => {
@@ -143,10 +143,8 @@ const collector = await client.collectors.components.createOriginalInteraction(
 Boilerplate for commands:
 
 ```ts
-import {
-  ApplicationCommand,
-  ApplicationCommandOptions as opts,
-} from "@/discordeno-helpers";
+import { ApplicationCommand } from "../utils/createFunctions";
+import { ApplicationCommandOptions as opts } from "@/discordeno-helpers";
 
 export default new ApplicationCommand({
   data: {
@@ -184,7 +182,7 @@ export default new ApplicationCommand({
 Boilerplate for commands with subcommands:
 
 ```ts
-import { ApplicationCommand } from "@/discordeno-helpers";
+import { ApplicationCommand } from "../utils/createFunctions";
 
 import subcommandName from "./commandName/subcommandName";
 import subcommandName2 from "./commandName/subcommandName2";
@@ -205,10 +203,8 @@ export default new ApplicationCommand({
 Boilerplate for subcommands:
 
 ```ts
-import {
-  ApplicationSubcommand,
-  ApplicationCommandOptions as opts,
-} from "@/discordeno-helpers";
+import { ApplicationSubcommand } from "../../utils/createFunctions";
+import { ApplicationCommandOptions as opts } from "@/discordeno-helpers";
 
 export default new ApplicationSubcommand({
   data: {
@@ -237,7 +233,7 @@ export default new ApplicationSubcommand({
 Boilerplate for components:
 
 ```ts
-import { Component } from "@/discordeno-helpers";
+import { Component } from "../utils/createFunctions";
 
 export default new Component({
   customId: "button", // In regex: /^button$/

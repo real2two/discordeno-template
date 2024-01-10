@@ -7,7 +7,7 @@ import {
 
 import { getIPCMessageEvent } from "@/ipc";
 
-import type { client } from "../main/bot";
+import type { client } from "../main/client";
 
 export const ApplicationCommand = RawApplicationCommand<typeof client>;
 export const ApplicationSubcommand = RawApplicationSubcommand<typeof client>;

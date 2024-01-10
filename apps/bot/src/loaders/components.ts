@@ -1,7 +1,7 @@
 import { globSync } from "glob";
 import { Component } from "@/discordeno-helpers";
 
-import type { client } from "../main/bot";
+import type { client } from "../main/client";
 
 const files = globSync("./src/components/**/*.ts", {
   matchBase: true,

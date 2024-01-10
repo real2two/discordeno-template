@@ -21,7 +21,7 @@ client.on("debug", console.log);
 client.connect();
 
 // Creates a shard manager.
-const manager = new ClusterManager(`${__dirname}/bot.ts`, {
+const manager = new ClusterManager(`${__dirname}/client.ts`, {
   totalShards: env.BridgeTotalShards,
   shardsPerClusters: env.BridgeShardsPerCluster,
   restarts: {

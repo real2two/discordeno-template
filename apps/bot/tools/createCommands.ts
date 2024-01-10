@@ -1,11 +1,11 @@
-import { client } from "../src/main/client";
+import { bot } from "../src/main/bot";
 import { commands } from "../src/loaders/commands";
 
 const transformedCommands = commands.map((c) => c.toJSON());
 
 console.log(
   JSON.stringify(
-    await client.helpers.upsertGlobalApplicationCommands(transformedCommands),
+    await bot.helpers.upsertGlobalApplicationCommands(transformedCommands),
     (_, value) => (typeof value === "bigint" ? value.toString() : value),
     2,
   ),

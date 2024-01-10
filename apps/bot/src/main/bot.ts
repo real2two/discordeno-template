@@ -1,38 +1,31 @@
-import { addIPCMessageHandler } from "@/discordeno-helpers";
+import env from "@/env";
 
-import { events } from "../loaders/events";
-import { ipcs } from "../loaders/ipcs";
+import { getInfo } from "discord-hybrid-sharding";
+import { createBot, Intents } from "@discordeno/bot";
 
-import { getProxyCacheBot } from "../utils/getProxyCacheBot";
-import { createClusteredBot } from "@/discordeno-helpers";
-import { createExtendedBot } from "@/discordeno-helpers";
+export const bot = createBot({
+  token: env.DiscordToken as string,
+  intents: Intents.Guilds | Intents.GuildMessages,
+  events: {},
 
-import { addDesiredProperties } from "../utils/addDesiredProperties";
+  rest: {
+    proxy: {
+      baseUrl: env.RestProxyBaseUrl,
+      authorization: env.RestProxyAuthorization!,
+      authorizationHeader: env.RestProxyAuthorizationHeader,
+    },
+  },
 
-import { client as rawClient } from "./client";
-
-// Create client
-export const client = getProxyCacheBot(
-  createExtendedBot(createClusteredBot(rawClient)),
-);
-
-// Adding additional utilities to the client
-addDesiredProperties(client);
-addIPCMessageHandler(client, ipcs);
-
-// Event handler
-for (const event of events) {
-  client.events[event.name] = event.execute(client) as (...args: any[]) => void;
-}
-
-// Start the client
-client.start();
-
-// Handle unexpected errors
-process.on("uncaughtException", (err) => {
-  console.error(err);
-});
-
-process.on("unhandledRejection", (err) => {
-  console.error(err);
+  gateway: ["worker", "process"].includes(
+    // eslint-disable-next-line turbo/no-undeclared-env-vars
+    process.env["CLUSTER_MANAGER_MODE"]!,
+  )
+    ? {
+        firstShardId: getInfo().FIRST_SHARD_ID,
+        lastShardId: getInfo().LAST_SHARD_ID,
+        totalShards: getInfo().TOTAL_SHARDS,
+        token: env.DiscordToken as string,
+        events: {},
+      }
+    : undefined,
 });

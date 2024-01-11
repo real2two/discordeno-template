@@ -37,7 +37,7 @@ export class ComponentCollectors<B extends Bot> {
    *
    * Only use this if you haven't used <Interaction>.getOriginalInteractionResponse() already.
    * Use <ComponentCollectors>.createMessage() if you already have access to the message data.
-   * 
+   *
    * @param interaction The interaction
    * @param opts The options
    * @returns The component collector

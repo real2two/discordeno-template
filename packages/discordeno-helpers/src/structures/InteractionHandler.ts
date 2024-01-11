@@ -26,7 +26,7 @@ export class InteractionHandler<B extends ExtendedBot> {
 
   /**
    * Transform the command data into a searchable format
-   * 
+   *
    * This converts the commands into this format:
    * [
    *  {
@@ -46,7 +46,7 @@ export class InteractionHandler<B extends ExtendedBot> {
    *  },
    *  ...
    * ]
-   * 
+   *
    * @param commands The application commands
    * @returns The transformed commands in a searchable format
    */
@@ -272,7 +272,7 @@ export class InteractionHandler<B extends ExtendedBot> {
    * @param interaction The interaction
    * @param options The interaction data options
    * @param command The application command or subcommand
-   * @returns 
+   * @returns
    */
   handleCommand(
     interaction: Interaction,
@@ -313,7 +313,7 @@ export class InteractionHandler<B extends ExtendedBot> {
    * @param interaction The interaction
    * @param options The interaction data options
    * @param func The command execution function
-   * @returns 
+   * @returns
    */
   executeInteraction(
     interaction: Interaction,

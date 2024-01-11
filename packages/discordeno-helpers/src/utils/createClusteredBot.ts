@@ -4,8 +4,13 @@ import { ClusterClient } from "discord-hybrid-sharding";
 import type { Bot } from "@discordeno/bot";
 import type { ClusteredBot } from "../types/ClusteredBot";
 
-export function createClusteredBot<B extends Bot = Bot>(rawClient: B) {
-  const client = rawClient as ClusteredBot<B>;
+/**
+ * Add the cluster and machine properties on the client
+ * @param bot The bot
+ * @returns The transformed bot
+ */
+export function createClusteredBot<B extends Bot = Bot>(bot: B) {
+  const client = bot as ClusteredBot<B>;
 
   // Added cluster and machine
   client.cluster = new ClusterClient(client);

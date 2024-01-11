@@ -4,6 +4,10 @@ export class Component<B extends ExtendedBot> {
   customId: string | RegExp;
   execute: InteractionExecution<B>;
 
+  /**
+   * Create a component
+   * @param data The component data
+   */
   constructor({
     customId,
     execute,

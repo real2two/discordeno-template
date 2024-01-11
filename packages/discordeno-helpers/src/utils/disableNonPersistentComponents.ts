@@ -5,7 +5,12 @@ import {
 } from "@discordeno/bot";
 import type { ComponentCollectorMessage } from "../types";
 
-export async function disableNonPersistentComponents(
+/**
+ * Removes non-persistent components on a message
+ * @param client The client
+ * @param message The message
+ */
+export function disableNonPersistentComponents(
   client: Bot,
   message: ComponentCollectorMessage,
 ) {
@@ -15,7 +20,7 @@ export async function disableNonPersistentComponents(
       "Missing components. Did you forget to use setComponents() or do await <Interaction>.respond before creating the collector?",
     );
 
-  await client.helpers.editMessage(message.channelId, message.id, {
+  return client.helpers.editMessage(message.channelId, message.id, {
     components: message.components.map((component) => {
       if (
         component.type === MessageComponentTypes.ActionRow &&

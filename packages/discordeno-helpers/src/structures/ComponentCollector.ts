@@ -14,6 +14,12 @@ export class ComponentCollector<B extends Bot> {
   opts: ComponentCollectorOptions;
   timeout?: NodeJS.Timeout;
 
+  /**
+   * Create a component collector
+   * @param collectors The initialized ComponentCollectors object
+   * @param message The message
+   * @param opts The options
+   */
   constructor(
     collectors: ComponentCollectors<B>,
     message: ComponentCollectorMessage,
@@ -49,6 +55,11 @@ export class ComponentCollector<B extends Bot> {
       );
     }
   }
+  /**
+   * Change the message components in the message object
+   * @param components The message components
+   * @returns The message components
+   */
   setComponents(components?: MessageComponents) {
     return (this.message.components = camelize(components || []));
   }

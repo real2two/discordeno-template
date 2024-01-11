@@ -19,6 +19,10 @@ export class ApplicationCommand<B extends ExtendedBot> {
   autocomplete?: CommandExecution<B>;
   execute?: CommandExecution<B>;
 
+  /**
+   * Create an application command
+   * @param data The command data
+   */
   constructor({
     data,
     autocomplete,
@@ -35,6 +39,11 @@ export class ApplicationCommand<B extends ExtendedBot> {
     this.autocomplete = autocomplete;
     this.execute = execute;
   }
+
+  /**
+   * Convert command data into the format for creating and modifying commands
+   * @returns The command data in JSON
+   */
   toJSON() {
     const command: CreateApplicationCommand = {
       ...(this.data as CreateApplicationCommand),

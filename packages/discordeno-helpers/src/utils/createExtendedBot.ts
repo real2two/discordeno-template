@@ -3,8 +3,13 @@ import { ComponentCollectors } from "../structures";
 import type { Bot } from "@discordeno/bot";
 import type { ExtendedBot } from "../types";
 
-export function createExtendedBot<B extends Bot = Bot>(rawClient: B) {
-  const client = rawClient as ExtendedBot<B>;
+/**
+ * Add collections on the client
+ * @param bot The bot
+ * @returns The transformed bot
+ */
+export function createExtendedBot<B extends Bot = Bot>(bot: B) {
+  const client = bot as ExtendedBot<B>;
 
   client.collectors = {
     components: new ComponentCollectors(client),

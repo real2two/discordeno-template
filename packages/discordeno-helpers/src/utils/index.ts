@@ -1,7 +1,7 @@
 export * from "./createClusteredBot";
 export * from "./createExtendedBot";
 
-export * from "./createEvent";
+export * from "./createEventHandler";
 
 export * from "./disableNonPersistentComponents";
 export * from "./removeComponents";

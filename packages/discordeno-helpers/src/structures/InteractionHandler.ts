@@ -24,7 +24,33 @@ export class InteractionHandler<B extends ExtendedBot> {
   commands: TransformedApplicationCommand<B>[];
   components: Component<B>[];
 
-  static transformGetCommands<B extends ExtendedBot>(
+  /**
+   * Transform the command data into a searchable format
+   * 
+   * This converts the commands into this format:
+   * [
+   *  {
+   *   search: {
+   *    type: COMMAND_TYPE,
+   *    name: CAMELIZED_COMMAND_NAME,
+   *   },
+   *   command: COMMAND,
+   *   subcommands: [
+   *    {
+   *     subcommand: SUBCOMMAND,
+   *     subcommands: [...]
+   *     ]
+   *    },
+   *    ...
+   *   ]
+   *  },
+   *  ...
+   * ]
+   * 
+   * @param commands The application commands
+   * @returns The transformed commands in a searchable format
+   */
+  static transformCommands<B extends ExtendedBot>(
     commands: ApplicationCommand<B>[],
   ) {
     return [...commands].map((command) => ({
@@ -67,6 +93,11 @@ export class InteractionHandler<B extends ExtendedBot> {
     })) as TransformedApplicationCommand<B>[];
   }
 
+  /**
+   * Converts interaction options into an 'easier to use' format
+   * @param options The interaction data options
+   * @returns The transformed options
+   */
   static transformOptions(options: InteractionDataOption[]) {
     if (!options) return {};
 
@@ -79,6 +110,10 @@ export class InteractionHandler<B extends ExtendedBot> {
     return variables;
   }
 
+  /**
+   * Create an interaction handler
+   * @param data The interaction handler data
+   */
   constructor({
     client,
     commands,
@@ -89,10 +124,14 @@ export class InteractionHandler<B extends ExtendedBot> {
     components: Component<B>[];
   }) {
     this.client = client;
-    this.commands = InteractionHandler.transformGetCommands(commands || []);
+    this.commands = InteractionHandler.transformCommands(commands || []);
     this.components = components || [];
   }
 
+  /**
+   * The interaction handler, which should be used in interactionCreate
+   * @param interaction The interaction
+   */
   async interactionCreate(interaction: Interaction) {
     try {
       if (!interaction.data) return;
@@ -228,6 +267,13 @@ export class InteractionHandler<B extends ExtendedBot> {
     }
   }
 
+  /**
+   * Handle the application command
+   * @param interaction The interaction
+   * @param options The interaction data options
+   * @param command The application command or subcommand
+   * @returns 
+   */
   handleCommand(
     interaction: Interaction,
     options: InteractionDataOption[],
@@ -262,6 +308,13 @@ export class InteractionHandler<B extends ExtendedBot> {
     }
   }
 
+  /**
+   * Executes the interaction
+   * @param interaction The interaction
+   * @param options The interaction data options
+   * @param func The command execution function
+   * @returns 
+   */
   executeInteraction(
     interaction: Interaction,
     options: InteractionDataOption[],

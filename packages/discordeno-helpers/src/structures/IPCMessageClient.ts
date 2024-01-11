@@ -3,10 +3,20 @@ import type { Client } from "discord-cross-hosting";
 export class IPCMessageClient<I, J> {
   client: Client;
 
+  /**
+   * Create the IPC message client
+   * @param client The client
+   */
   constructor(client: Client) {
     this.client = client;
   }
 
+  /**
+   * Send an IPC message client message
+   * @param event The IPC message handler event name
+   * @param data The data
+   * @param opts The options
+   */
   async send<K extends keyof I & keyof J>(
     event: K,
     data: I[K],

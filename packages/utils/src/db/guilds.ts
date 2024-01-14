@@ -53,12 +53,13 @@ export async function createGuild(guildId: bigint) {
  * @param data The updated guild's information
  */
 export async function updateGuild(
-  guildId: bigint,
-  data: Partial<typeof Tables.guilds.$inferSelect>,
+  data: Partial<typeof Tables.guilds.$inferSelect> & {
+    guildId: typeof Tables.guilds.$inferSelect.guildId;
+  },
 ) {
   // Update a guild table
   return await db
     .update(Tables.guilds)
     .set(data)
-    .where(eq(Tables.guilds.guildId, guildId));
+    .where(eq(Tables.guilds.guildId, data.guildId));
 }

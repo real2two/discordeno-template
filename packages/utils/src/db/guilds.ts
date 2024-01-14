@@ -12,7 +12,7 @@ export async function fetchGuild(guildId: bigint) {
 
   // If guild doesn't exist, create it and attempt to fetch it again
   if (!guild) {
-    await createGuild(guildId);
+    await createGuild({ guildId });
     return getGuild(guildId);
   }
 
@@ -40,16 +40,13 @@ export async function getGuild(guildId: bigint) {
  * Create a guild on the database
  * @param guildId The guild ID
  */
-export async function createGuild(guildId: bigint) {
+export async function createGuild(data: typeof Tables.guilds.$inferInsert) {
   // Inserts the guild into the database
-  return await db.insert(Tables.guilds).values({
-    guildId,
-  });
+  return await db.insert(Tables.guilds).values(data);
 }
 
 /**
  * Updates a guild's information
- * @param guildId The guild ID
  * @param data The updated guild's information
  */
 export async function updateGuild(

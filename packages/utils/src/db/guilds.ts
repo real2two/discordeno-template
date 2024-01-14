@@ -1,11 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db, Tables } from "@/db";
 
-// fetch = SELECT if exists, else INSERT and SELECT
-// get = SELECT
-// create = INSERT
-// update = UPDATE
-
 /**
  * Get a guild or create one
  * @param guildId The guild ID
@@ -58,8 +53,8 @@ export async function createGuild(guildId: bigint) {
  * @param data The updated guild's information
  */
 export async function updateGuild(
-  data: Partial<typeof Tables.guilds.$inferSelect> & {
-    guildId: typeof Tables.guilds.$inferSelect.guildId;
+  data: Partial<typeof Tables.guilds.$inferInsert> & {
+    guildId: typeof Tables.guilds.$inferInsert.guildId;
   },
 ) {
   // Update a guild table

@@ -1,7 +1,8 @@
 /**
- * fetch = SELECT if exists, else INSERT and SELECT
+ * fetch = depends on situation
  * get = SELECT
  * create = INSERT
+ * replace = INSERT ON DUPLICATE KEY UPDATE
  * update = UPDATE
  * delete = DELETE
  */

@@ -1,19 +1,24 @@
 import { eq } from "drizzle-orm";
 import { db, Tables } from "@/db";
 
+// fetch = SELECT if exists, else INSERT and SELECT
+// get = SELECT
+// create = INSERT
+// update = UPDATE
+
 /**
  * Get a guild or create one
  * @param guildId The guild ID
  * @returns The guild's information in the database
  */
-export async function getGuild(guildId: bigint) {
+export async function fetchGuild(guildId: bigint) {
   // Attempts to fetch guild
-  const guild = await selectGuild(guildId);
+  const guild = await getGuild(guildId);
 
   // If guild doesn't exist, create it and attempt to fetch it again
   if (!guild) {
     await createGuild(guildId);
-    return selectGuild(guildId);
+    return getGuild(guildId);
   }
 
   // Return the guild
@@ -25,7 +30,7 @@ export async function getGuild(guildId: bigint) {
  * @param guildId The guild ID
  * @returns The guild's information if it exists
  */
-export async function selectGuild(guildId: bigint) {
+export async function getGuild(guildId: bigint) {
   // Attempts to fetch guild
   return (
     await db

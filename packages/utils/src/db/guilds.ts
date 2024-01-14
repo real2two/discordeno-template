@@ -4,7 +4,7 @@ import { db, Tables } from "@/db";
 /**
  * Get a guild or create one
  * @param guildId The guild ID
- * @returns The guild's information in the database
+ * @returns The guild's information
  */
 export async function fetchGuild(guildId: bigint) {
   // Attempts to fetch guild
@@ -26,7 +26,6 @@ export async function fetchGuild(guildId: bigint) {
  * @returns The guild's information if it exists
  */
 export async function getGuild(guildId: bigint) {
-  // Attempts to fetch guild
   return (
     await db
       .select()
@@ -41,7 +40,6 @@ export async function getGuild(guildId: bigint) {
  * @param guildId The guild ID
  */
 export async function createGuild(data: typeof Tables.guilds.$inferInsert) {
-  // Inserts the guild into the database
   return await db.insert(Tables.guilds).values(data);
 }
 
@@ -54,7 +52,6 @@ export async function updateGuild(
     guildId: typeof Tables.guilds.$inferInsert.guildId;
   },
 ) {
-  // Update a guild table
   return await db
     .update(Tables.guilds)
     .set(data)

@@ -11,6 +11,11 @@ export default new ApplicationSubcommand({
     },
   },
   execute({ interaction }) {
+    console.log(
+      interaction.data?.options
+        ?.find(({ name }) => name === "subcommand_name")
+        ?.options?.find(({ name }) => name === "test_test"),
+    );
     interaction.respond({
       content: `test`,
       components: [

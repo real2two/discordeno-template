@@ -2,24 +2,18 @@ import {
   InteractionTypes,
   ApplicationCommandTypes,
   ApplicationCommandOptionTypes,
-  MessageFlags,
   camelToSnakeCase,
-  snakeToCamelCase,
+  type Bot,
   type Interaction,
-  type InteractionDataOption,
 } from "@discordeno/bot";
 
 import { ApplicationSubcommand } from "./ApplicationSubcommand";
 import { Component } from "./Component";
 
 import type { ApplicationCommand } from "./ApplicationCommand";
-import type {
-  CommandExecution,
-  TransformedApplicationCommand,
-  ExtendedBot,
-} from "../types";
+import type { CommandExecution, TransformedApplicationCommand } from "../types";
 
-export class InteractionHandler<B extends ExtendedBot> {
+export class InteractionHandler<B extends Bot> {
   client: B;
   commands: TransformedApplicationCommand<B>[];
   components: Component<B>[];
@@ -50,9 +44,7 @@ export class InteractionHandler<B extends ExtendedBot> {
    * @param commands The application commands
    * @returns The transformed commands in a searchable format
    */
-  static transformCommands<B extends ExtendedBot>(
-    commands: ApplicationCommand<B>[],
-  ) {
+  static transformCommands<B extends Bot>(commands: ApplicationCommand<B>[]) {
     return [...commands].map((command) => ({
       search: {
         type: command.data.type,
@@ -91,23 +83,6 @@ export class InteractionHandler<B extends ExtendedBot> {
           ]),
       ),
     })) as TransformedApplicationCommand<B>[];
-  }
-
-  /**
-   * Converts interaction options into an 'easier to use' format
-   * @param options The interaction data options
-   * @returns The transformed options
-   */
-  static transformOptions(options: InteractionDataOption[]) {
-    if (!options) return {};
-
-    const variables: { [key: string]: string | number | boolean | undefined } =
-      {};
-    for (const option of options) {
-      variables[snakeToCamelCase(option.name)] = option.value;
-    }
-
-    return variables;
   }
 
   /**
@@ -181,11 +156,7 @@ export class InteractionHandler<B extends ExtendedBot> {
           switch (interaction.data.options[0].type) {
             case ApplicationCommandOptionTypes.SubCommand: {
               // Handle subcommand
-              return this.handleCommand(
-                interaction,
-                interaction.data.options[0].options || [],
-                subcommandData.subcommand,
-              );
+              return this.handleCommand(interaction, subcommandData.subcommand);
             }
             case ApplicationCommandOptionTypes.SubCommandGroup: {
               // Handle subcommand group
@@ -203,7 +174,6 @@ export class InteractionHandler<B extends ExtendedBot> {
 
               return this.handleCommand(
                 interaction,
-                interaction.data.options[0].options[0].options || [],
                 subcommandInGroup.subcommand,
               );
             }
@@ -211,11 +181,7 @@ export class InteractionHandler<B extends ExtendedBot> {
         }
 
         // Handle command
-        return this.handleCommand(
-          interaction,
-          interaction.data.options || [],
-          command,
-        );
+        return this.handleCommand(interaction, command);
       }
 
       if (
@@ -226,39 +192,17 @@ export class InteractionHandler<B extends ExtendedBot> {
       ) {
         if (!interaction.data.customId) return;
 
-        if (interaction.data.customId.startsWith("$")) {
-          // Non-persistent message component handler
-          if (!interaction.message?.id) return;
-
-          const collector = this.client.collectors.components.get(
-            interaction.message.id.toString(),
-          );
-
-          if (!collector) {
-            return interaction.respond({
-              content: "This interaction has expired.",
-              flags: MessageFlags.Ephemeral,
+        // Persistent message component handler
+        for (const { customId, execute } of this.components) {
+          if (
+            typeof customId === "string"
+              ? customId === interaction.data.customId
+              : customId.test(interaction.data.customId)
+          ) {
+            execute({
+              client: this.client,
+              interaction,
             });
-          }
-
-          if (collector?.opts.events.collect) {
-            collector.opts.events.collect(interaction);
-          }
-
-          return;
-        } else {
-          // Persistent message component handler
-          for (const { customId, execute } of this.components) {
-            if (
-              typeof customId === "string"
-                ? customId === interaction.data.customId
-                : customId.test(interaction.data.customId)
-            ) {
-              execute({
-                client: this.client,
-                interaction,
-              });
-            }
           }
         }
       }
@@ -270,13 +214,11 @@ export class InteractionHandler<B extends ExtendedBot> {
   /**
    * Handle the application command
    * @param interaction The interaction
-   * @param options The interaction data options
    * @param command The application command or subcommand
    * @returns
    */
   handleCommand(
     interaction: Interaction,
-    options: InteractionDataOption[],
     command: ApplicationCommand<B> | ApplicationSubcommand<B>,
   ) {
     try {
@@ -287,7 +229,6 @@ export class InteractionHandler<B extends ExtendedBot> {
       ) {
         return this.executeInteraction(
           interaction,
-          options,
           command.execute as CommandExecution<B>,
         );
       }
@@ -299,7 +240,6 @@ export class InteractionHandler<B extends ExtendedBot> {
       ) {
         return this.executeInteraction(
           interaction,
-          options,
           command.autocomplete as CommandExecution<B>,
         );
       }
@@ -311,21 +251,15 @@ export class InteractionHandler<B extends ExtendedBot> {
   /**
    * Executes the interaction
    * @param interaction The interaction
-   * @param options The interaction data options
    * @param func The command execution function
    * @returns
    */
-  executeInteraction(
-    interaction: Interaction,
-    options: InteractionDataOption[],
-    func: CommandExecution<B>,
-  ) {
+  executeInteraction(interaction: Interaction, func: CommandExecution<B>) {
     if (typeof func !== "function") return;
 
     func({
       client: this.client,
       interaction,
-      options: InteractionHandler.transformOptions(options),
     });
   }
 }

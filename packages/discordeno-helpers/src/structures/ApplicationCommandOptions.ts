@@ -1,6 +1,7 @@
 import {
   ApplicationCommandOptionTypes,
   camelToSnakeCase,
+  type Bot,
   type Camelize,
   type DiscordApplicationCommandOption,
 } from "@discordeno/bot";
@@ -8,13 +9,12 @@ import {
 import type {
   ApplicationCommandOptionsList,
   DiscordApplicationCommandOptionWithoutName,
-  ExtendedBot,
 } from "../types";
 
 export class ApplicationCommandOptions {
   data: DiscordApplicationCommandOptionWithoutName;
 
-  static parse<B extends ExtendedBot>(
+  static parse<B extends Bot>(
     opts: ApplicationCommandOptionsList<B>,
   ): Camelize<DiscordApplicationCommandOption[]> {
     return Object.entries(opts || []).map(([name, data]) => ({

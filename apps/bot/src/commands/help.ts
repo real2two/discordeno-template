@@ -20,8 +20,7 @@ export default new ApplicationCommand({
     },
   },
 
-  async autocomplete({ client, interaction, options }) {
-    console.log(options);
+  async autocomplete({ client, interaction }) {
     interaction.respond({
       choices: [
         {
@@ -34,57 +33,8 @@ export default new ApplicationCommand({
 
   async execute({ client, interaction }) {
     await interaction.respond({
-      content: "SO PRETEND I WANT",
-      components: [
-        {
-          type: MessageComponentTypes.ActionRow,
-          components: [
-            {
-              type: MessageComponentTypes.Button,
-              style: ButtonStyles.Primary,
-              label: "test",
-              customId: "$test",
-            },
-            {
-              type: MessageComponentTypes.Button,
-              style: ButtonStyles.Link,
-              label: "test",
-              url: "https://google.com",
-            },
-          ],
-        },
-        {
-          type: MessageComponentTypes.ActionRow,
-          components: [
-            {
-              type: MessageComponentTypes.SelectMenuChannels,
-              customId: "$components",
-            },
-          ],
-        },
-      ],
+      content: "Hello world",
     });
-
-    const collector =
-      await client.collectors.components.createOriginalInteraction(
-        interaction,
-        {
-          expiresIn: 5,
-          events: {
-            collect: (interaction) => {
-              console.log(
-                "Clicked button with ID",
-                interaction.data?.customId,
-                interaction.data,
-              );
-              interaction.respond("Disabling collector...");
-
-              collector.end(); // Executes end event (which disables the components as well)
-              // collector.remove(); // Skips end event (aka it wont disable components by default)
-            },
-          },
-        },
-      );
 
     // Cache testing
     if (interaction.channelId) {

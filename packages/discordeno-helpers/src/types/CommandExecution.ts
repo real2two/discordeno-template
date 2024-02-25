@@ -1,12 +1,6 @@
-import type { InteractionExecutionArguments, ExtendedBot } from "./";
+import type { Bot } from "@discordeno/bot";
+import type { InteractionExecutionArguments } from "./";
 
-export interface CommandExecutionArguments<B extends ExtendedBot>
-  extends InteractionExecutionArguments<B> {
-  options: {
-    [key: string]: string | number | boolean | undefined;
-  };
-}
-
-export type CommandExecution<B extends ExtendedBot> = (
-  data: CommandExecutionArguments<B>,
+export type CommandExecution<B extends Bot> = (
+  data: InteractionExecutionArguments<B>,
 ) => void;

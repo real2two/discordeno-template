@@ -10,10 +10,9 @@ export default new ApplicationSubcommand({
       testTest: opts.integer("fun integer").required(),
     },
   },
-  execute({ interaction, options }) {
-    console.log(options);
+  execute({ interaction }) {
     interaction.respond({
-      content: `test ${options.testTest}`,
+      content: `test`,
       components: [
         {
           type: MessageComponentTypes.ActionRow,

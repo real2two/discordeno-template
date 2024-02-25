@@ -1,11 +1,10 @@
-import type { EventHandlers } from "@discordeno/bot";
-import type { ExtendedBot } from "../types";
+import type { Bot, EventHandlers } from "@discordeno/bot";
 
 /**
  * Create the event handler
  * @returns The event handler
  */
-export function createEventHandler<B extends ExtendedBot>() {
+export function createEventHandler<B extends Bot>() {
   return <K extends keyof EventHandlers>(
     name: K,
     execute: (client: B) => EventHandlers[K],

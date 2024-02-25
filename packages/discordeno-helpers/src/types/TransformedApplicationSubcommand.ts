@@ -1,7 +1,7 @@
+import type { Bot } from "@discordeno/bot";
 import type { ApplicationSubcommand } from "../structures";
-import { ExtendedBot } from "./ExtendedBot";
 
-export interface TransformedApplicationSubcommand<B extends ExtendedBot> {
+export interface TransformedApplicationSubcommand<B extends Bot> {
   subcommand: ApplicationSubcommand<B>;
   subcommands: {
     [k: string]: TransformedApplicationSubcommand<B>;

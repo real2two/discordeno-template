@@ -5,16 +5,13 @@ import { ipcs } from "../loaders/ipcs";
 
 import { getProxyCacheBot } from "../utils/getProxyCacheBot";
 import { createClusteredBot } from "@/discordeno-helpers";
-import { createExtendedBot } from "@/discordeno-helpers";
 
 import { addDesiredProperties } from "../utils/addDesiredProperties";
 
 import { bot } from "./bot";
 
 // Create client
-export const client = getProxyCacheBot(
-  createExtendedBot(createClusteredBot(bot)),
-);
+export const client = getProxyCacheBot(createClusteredBot(bot));
 
 // Adding additional utilities to the client
 addDesiredProperties(client);

@@ -1,6 +1,7 @@
 import {
   ApplicationCommandTypes,
   camelToSnakeCase,
+  type Bot,
   type CreateApplicationCommand,
   type CreateSlashApplicationCommand,
 } from "@discordeno/bot";
@@ -9,10 +10,9 @@ import type {
   ApplicationCommandSlashCommandConstructor,
   ApplicationCommandContextConstructor,
   CommandExecution,
-  ExtendedBot,
 } from "../types";
 
-export class ApplicationCommand<B extends ExtendedBot> {
+export class ApplicationCommand<B extends Bot> {
   data:
     | ApplicationCommandSlashCommandConstructor<B>
     | ApplicationCommandContextConstructor;

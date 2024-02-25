@@ -1,9 +1,8 @@
-import type { CreateSlashApplicationCommand } from "@discordeno/bot";
-import type { ApplicationCommandOptionsList, ExtendedBot, Omit } from "./";
+import type { CreateSlashApplicationCommand, Bot } from "@discordeno/bot";
+import type { ApplicationCommandOptionsList, Omit } from "./";
 
-export interface ApplicationCommandSlashCommandConstructor<
-  B extends ExtendedBot,
-> extends Partial<Omit<CreateSlashApplicationCommand, "options">> {
+export interface ApplicationCommandSlashCommandConstructor<B extends Bot>
+  extends Partial<Omit<CreateSlashApplicationCommand, "options">> {
   name: string;
   description: string;
   options?: ApplicationCommandOptionsList<B>;

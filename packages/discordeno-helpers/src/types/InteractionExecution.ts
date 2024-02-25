@@ -1,11 +1,10 @@
-import type { Interaction } from "@discordeno/bot";
-import type { ExtendedBot } from "./";
+import type { Bot, Interaction } from "@discordeno/bot";
 
-export interface InteractionExecutionArguments<B extends ExtendedBot> {
+export interface InteractionExecutionArguments<B extends Bot> {
   client: B;
   interaction: Interaction;
 }
 
-export type InteractionExecution<B extends ExtendedBot> = (
+export type InteractionExecution<B extends Bot> = (
   data: InteractionExecutionArguments<B>,
 ) => void;

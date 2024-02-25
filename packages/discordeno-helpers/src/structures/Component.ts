@@ -1,6 +1,7 @@
-import type { ExtendedBot, InteractionExecution } from "../types";
+import type { Bot } from "@discordeno/bot";
+import type { InteractionExecution } from "../types";
 
-export class Component<B extends ExtendedBot> {
+export class Component<B extends Bot> {
   customId: string | RegExp;
   execute: InteractionExecution<B>;
 

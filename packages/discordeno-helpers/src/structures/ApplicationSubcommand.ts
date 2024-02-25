@@ -1,13 +1,12 @@
-import { ApplicationCommandOptionTypes } from "@discordeno/bot";
+import { ApplicationCommandOptionTypes, type Bot } from "@discordeno/bot";
 import { ApplicationCommandOptions } from "./ApplicationCommandOptions";
 
 import type {
   ApplicationSubcommandConstructor,
   CommandExecution,
-  ExtendedBot,
 } from "../types";
 
-export class ApplicationSubcommand<B extends ExtendedBot> {
+export class ApplicationSubcommand<B extends Bot> {
   data: ApplicationSubcommandConstructor<B>;
   autocomplete?: CommandExecution<B>;
   execute?: CommandExecution<B>;

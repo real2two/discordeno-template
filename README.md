@@ -53,83 +53,6 @@ When creating interaction commands:
 - For normal interaction commands, put them in the `src/bot/src/commands` folder.
 - For subcommands, make a folder with the command name, then add subcommands in there.
 
-### Non-persistent components
-
-There's an entire function dedicated for handling non-persistent components.
-
-- If you want a persistent message component, use the `components` folder instead of this. _(scroll upwards)_
-- All custom IDs must start with `$` if you want them to be "non-persistent" components.
-- Only components with a custom ID starting with `$` will become disabled when the interaction expires.
-- You can use both `collector.end()` _(runs end event, aka disables components)_ and `collector.remove()` _(skips end event, aka doesn't disable components)_ to delete a non-persistent component.
-- You can make a non-persistent component's `expiresIn` value as `Infinity`, and use `collector.end()` once you want to disable them.
-
-```ts
-import { MessageComponentTypes, ButtonStyles } from "@discordeno/bot";
-
-// ...
-
-await interaction.respond({
-  content: "Hello world!",
-  components: [
-    {
-      type: MessageComponentTypes.ActionRow,
-      components: [
-        {
-          // Create button
-          type: MessageComponentTypes.Button,
-          style: ButtonStyles.Primary,
-          label: "test",
-          customId: "$test", // Component IDs have to start with "$" in order to be considered "non-persistent"
-        },
-      ],
-    },
-    {
-      type: MessageComponentTypes.ActionRow,
-      components: [
-        {
-          // Create select menu channel
-          type: MessageComponentTypes.SelectMenuChannels,
-          customId: "$components", // Component IDs have to start with "$" in order to be considered "non-persistent"
-        },
-      ],
-    },
-  ],
-});
-
-// Create message collector
-const collector = await client.collectors.components.createOriginalInteraction(
-  interaction,
-  {
-    // expiresIn is the amount of seconds the collector has until the message expires and disables components.
-    expiresIn: 30,
-
-    // events has the message collector events:
-    events: {
-      // When a component is executed, this function is ran:
-      collect: (interaction) => {
-        console.log("Clicked button with ID", interaction.data);
-        interaction.respond("Disabling collector...");
-
-        collector.end(); // Executes end event (which disables the components as well)
-        // collector.remove(); // Skips end event (aka it wont disable components by default)
-      },
-      /*
-          end: () => {
-            // You need to put this on the top to use this function:
-            // import { disableNonPersistentComponents } from "@/discordeno-helpers"
-
-            // This is the default end event used to disable non-persistent components.
-            disableNonPersistentComponents(
-              client,
-              collector.message,
-            )
-          },
-        */
-    },
-  },
-);
-```
-
 ### Boilerplates for interactions
 
 Boilerplate for commands:
@@ -153,8 +76,7 @@ export default new ApplicationCommand({
       mentionable: opts.mentionable("test mentionable value"),
     },
   },
-  async autocomplete({ client, interaction, options }) {
-    console.log("Options", options);
+  async autocomplete({ client, interaction }) {
     interaction.respond({
       choices: [
         {
@@ -164,8 +86,7 @@ export default new ApplicationCommand({
       ],
     });
   },
-  async execute({ client, interaction, options }) {
-    console.log("Options", options);
+  async execute({ client, interaction }) {
     await interaction.respond("Hello world!");
   },
 });
@@ -205,7 +126,7 @@ export default new ApplicationSubcommand({
       integer: opts.integer("test integer value").required(),
     },
   },
-  async autocomplete({ client, interaction, options }) {
+  async autocomplete({ client, interaction }) {
     interaction.respond({
       choices: [
         {
@@ -215,8 +136,7 @@ export default new ApplicationSubcommand({
       ],
     });
   },
-  execute({ client, interaction, options }) {
-    console.log("Options", options);
+  execute({ client, interaction }) {
     interaction.respond("Hello world");
   },
 });

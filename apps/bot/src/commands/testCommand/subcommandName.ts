@@ -11,13 +11,12 @@ export default new ApplicationSubcommand({
     },
   },
   execute({ interaction }) {
-    console.log(
-      interaction.data?.options
-        ?.find(({ name }) => name === "subcommand_name")
-        ?.options?.find(({ name }) => name === "test_test"),
-    );
+    const value = interaction.data?.options
+      ?.find(({ name }) => name === "subcommand_name")
+      ?.options?.find(({ name }) => name === "test_test")?.value;
+
     interaction.respond({
-      content: `test`,
+      content: `test ${value}`,
       components: [
         {
           type: MessageComponentTypes.ActionRow,

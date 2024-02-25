@@ -24,7 +24,7 @@ export default new ApplicationSubcommand({
             {
               type: MessageComponentTypes.Button,
               style: ButtonStyles.Primary,
-              label: "this is a persistent button",
+              label: "press me",
               customId: "button",
             },
           ],

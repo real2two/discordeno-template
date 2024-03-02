@@ -23,6 +23,7 @@ export class CommandHandler<B extends Bot> {
   data: {
     guildId?: bigint;
     channelId?: bigint;
+    userId: bigint;
     user: User;
     member?: Member;
   };
@@ -46,6 +47,7 @@ export class CommandHandler<B extends Bot> {
     this.data = {
       guildId: interaction?.guildId || message?.guildId,
       channelId: this.interaction?.channelId || this.message?.channelId,
+      userId: this.interaction?.user.id || this.message?.author.id as bigint,
       user: interaction?.user || (message?.author as User),
       member: interaction?.member || message?.member,
     };

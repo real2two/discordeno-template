@@ -1,7 +1,11 @@
 import { ApplicationSubcommand } from "../../utils/createFunctions";
 import { ApplicationCommandOptions as opts } from "@/discordeno-helpers";
 
-import { MessageComponentTypes, ButtonStyles } from "@discordeno/bot";
+import {
+  MessageComponentTypes,
+  ButtonStyles,
+  type CreateMessageOptions,
+} from "@discordeno/bot";
 
 export default new ApplicationSubcommand({
   data: {
@@ -10,12 +14,11 @@ export default new ApplicationSubcommand({
       testTest: opts.integer("fun integer").required(),
     },
   },
-  execute({ interaction }) {
-    const value = interaction.data?.options
-      ?.find(({ name }) => name === "subcommand_name")
-      ?.options?.find(({ name }) => name === "test_test")?.value;
+  execute({ client, message, interaction, options }) {
+    const value = options.find(({ name }) => name === "test_test")?.value;
+    console.log(options);
 
-    interaction.respond({
+    const data = {
       content: `test ${value}`,
       components: [
         {
@@ -30,6 +33,12 @@ export default new ApplicationSubcommand({
           ],
         },
       ],
-    });
+    } as CreateMessageOptions;
+
+    if (interaction) {
+      interaction.respond(data);
+    } else if (message) {
+      client.helpers.sendMessage(message.channelId, data);
+    }
   },
 });

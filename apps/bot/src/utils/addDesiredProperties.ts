@@ -135,7 +135,7 @@ export function addDesiredProperties(client: Bot) {
   // client.transformers.desiredProperties.message.author = true;
   client.transformers.desiredProperties.message.channelId = true;
   client.transformers.desiredProperties.message.components = true;
-  // client.transformers.desiredProperties.message.content = true;
+  client.transformers.desiredProperties.message.content = true;
   // client.transformers.desiredProperties.message.editedTimestamp = true;
   // client.transformers.desiredProperties.message.embeds = true;
   client.transformers.desiredProperties.message.guildId = true;

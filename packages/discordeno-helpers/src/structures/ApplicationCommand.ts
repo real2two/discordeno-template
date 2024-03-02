@@ -10,13 +10,14 @@ import type {
   ApplicationCommandSlashCommandConstructor,
   ApplicationCommandContextConstructor,
   CommandExecution,
+  CommandInteractionExecution,
 } from "../types";
 
 export class ApplicationCommand<B extends Bot> {
   data:
     | ApplicationCommandSlashCommandConstructor<B>
     | ApplicationCommandContextConstructor;
-  autocomplete?: CommandExecution<B>;
+  autocomplete?: CommandInteractionExecution<B>;
   execute?: CommandExecution<B>;
 
   /**
@@ -29,7 +30,7 @@ export class ApplicationCommand<B extends Bot> {
     execute,
   }: {
     data: ApplicationCommand<B>["data"];
-    autocomplete?: CommandExecution<B>;
+    autocomplete?: CommandInteractionExecution<B>;
     execute?: CommandExecution<B>;
   }) {
     this.data = {

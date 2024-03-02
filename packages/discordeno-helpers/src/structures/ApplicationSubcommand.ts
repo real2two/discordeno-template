@@ -3,12 +3,13 @@ import { ApplicationCommandOptions } from "./ApplicationCommandOptions";
 
 import type {
   ApplicationSubcommandConstructor,
+  CommandInteractionExecution,
   CommandExecution,
 } from "../types";
 
 export class ApplicationSubcommand<B extends Bot> {
   data: ApplicationSubcommandConstructor<B>;
-  autocomplete?: CommandExecution<B>;
+  autocomplete?: CommandInteractionExecution<B>;
   execute?: CommandExecution<B>;
 
   /**
@@ -21,7 +22,7 @@ export class ApplicationSubcommand<B extends Bot> {
     execute,
   }: {
     data: ApplicationSubcommandConstructor<B>;
-    autocomplete?: CommandExecution<B>;
+    autocomplete?: CommandInteractionExecution<B>;
     execute?: CommandExecution<B>;
   }) {
     if (!data.type && data.options) {

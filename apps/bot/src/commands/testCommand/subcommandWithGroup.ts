@@ -1,6 +1,6 @@
 import { ApplicationSubcommand } from "../../utils/createFunctions";
 
-import group from "./subcommandName/group";
+import group from "./subcommandWithGroup/group";
 
 export default new ApplicationSubcommand({
   data: {

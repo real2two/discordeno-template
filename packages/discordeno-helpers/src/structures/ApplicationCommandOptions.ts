@@ -47,6 +47,9 @@ export class ApplicationCommandOptions {
   static mentionable(description: string) {
     return new this(ApplicationCommandOptionTypes.Mentionable, description);
   }
+  static attachment(description: string) {
+    return new this(ApplicationCommandOptionTypes.Attachment, description);
+  }
 
   constructor(type: ApplicationCommandOptionTypes, description: string) {
     this.data = {

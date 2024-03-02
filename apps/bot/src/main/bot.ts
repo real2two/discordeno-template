@@ -5,7 +5,7 @@ import { createBot, Intents } from "@discordeno/bot";
 
 export const bot = createBot({
   token: env.DiscordToken as string,
-  intents: Intents.Guilds | Intents.GuildMessages,
+  intents: Intents.Guilds | Intents.GuildMessages | Intents.MessageContent,
   events: {},
 
   rest: {

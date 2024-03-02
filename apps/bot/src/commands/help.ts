@@ -1,7 +1,7 @@
 import { ApplicationCommand } from "../utils/createFunctions";
 import { ApplicationCommandOptions as opts } from "@/discordeno-helpers";
 
-import { MessageComponentTypes, ButtonStyles } from "@discordeno/bot";
+// import { MessageComponentTypes, ButtonStyles } from "@discordeno/bot";
 
 export default new ApplicationCommand({
   data: {
@@ -31,36 +31,44 @@ export default new ApplicationCommand({
     });
   },
 
-  async execute({ client, interaction }) {
-    await interaction.respond({
-      content: "Hello world",
-    });
+  async execute({ client, interaction, options, message }) {
+    const guildId = interaction?.guildId || message?.guildId;
+    const channelId = interaction?.channelId || message?.channelId;
+    const user = interaction?.user || message?.author;
+    const member = interaction?.member || message?.member;
+
+    if (interaction) {
+      await interaction.respond({
+        content: "Hello world",
+      });
+    } else if (message) {
+      await client.helpers.sendMessage(message.channelId, {
+        content: "Hello world",
+      });
+    }
+
+    // Warning: The integrity of users, channels, roles, and mentionables aren't checked.
+    console.log(options);
 
     // Cache testing
-    if (interaction.channelId) {
-      console.log(
-        "channel",
-        await client.cache.channels.get(interaction.channelId),
-      );
+    if (channelId) {
+      console.log("channel", await client.cache.channels.get(channelId));
     }
-    if (interaction.guildId) {
-      console.log("guild", await client.cache.guilds.get(interaction.guildId));
-      if (interaction.member) {
+    if (guildId) {
+      console.log("guild", await client.cache.guilds.get(guildId));
+      if (member) {
         console.log(
           "member",
-          await client.cache.members.get(
-            interaction.member.id,
-            interaction.guildId,
-          ),
+          await client.cache.members.get(member.id, guildId),
         );
       }
     }
-    if (interaction.member?.roles && interaction.member.roles[0])
-      console.log(
-        "role",
-        await client.cache.roles.get(interaction.member?.roles[0]),
-      );
-    console.log("user", await client.cache.users.get(interaction.user.id));
+    if (member?.roles && member.roles[0]) {
+      console.log("role", await client.cache.roles.get(member?.roles[0]));
+    }
+    if (user) {
+      console.log("user", await client.cache.users.get(user.id));
+    }
 
     // const message = await client.helpers.sendFollowupMessage(interaction.token, {
     //   content: "test",

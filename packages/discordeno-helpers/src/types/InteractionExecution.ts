@@ -1,7 +1,20 @@
-import type { Bot, Interaction } from "@discordeno/bot";
+import type {
+  Bot,
+  Interaction,
+  Message,
+  InteractionDataOption,
+} from "@discordeno/bot";
 
 export interface InteractionExecutionArguments<B extends Bot> {
   client: B;
+  options: InteractionDataOption[];
+  interaction?: Interaction;
+  message?: Message;
+}
+
+export interface InteractionExecutionInteractionArguments<B extends Bot> {
+  client: B;
+  options: InteractionDataOption[];
   interaction: Interaction;
 }
 

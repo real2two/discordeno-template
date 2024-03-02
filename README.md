@@ -96,8 +96,14 @@ export default new ApplicationCommand({
       ],
     });
   },
-  async execute({ client, interaction }) {
-    await interaction.respond("Hello world!");
+  async execute({ client, interaction, options, message }) {
+    if (interaction) {
+      await interaction.respond("Hello world!");
+    } else if (message) {
+      await client.helpers.sendMessage(message.channelId, {
+        content: "Hello world",
+      });
+    }
   },
 });
 ```
@@ -146,8 +152,14 @@ export default new ApplicationSubcommand({
       ],
     });
   },
-  execute({ client, interaction }) {
-    interaction.respond("Hello world");
+  async execute({ client, interaction, options, message }) {
+    if (interaction) {
+      await interaction.respond("Hello world!");
+    } else if (message) {
+      await client.helpers.sendMessage(message.channelId, {
+        content: "Hello world",
+      });
+    }
   },
 });
 ```

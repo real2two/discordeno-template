@@ -116,6 +116,11 @@ export class InteractionHandler<B extends Bot> {
     }
 
     const args = options
+      .sort(
+        (a, b) =>
+          Number(b[1].data.required || false) -
+          Number(a[1].data.required || false),
+      )
       .map(([k, v]) => {
         if (v.data.required) {
           return `<${k}>`;

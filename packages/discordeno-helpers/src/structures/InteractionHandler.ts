@@ -601,7 +601,7 @@ export class InteractionHandler<B extends Bot> {
     ) => {
       let success = false;
       for (const choice of choices) {
-        if ([choice.name || choice.value].includes(arg || Number(arg))) {
+        if ((arg || Number(arg)) === choice.value) {
           success = true;
           break;
         }
@@ -642,9 +642,9 @@ export class InteractionHandler<B extends Bot> {
           );
           return;
         }
-
-        value = arg;
       }
+
+      value = arg;
     } else if (optionData.data.type === ApplicationCommandOptionTypes.Integer) {
       const number = parseInt(arg);
       if (isNaN(number) || number.toString() !== arg) {
@@ -663,7 +663,7 @@ export class InteractionHandler<B extends Bot> {
         if (!checkMessageOptionChoices(optionData.data.choices)) return;
       } else if (optionData.data.minValue || optionData.data.maxValue) {
         const minValue = optionData.data.minValue || 0;
-        const maxValue = optionData.data.minValue || Number.MAX_SAFE_INTEGER;
+        const maxValue = optionData.data.maxValue || Number.MAX_SAFE_INTEGER;
         if (number < minValue || number > maxValue) {
           client.helpers.sendMessage(
             message.channelId,
@@ -671,9 +671,9 @@ export class InteractionHandler<B extends Bot> {
               error: "OPTIONS_INVALID_INTEGER_VALUE",
               syntax,
               message: `The argument \`${optionName}\` must at least ${minValue}${
-                maxValue === Infinity
+                maxValue === Number.MAX_SAFE_INTEGER
                   ? ""
-                  : `and less than or equal to ${maxValue}`
+                  : ` and less than or equal to ${maxValue}`
               }.`,
             }),
           );
@@ -700,7 +700,7 @@ export class InteractionHandler<B extends Bot> {
         if (!checkMessageOptionChoices(optionData.data.choices)) return;
       } else if (optionData.data.minValue || optionData.data.maxValue) {
         const minValue = optionData.data.minValue || 0;
-        const maxValue = optionData.data.minValue || Number.MAX_SAFE_INTEGER;
+        const maxValue = optionData.data.maxValue || Number.MAX_SAFE_INTEGER;
         if (number < minValue || number > maxValue) {
           client.helpers.sendMessage(
             message.channelId,
@@ -708,9 +708,9 @@ export class InteractionHandler<B extends Bot> {
               error: "OPTIONS_INVALID_NUMBER_VALUE",
               syntax,
               message: `The argument \`${optionName}\` must at least ${minValue}${
-                maxValue === Infinity
+                maxValue === Number.MAX_SAFE_INTEGER
                   ? ""
-                  : `and less than or equal to ${maxValue}`
+                  : ` and less than or equal to ${maxValue}`
               }.`,
             }),
           );

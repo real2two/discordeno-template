@@ -1,12 +1,12 @@
-# Discordeno Bot Template
+# Discordeno Bot Template - (message commands version)
 
 A bot template for discordeno.
 
-Warning: This bot template hasn't fully been tested thoroughly.
+Warning: This is still a work in progress, and this bot template hasn't fully been tested thoroughly!
 
 ## Read for interactions only template
 
-This template combines chat input interactions and message commands together, which is something many bot developers won't need.
+This version of the template combines chat input interactions and message commands together, which is something many bot developers won't need.
 
 If you are not going to use this bot with message commands, there's a slightly different version of the template for that.
 

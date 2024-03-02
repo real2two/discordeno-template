@@ -7,6 +7,7 @@ import {
   type Interaction,
   type Message,
   type InteractionDataOption,
+  type CreateMessageOptions,
 } from "@discordeno/bot";
 
 import { ApplicationSubcommand } from "./ApplicationSubcommand";
@@ -116,13 +117,10 @@ export class InteractionHandler<B extends Bot> {
 
     const args = options
       .map(([k, v]) => {
-        const type = Object.entries(ApplicationCommandOptionTypes)
-          .find(([_, o]) => o == v.data.type)?.[0]
-          ?.toLowerCase();
         if (v.data.required) {
-          return `<${k} (${type})>`;
+          return `<${k}>`;
         } else {
-          return `[${k} (${type})]`;
+          return `[${k}]`;
         }
       })
       .join(" ");
@@ -274,15 +272,35 @@ export class InteractionHandler<B extends Bot> {
    * The message command handler, which must be used in messageCreate
    * @param message The message
    */
-  async messageCreate({
-    client,
-    message,
-    prefix,
-  }: {
-    client: B;
-    message: Message;
-    prefix: string;
-  }) {
+  async messageCreate(
+    {
+      client,
+      message,
+      prefix,
+    }: {
+      client: B;
+      message: Message;
+      prefix: string;
+    },
+    opts?: {
+      createErrorMessage: (data: {
+        error: string;
+        syntax: string;
+        message?: string;
+      }) => CreateMessageOptions;
+    },
+  ) {
+    if (!opts)
+      opts = {
+        createErrorMessage: ({ error, syntax, message }) => ({
+          content: `${
+            error !== "NOT_SUPPORTED"
+              ? `Incorrect usage. The correct syntax is \`${syntax}\`.\n\n`
+              : ""
+          }${message || ""}`,
+        }),
+      };
+
     try {
       if (!message.content?.startsWith(prefix)) return;
 
@@ -309,9 +327,13 @@ export class InteractionHandler<B extends Bot> {
         const subcommandName = args.shift()?.toLowerCase();
         if (!subcommandName) {
           // Missing subcommand
-          return client.helpers.sendMessage(message.channelId, {
-            content: `Incorrect syntax. The correct syntax is \`${prefix}${syntax}\`.`,
-          });
+          return client.helpers.sendMessage(
+            message.channelId,
+            opts.createErrorMessage({
+              error: "MISSING_SUBCOMMAND",
+              syntax,
+            }),
+          );
         }
 
         const subcommandData = Object.entries(subcommands).find(
@@ -319,9 +341,13 @@ export class InteractionHandler<B extends Bot> {
         )?.[1];
         if (!subcommandData) {
           // Invalid subcommand
-          return client.helpers.sendMessage(message.channelId, {
-            content: `Incorrect syntax. The correct syntax is \`${prefix}${syntax}\`.`,
-          });
+          return client.helpers.sendMessage(
+            message.channelId,
+            opts.createErrorMessage({
+              error: "INVALID_SUBCOMMAND",
+              syntax,
+            }),
+          );
         }
 
         const {
@@ -335,9 +361,13 @@ export class InteractionHandler<B extends Bot> {
           const subcommandGroupName = args.shift()?.toLowerCase();
           if (!subcommandGroupName) {
             // Missing subcommand group
-            return client.helpers.sendMessage(message.channelId, {
-              content: `Incorrect syntax. The correct syntax is \`${prefix}${subcommandSyntax}\`.`,
-            });
+            return client.helpers.sendMessage(
+              message.channelId,
+              opts.createErrorMessage({
+                error: "MISSING_SUBCOMMAND_GROUP",
+                syntax,
+              }),
+            );
           }
 
           const subcommandInGroup = Object.entries(subcommandsInGroup).find(
@@ -346,9 +376,13 @@ export class InteractionHandler<B extends Bot> {
           )?.[1];
           if (!subcommandInGroup) {
             // Invalid subcommand group
-            return client.helpers.sendMessage(message.channelId, {
-              content: `Incorrect syntax. The correct syntax is \`${prefix}${subcommandSyntax}\`.`,
-            });
+            return client.helpers.sendMessage(
+              message.channelId,
+              opts.createErrorMessage({
+                error: "INVALID_SUBCOMMAND_GROUP",
+                syntax,
+              }),
+            );
           }
 
           const options = this.transformMessageOptions({
@@ -357,6 +391,7 @@ export class InteractionHandler<B extends Bot> {
             command: subcommandInGroup.subcommand,
             message,
             args,
+            opts,
           });
           if (!options) return; // Command doesn't support message command
 
@@ -374,6 +409,7 @@ export class InteractionHandler<B extends Bot> {
             command: subcommand,
             message,
             args,
+            opts,
           });
           if (!options) return; // Command doesn't support message command
 
@@ -392,6 +428,7 @@ export class InteractionHandler<B extends Bot> {
           command,
           message,
           args,
+          opts,
         });
         if (!options) return; // Command doesn't support message command
 
@@ -418,6 +455,7 @@ export class InteractionHandler<B extends Bot> {
     command,
     message,
     args,
+    opts,
   }: {
     client: B;
     syntax: string;
@@ -428,6 +466,13 @@ export class InteractionHandler<B extends Bot> {
       | ApplicationSubcommand<B>;
     message: Message;
     args: string[];
+    opts: {
+      createErrorMessage: (data: {
+        error: string;
+        syntax: string;
+        message?: string;
+      }) => CreateMessageOptions;
+    };
   }) {
     const commandOptions = Object.entries(command.data.options || {})
       .filter(([_, d]) => d instanceof ApplicationCommandOptions)
@@ -450,6 +495,7 @@ export class InteractionHandler<B extends Bot> {
         optionName,
         optionData,
         arg,
+        opts,
       });
       if (!option) return;
 
@@ -467,6 +513,7 @@ export class InteractionHandler<B extends Bot> {
           optionName,
           optionData,
           arg,
+          opts,
         });
         if (!option) return;
 
@@ -490,6 +537,7 @@ export class InteractionHandler<B extends Bot> {
     optionName,
     optionData,
     arg,
+    opts,
   }: {
     client: B;
     syntax: string;
@@ -497,14 +545,24 @@ export class InteractionHandler<B extends Bot> {
     optionName: string;
     optionData: ApplicationCommandOptions;
     arg: string | undefined;
+    opts: {
+      createErrorMessage: (data: {
+        error: string;
+        syntax: string;
+        message?: string;
+      }) => CreateMessageOptions;
+    };
   }) {
-    const incorrectSyntax = `Incorrect usage. The correct syntax is \`${syntax}\`.`;
     if (!arg) {
       if (optionData.data.required) {
         // Missing argument
-        client.helpers.sendMessage(message.channelId, {
-          content: incorrectSyntax,
-        });
+        client.helpers.sendMessage(
+          message.channelId,
+          opts.createErrorMessage({
+            error: "OPTIONS_MISSING_ARGUMENT",
+            syntax,
+          }),
+        );
         return;
       } else {
         return {
@@ -519,10 +577,15 @@ export class InteractionHandler<B extends Bot> {
     */
     if (optionData.data.type < 3 || optionData.data.type > 10) {
       // This command does not support message commands, because it doesn't support the option type
-      client.helpers.sendMessage(message.channelId, {
-        content:
-          "This command does not support message commands. Please use the slash command version of the command instead.",
-      });
+      client.helpers.sendMessage(
+        message.channelId,
+        opts.createErrorMessage({
+          error: "OPTIONS_NOT_SUPPORTED",
+          syntax,
+          message:
+            "This command does not support message commands. Please use the slash command version of the command instead.",
+        }),
+      );
       return;
     }
 
@@ -537,11 +600,16 @@ export class InteractionHandler<B extends Bot> {
         }
       }
       if (!success) {
-        client.helpers.sendMessage(message.channelId, {
-          content: `${incorrectSyntax}\n\nThe argument \`${optionName}\` must be either one of these choices: \`${choices.join(
-            "`, `",
-          )}\`.`,
-        });
+        client.helpers.sendMessage(
+          message.channelId,
+          opts.createErrorMessage({
+            error: "OPTIONS_INVALID_CHOICE",
+            syntax,
+            message: `The argument \`${optionName}\` must be either one of these choices: \`${choices.join(
+              "`, `",
+            )}\`.`,
+          }),
+        );
       }
       return success;
     };
@@ -557,9 +625,14 @@ export class InteractionHandler<B extends Bot> {
         const minLength = optionData.data.minLength || 0;
         const maxLength = optionData.data.maxLength || 6000;
         if (arg.length < minLength || arg.length > maxLength) {
-          client.helpers.sendMessage(message.channelId, {
-            content: `${incorrectSyntax}\n\nThe argument \`${optionName}\` must be at least ${minLength} and less than or equal to ${maxLength}.`,
-          });
+          client.helpers.sendMessage(
+            message.channelId,
+            opts.createErrorMessage({
+              error: "OPTIONS_INVALID_STRING_LENGTH",
+              syntax,
+              message: `The argument \`${optionName}\` must be at least ${minLength} and less than or equal to ${maxLength}.`,
+            }),
+          );
           return;
         }
 
@@ -569,9 +642,14 @@ export class InteractionHandler<B extends Bot> {
       const number = parseInt(arg);
       if (isNaN(number) || number.toString() !== arg) {
         // Handle integer
-        client.helpers.sendMessage(message.channelId, {
-          content: `${incorrectSyntax}\n\nThe argument \`${optionName}\` must be an integer.`,
-        });
+        client.helpers.sendMessage(
+          message.channelId,
+          opts.createErrorMessage({
+            error: "OPTIONS_INVALID_INTEGER",
+            syntax,
+            message: `The argument \`${optionName}\` must be an integer.`,
+          }),
+        );
         return;
       }
       if (optionData.data.choices?.length) {
@@ -580,13 +658,18 @@ export class InteractionHandler<B extends Bot> {
         const minValue = optionData.data.minValue || 0;
         const maxValue = optionData.data.minValue || Number.MAX_SAFE_INTEGER;
         if (number < minValue || number > maxValue) {
-          client.helpers.sendMessage(message.channelId, {
-            content: `${incorrectSyntax}\n\nThe argument \`${optionName}\` must at least ${minValue}${
-              maxValue === Infinity
-                ? ""
-                : `and less than or equal to ${maxValue}`
-            }.`,
-          });
+          client.helpers.sendMessage(
+            message.channelId,
+            opts.createErrorMessage({
+              error: "OPTIONS_INVALID_INTEGER_VALUE",
+              syntax,
+              message: `The argument \`${optionName}\` must at least ${minValue}${
+                maxValue === Infinity
+                  ? ""
+                  : `and less than or equal to ${maxValue}`
+              }.`,
+            }),
+          );
           return;
         }
       }
@@ -596,9 +679,14 @@ export class InteractionHandler<B extends Bot> {
       const number = parseFloat(arg);
       if (isNaN(number)) {
         // Handle integer
-        client.helpers.sendMessage(message.channelId, {
-          content: `${incorrectSyntax}\n\nThe argument \`${optionName}\` must be a number.`,
-        });
+        client.helpers.sendMessage(
+          message.channelId,
+          opts.createErrorMessage({
+            error: "OPTIONS_INVALID_NUMBER",
+            syntax,
+            message: `The argument \`${optionName}\` must be a number.`,
+          }),
+        );
         return;
       }
       if (optionData.data.choices?.length) {
@@ -607,13 +695,18 @@ export class InteractionHandler<B extends Bot> {
         const minValue = optionData.data.minValue || 0;
         const maxValue = optionData.data.minValue || Number.MAX_SAFE_INTEGER;
         if (number < minValue || number > maxValue) {
-          client.helpers.sendMessage(message.channelId, {
-            content: `${incorrectSyntax}\n\nThe argument \`${optionName}\` must at least ${minValue}${
-              maxValue === Infinity
-                ? ""
-                : `and less than or equal to ${maxValue}`
-            }.`,
-          });
+          client.helpers.sendMessage(
+            message.channelId,
+            opts.createErrorMessage({
+              error: "OPTIONS_INVALID_NUMBER_VALUE",
+              syntax,
+              message: `The argument \`${optionName}\` must at least ${minValue}${
+                maxValue === Infinity
+                  ? ""
+                  : `and less than or equal to ${maxValue}`
+              }.`,
+            }),
+          );
           return;
         }
       }
@@ -625,9 +718,14 @@ export class InteractionHandler<B extends Bot> {
         value = Boolean(argLowerCase);
       } else {
         // Must be a boolean
-        client.helpers.sendMessage(message.channelId, {
-          content: `${incorrectSyntax}\n\nThe argument \`${optionName}\` must be a boolean ("true"/"false").`,
-        });
+        client.helpers.sendMessage(
+          message.channelId,
+          opts.createErrorMessage({
+            error: "OPTIONS_INVALID_BOOLEAN",
+            syntax,
+            message: `The argument \`${optionName}\` must be a boolean ("true"/"false").`,
+          }),
+        );
         return;
       }
     } else if (
@@ -647,18 +745,27 @@ export class InteractionHandler<B extends Bot> {
         const type = Object.entries(ApplicationCommandOptionTypes)
           .find(([_, o]) => o == optionData.data.type)?.[0]
           ?.toLowerCase();
-        client.helpers.sendMessage(message.channelId, {
-          content: `${incorrectSyntax}\n\nThe argument \`${optionName}\` must be a valid ${type}.`,
-        });
+        client.helpers.sendMessage(
+          message.channelId,
+          opts.createErrorMessage({
+            error: `OPTIONS_INVALID_${type?.toUpperCase()}`,
+            syntax,
+            message: `The argument \`${optionName}\` must be a valid ${type}.`,
+          }),
+        );
         return;
       }
     }
 
     if (optionData.data.required && !value) {
       // Did not provide required argument
-      client.helpers.sendMessage(message.channelId, {
-        content: "Did not provide required argument.",
-      });
+      client.helpers.sendMessage(
+        message.channelId,
+        opts.createErrorMessage({
+          error: "OPTIONS_MISSING_ARGUMENT",
+          syntax,
+        }),
+      );
       return;
     }
 

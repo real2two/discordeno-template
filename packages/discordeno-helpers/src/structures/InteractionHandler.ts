@@ -612,9 +612,9 @@ export class InteractionHandler<B extends Bot> {
           opts.createErrorMessage({
             error: "OPTIONS_INVALID_CHOICE",
             syntax,
-            message: `The argument \`${optionName}\` must be either one of these choices: \`${choices.join(
-              "`, `",
-            )}\`.`,
+            message: `The argument \`${optionName}\` must be either one of these choices: \`${choices
+              .map((c) => c.value)
+              .join("`, `")}\`.`,
           }),
         );
       }

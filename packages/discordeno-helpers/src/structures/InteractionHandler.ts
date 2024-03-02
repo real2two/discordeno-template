@@ -728,7 +728,7 @@ export class InteractionHandler<B extends Bot> {
           opts.createErrorMessage({
             error: "OPTIONS_INVALID_BOOLEAN",
             syntax,
-            message: `The argument \`${optionName}\` must be a boolean ("true"/"false").`,
+            message: `The argument \`${optionName}\` must be a boolean (true/false).`,
           }),
         );
         return;

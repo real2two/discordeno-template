@@ -4,6 +4,16 @@ A bot template for discordeno.
 
 Warning: This bot template hasn't fully been tested thoroughly.
 
+## Read for interactions only template
+
+This template combines chat input interactions and message commands together, which is something many bot developers won't need.
+
+If you are not going to use this bot with message commands, there's a slightly different version of the template for that.
+
+Use the interactions-only template instead: [https://github.com/real2two/discordeno-template/tree/interactions-only](https://github.com/real2two/discordeno-template/tree/interactions-only)
+
+The interactions-only version of template has been tested (not thoroughly or with a public bot though) and should be pretty stable.
+
 ## How to start
 
 Run `pnpm start` for production or `pnpm dev` for development.

@@ -6,17 +6,13 @@ export default new ApplicationSubcommand({
     description: "This is a subcommand.",
     options: {},
   },
-  async execute({ client, message, interaction }) {
-    const guildId = interaction?.guildId || message?.guildId;
+  async execute({ client, interaction }) {
+    const guildId = interaction?.guildId
 
     const data = {
       content: "This is a subcommand group. (check console for guild db data)",
     };
-    if (interaction) {
-      interaction.respond(data);
-    } else if (message) {
-      client.helpers.sendMessage(message.channelId, data);
-    }
+    interaction.respond(data);
 
     if (guildId) {
       const guild = await getGuild(guildId);

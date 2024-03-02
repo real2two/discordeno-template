@@ -1,8 +1,6 @@
-# Discordeno Bot Template
+# Discordeno Bot Template - (interactions-only version)
 
 A bot template for discordeno.
-
-Warning: This bot template hasn't fully been tested thoroughly.
 
 ## How to start
 

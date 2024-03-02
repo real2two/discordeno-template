@@ -9,7 +9,6 @@ import { ApplicationCommandOptions } from "./ApplicationCommandOptions";
 import type {
   ApplicationCommandSlashCommandConstructor,
   ApplicationCommandContextConstructor,
-  CommandExecution,
   CommandInteractionExecution,
 } from "../types";
 
@@ -18,7 +17,7 @@ export class ApplicationCommand<B extends Bot> {
     | ApplicationCommandSlashCommandConstructor<B>
     | ApplicationCommandContextConstructor;
   autocomplete?: CommandInteractionExecution<B>;
-  execute?: CommandExecution<B>;
+  execute?: CommandInteractionExecution<B>;
 
   /**
    * Create an application command
@@ -31,7 +30,7 @@ export class ApplicationCommand<B extends Bot> {
   }: {
     data: ApplicationCommand<B>["data"];
     autocomplete?: CommandInteractionExecution<B>;
-    execute?: CommandExecution<B>;
+    execute?: CommandInteractionExecution<B>;
   }) {
     this.data = {
       type: ApplicationCommandTypes.ChatInput,

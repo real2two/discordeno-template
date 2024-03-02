@@ -14,7 +14,7 @@ export default new ApplicationSubcommand({
       testTest: opts.integer("fun integer").required(),
     },
   },
-  execute({ client, message, interaction, options }) {
+  execute({ client, interaction, options }) {
     const value = options.find(({ name }) => name === "test_test")?.value;
     console.log(options);
 
@@ -35,10 +35,6 @@ export default new ApplicationSubcommand({
       ],
     } as CreateMessageOptions;
 
-    if (interaction) {
-      interaction.respond(data);
-    } else if (message) {
-      client.helpers.sendMessage(message.channelId, data);
-    }
+    interaction.respond(data);
   },
 });

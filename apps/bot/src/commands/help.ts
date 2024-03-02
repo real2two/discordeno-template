@@ -31,23 +31,16 @@ export default new ApplicationCommand({
     });
   },
 
-  async execute({ client, interaction, options, message }) {
-    const guildId = interaction?.guildId || message?.guildId;
-    const channelId = interaction?.channelId || message?.channelId;
-    const user = interaction?.user || message?.author;
-    const member = interaction?.member || message?.member;
+  async execute({ client, interaction, options }) {
+    const guildId = interaction?.guildId 
+    const channelId = interaction?.channelId
+    const user = interaction?.user 
+    const member = interaction?.member 
 
-    if (interaction) {
-      await interaction.respond({
-        content: "Hello world",
-      });
-    } else if (message) {
-      await client.helpers.sendMessage(message.channelId, {
-        content: "Hello world",
-      });
-    }
-
-    // Warning: The integrity of users, channels, roles, and mentionables aren't checked.
+    await interaction.respond({
+      content: "Hello world",
+    });
+    
     console.log(options);
 
     // Cache testing

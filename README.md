@@ -2,7 +2,7 @@
 
 A bot template for discordeno.
 
-## Read for message commands support
+## Read for message commands support template
 
 There's a seperate version of the template that supports message commands.
 

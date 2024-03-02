@@ -14,9 +14,11 @@ export default createEvent("messageCreate", (client) => {
                 name: "Incorrect usage",
               },
               description: message || `The correct syntax is: \`!${syntax}\`.`,
-              footer: message ? {
-                text: `The correct syntax is: !${syntax}`,
-              } : undefined,
+              footer: message
+                ? {
+                    text: `The correct syntax is: !${syntax}`,
+                  }
+                : undefined,
             },
           ],
         }),

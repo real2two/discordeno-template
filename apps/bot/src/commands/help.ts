@@ -1,3 +1,4 @@
+import { MessageFlags } from "@discordeno/bot";
 import { ApplicationCommand } from "../utils/createFunctions";
 import { ApplicationCommandOptions as opts } from "@/discordeno-helpers";
 
@@ -60,10 +61,5 @@ export default new ApplicationCommand({
     if (user) {
       console.log("user", await client.cache.users.get(user.id));
     }
-
-    // const message = await client.helpers.sendFollowupMessage(interaction.token, {
-    //   content: "test",
-    // });
-    // console.log(message);
   },
 });

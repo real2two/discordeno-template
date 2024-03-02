@@ -1,8 +1,7 @@
 import {
-  InteractionResponseTypes,
   type BaseInteraction,
   type Bot,
-  type CreateMessageOptions,
+  type InteractionCallbackData,
   type Interaction,
   type Message,
   type User,
@@ -74,31 +73,57 @@ export class CommandHandler<B extends Bot> {
   }
 
   async respond(
-    data: CreateMessageOptions,
+    data: InteractionCallbackData,
     opts?: Parameters<BaseInteraction["respond"]>[1],
   ) {
+    if (this.hasResponded)
+      throw new Error("Interaction already responded (<CommandHandler>.defer)");
+
+    this.hasResponded = true;
     if (this.message) {
       const message = await this.sendMessage(data);
-      this.hasResponded = true;
-      this.original = {
-        id: message.id,
-        channelId: message.channelId,
-      };
+      if (!this.original) {
+        this.original = {
+          id: message.id,
+          channelId: message.channelId,
+        };
+      }
       return message;
     } else if (this.interaction) {
-      const response = await this.interaction.respond(data, opts);
-      this.hasResponded = true;
-      return response;
+      return (await this.interaction.respond(data, opts)) as unknown as Message;
     }
   }
 
-  sendMessage(data: CreateMessageOptions) {
+  async sendFollowup(
+    data: InteractionCallbackData,
+    opts?: Parameters<BaseInteraction["respond"]>[1],
+  ) {
+    if (!this.hasResponded)
+      throw new Error(
+        "Cannot send follow up if the interaction wasn't responded (<CommandHandler>.defer)",
+      );
+
+    if (this.message) {
+      return this.sendMessage(data);
+    } else if (this.interaction) {
+      return this.interaction.respond(
+        data,
+        opts,
+      ) as unknown as Promise<Message>;
+    } else {
+      throw new Error(
+        "This error should never happen, but either message or interaction is missing (<CommandHandler>.defer)",
+      );
+    }
+  }
+
+  sendMessage(data: InteractionCallbackData) {
     if (!this.data.channelId)
       throw new Error("Cannot find channel id (<CommandHandler>.sendMessage)");
     return this.client.helpers.sendMessage(this.data.channelId, data);
   }
 
-  async editOriginal(data: CreateMessageOptions) {
+  async editOriginal(data: InteractionCallbackData) {
     if (this.message) {
       if (this.hasResponded) {
         if (!this.original)
@@ -112,8 +137,8 @@ export class CommandHandler<B extends Bot> {
           data,
         );
       } else if (this.isDeferred) {
-        const message = await this.sendMessage(data);
         this.hasResponded = true;
+        const message = await this.sendMessage(data);
         this.original = {
           id: message.id,
           channelId: message.channelId,
@@ -125,22 +150,11 @@ export class CommandHandler<B extends Bot> {
         );
       }
     } else if (this.interaction) {
-      if (!this.hasResponded && !this.isDeferred) {
-        return await this.client.helpers.sendInteractionResponse(
-          this.interaction.id,
-          this.interaction.token,
-          {
-            type: InteractionResponseTypes.UpdateMessage,
-            data,
-          },
-        );
-      } else {
-        return await this.interaction.edit(data);
-      }
+      return await this.interaction.edit(data);
     }
   }
 
-  editFollowUp(message: Message, data: CreateMessageOptions) {
+  editFollowUp(message: Message, data: InteractionCallbackData) {
     if (this.message) {
       return this.client.helpers.editMessage(
         message.channelId,

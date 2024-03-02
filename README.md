@@ -1,4 +1,4 @@
-# Discordeno Bot Template - (message commands version)
+# Discordeno Bot Template - (message-commands version)
 
 A bot template for discordeno.
 

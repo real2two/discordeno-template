@@ -16,6 +16,8 @@ import { Component } from "./Component";
 import { ApplicationCommandOptions } from "./ApplicationCommandOptions";
 
 import { ApplicationCommand } from "./ApplicationCommand";
+import { CommandHandler } from "./CommandHandler";
+
 import type {
   ApplicationCommandSlashCommandConstructor,
   CommandExecution,
@@ -392,7 +394,7 @@ export class InteractionHandler<B extends Bot> {
 
           const options = this.transformMessageOptions({
             client,
-            syntax: prefix + subcommandInGroup.syntax,
+            syntax: subcommandInGroup.syntax,
             command: subcommandInGroup.subcommand,
             message,
             args,
@@ -410,7 +412,7 @@ export class InteractionHandler<B extends Bot> {
           // Handle subcommand
           const options = this.transformMessageOptions({
             client,
-            syntax: prefix + subcommandSyntax,
+            syntax: subcommandSyntax,
             command: subcommand,
             message,
             args,
@@ -429,7 +431,7 @@ export class InteractionHandler<B extends Bot> {
         // Handle message as a command with no subcommands
         const options = this.transformMessageOptions({
           client,
-          syntax: prefix + syntax,
+          syntax: syntax,
           command,
           message,
           args,
@@ -875,6 +877,11 @@ export class InteractionHandler<B extends Bot> {
       client,
       message,
       interaction,
+      command: new CommandHandler({
+        client,
+        message,
+        interaction,
+      }),
       options: options || [],
     });
   }

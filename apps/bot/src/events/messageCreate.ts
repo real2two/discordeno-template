@@ -13,10 +13,10 @@ export default createEvent("messageCreate", (client) => {
               author: {
                 name: "Incorrect usage",
               },
-              description: message,
-              footer: {
-                text: `The correct syntax is: ${syntax}`,
-              }
+              description: message || `The correct syntax is: \`!${syntax}\`.`,
+              footer: message ? {
+                text: `The correct syntax is: !${syntax}`,
+              } : undefined,
             },
           ],
         }),

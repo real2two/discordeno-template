@@ -5,9 +5,12 @@ import type {
   InteractionDataOption,
 } from "@discordeno/bot";
 
+import { CommandHandler } from "../structures/CommandHandler";
+
 export interface InteractionExecutionArguments<B extends Bot> {
   client: B;
   options: InteractionDataOption[];
+  command: CommandHandler<B>;
   interaction?: Interaction;
   message?: Message;
 }

@@ -39,9 +39,11 @@ export class InteractionHandler<B extends Bot> {
    *    name: CAMELIZED_COMMAND_NAME,
    *   },
    *   command: COMMAND,
+   *   syntax: FULL_COMMAND_NAME,
    *   subcommands: [
    *    {
    *     subcommand: SUBCOMMAND,
+   *     syntax: FULL_COMMAND_NAME,
    *     subcommands: [...]
    *     ]
    *    },

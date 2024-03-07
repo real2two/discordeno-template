@@ -64,7 +64,7 @@ export class InteractionHandler<B extends Bot> {
             : command.data.name,
       },
       command,
-      syntax: InteractionHandler.generateSyntax(command),
+      syntax: InteractionHandler.generateSyntax(command.data.name, command),
       subcommands: Object.fromEntries(
         Object.entries(
           ("options" in command.data ? command.data["options"] : {}) || {},
@@ -75,6 +75,7 @@ export class InteractionHandler<B extends Bot> {
             {
               subcommand: v,
               syntax: InteractionHandler.generateSyntax(
+                `${command.data.name} ${camelToSnakeCase(k)}`,
                 v as ApplicationSubcommand<B>,
               ),
               subcommands:
@@ -84,12 +85,13 @@ export class InteractionHandler<B extends Bot> {
                         ("options" in v.data ? v.data["options"] : {}) || {},
                       )
                         .filter(([_, v]) => v instanceof ApplicationSubcommand)
-                        .map(([k, v]) => [
-                          camelToSnakeCase(k),
+                        .map(([k2, v2]) => [
+                          camelToSnakeCase(k2),
                           {
-                            subcommand: v,
+                            subcommand: v2,
                             syntax: InteractionHandler.generateSyntax(
-                              v as ApplicationSubcommand<B>,
+                              `${command.data.name} ${camelToSnakeCase(k)} ${camelToSnakeCase(k2)}`,
+                              v2 as ApplicationSubcommand<B>,
                             ),
                             subcommands: {},
                           },
@@ -103,6 +105,7 @@ export class InteractionHandler<B extends Bot> {
   }
 
   static generateSyntax<B extends Bot>(
+    name: string,
     command: ApplicationCommand<B> | ApplicationSubcommand<B>,
   ) {
     const options = Object.entries(
@@ -114,7 +117,7 @@ export class InteractionHandler<B extends Bot> {
     );
     if (subcommands.length) {
       const args = options.map(([k]) => k).join("/");
-      return `${command.data.name} <${args}>`;
+      return `${name} <${args}>`;
     }
 
     const args = options
@@ -131,7 +134,7 @@ export class InteractionHandler<B extends Bot> {
         }
       })
       .join(" ");
-    return `${command.data.name} ${args}`;
+    return `${name} ${args}`;
   }
 
   /**

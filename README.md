@@ -2,6 +2,8 @@
 
 A bot template for discordeno.
 
+**Warning: I don't recommend using the message command supported template, because it's filled with bugs and issues.**
+
 ## Read for interactions only template
 
 This version of the template combines chat input interactions and message commands together, which is something many bot developers won't need.

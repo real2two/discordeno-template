@@ -2,14 +2,6 @@
 
 A bot template for discordeno.
 
-## Read for message commands support template
-
-There's a seperate version of the template that supports message commands.
-
-If you care about having both slash commands and message commands, you might want to check out the other version of this template.
-
-[https://github.com/real2two/discordeno-template/tree/message-commands](https://github.com/real2two/discordeno-template/tree/message-commands)
-
 ## How to start
 
 Run `pnpm start` for production or `pnpm dev` for development.

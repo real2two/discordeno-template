@@ -2,7 +2,7 @@
 
 A bot template for discordeno.
 
-**Warning: I don't recommend using the message command supported template, because it's filled with bugs and issues.**
+**Warning: I don't recommend using this message command version of the template, because it's filled with bugs and issues.**
 
 ## Read for interactions only template
 

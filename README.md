@@ -1,4 +1,4 @@
-# Discordeno Bot Template - (interactions-only version)
+# Discordeno Bot Template
 
 A bot template for discordeno.
 
